@@ -13,6 +13,8 @@ create table if not exists public.orders (
   subtotal numeric not null default 0,
   delivery numeric not null default 0,
   total numeric not null default 0,
+  payment_method text not null default 'bank-transfer',
+  payment_status text not null default 'awaiting_confirmation',
   status text not null default 'pending',
   created_at timestamptz not null default now()
 );
@@ -26,6 +28,8 @@ alter table public.orders add column if not exists items jsonb not null default 
 alter table public.orders add column if not exists subtotal numeric not null default 0;
 alter table public.orders add column if not exists delivery numeric not null default 0;
 alter table public.orders add column if not exists total numeric not null default 0;
+alter table public.orders add column if not exists payment_method text not null default 'bank-transfer';
+alter table public.orders add column if not exists payment_status text not null default 'awaiting_confirmation';
 alter table public.orders add column if not exists status text not null default 'pending';
 alter table public.orders add column if not exists created_at timestamptz not null default now();
 
