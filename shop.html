@@ -1,0 +1,582 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IvyFacialGlow | Shop</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@400;500;600&family=Great+Vibes&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+      }
+
+      .dark-mode {
+        background: #1f1a1d !important;
+        color: #f5e9ec !important;
+      }
+
+      .dark-mode #navbar {
+        background: rgba(31, 26, 29, 0.88) !important;
+        border-bottom: 1px solid #3b3136 !important;
+        backdrop-filter: blur(18px);
+      }
+
+      .dark-mode #navbar a,
+      .dark-mode #navbar button,
+      .dark-mode #navbar span {
+        color: #f5e9ec !important;
+      }
+
+      .dark-mode .shop-card {
+        background: transparent !important;
+        border-color: #4a3b42 !important;
+      }
+
+      .dark-mode .shop-card:hover {
+        background: rgba(216, 156, 164, 0.05) !important;
+      }
+
+      .dark-mode .image-wrap {
+        background: #2b2327 !important;
+      }
+
+      .dark-mode .filter-box,
+      .dark-mode .drawer-panel,
+      .dark-mode .mobile-filter-panel,
+      .dark-mode .toast-box {
+        background: #241d21 !important;
+        border-color: #4a3b42 !important;
+      }
+
+      .dark-mode .drawer-panel h2,
+      .dark-mode .drawer-panel h3,
+      .dark-mode .drawer-panel p,
+      .dark-mode .drawer-panel span,
+      .dark-mode .mobile-filter-panel p,
+      .dark-mode .mobile-filter-panel h3,
+      .dark-mode .mobile-filter-panel label,
+      .dark-mode .mobile-filter-panel select {
+        color: #f5e9ec !important;
+      }
+
+      .drawer-open {
+        transform: translateY(0) translateX(0) !important;
+      }
+
+      #productDrawer::-webkit-scrollbar,
+      #mobileFilterDrawer::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      #productDrawer::-webkit-scrollbar-thumb,
+      #mobileFilterDrawer::-webkit-scrollbar-thumb {
+        background: #d89ca4;
+        border-radius: 999px;
+      }
+
+      #cartToast.show {
+        display: block;
+        animation: toastIn 0.35s ease forwards;
+      }
+    </style>
+  </head>
+  <body class="bg-stone-50 text-stone-800 transition-colors duration-300">
+    <nav
+      id="navbar"
+      class="flex items-center justify-between px-6 md:px-12 py-5 bg-white/80 backdrop-blur-md border-b border-stone-200 sticky top-0 z-50 transition-all duration-300"
+    >
+      <div
+        class="text-4xl tracking-wide"
+        style="font-family: &quot;Great Vibes&quot;, cursive; color: #d89ca4"
+      >
+        IvyFacialGlow
+      </div>
+
+      <ul
+        class="hidden md:flex items-center gap-10 text-lg font-medium"
+        style="color: #5c4a4a"
+      >
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="index.html#skin-quiz">Skin Quiz</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+
+      <div class="hidden lg:flex items-center gap-4">
+        <button
+          id="theme-toggle"
+          class="px-4 py-2 rounded-full border border-stone-300 text-sm hover:bg-stone-100 transition"
+          style="color: #5c4a4a"
+        >
+          Dark Mode
+        </button>
+        <a
+          href="cart.html"
+          class="relative px-5 py-2 rounded-full border border-[#ead9dd] text-sm transition hover:bg-[#fff7f8] flex items-center gap-2"
+          style="color: #5c4a4a"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            class="w-4 h-4"
+          >
+            <path d="M6 8h12l-1 11H7L6 8Z" />
+            <path d="M9 8V6a3 3 0 0 1 6 0v2" />
+          </svg>
+
+          <span
+            id="cart-count"
+            class="absolute -top-2 -right-2 min-w-[22px] h-[22px] px-1 rounded-full bg-[#d89ca4] text-white text-[11px] flex items-center justify-center"
+          >
+            0
+          </span>
+        </a>
+        <div class="relative" data-auth-actions>
+          <a
+            id="loginBtn"
+            href="login.html"
+            class="px-5 py-2 rounded-full text-sm transition text-white bg-[#d89ca4] hover:opacity-90"
+          >
+            Login
+          </a>
+
+          <button
+            id="accountBtn"
+            class="hidden px-5 py-2 rounded-full text-sm border border-[#ead9dd] hover:bg-[#fff7f8]"
+            style="color: #5c4a4a"
+          >
+            Account
+          </button>
+
+          <div
+            id="accountDropdown"
+            class="hidden absolute right-0 mt-4 w-64 bg-white/95 backdrop-blur-xl border border-[#f1dfe3] rounded-[1.7rem] shadow-2xl p-2 z-50 overflow-hidden animate-dropdown"
+          >
+            <a
+              href="profile.html"
+              class="flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-[#fff7f8] transition text-[#5C4A4A] text-sm font-medium"
+            >
+              <span class="text-lg">Profile</span>
+            </a>
+
+            <a
+              href="orders.html"
+              class="flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-[#fff7f8] transition text-[#5C4A4A] text-sm font-medium"
+            >
+              <span class="text-lg">My Orders</span>
+            </a>
+
+            <a
+              href="admin-login.html"
+              id="adminLink"
+              class="hidden flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-[#fff7f8] transition text-[#5C4A4A] text-sm font-medium"
+            >
+              <span class="text-lg">Admin Dashboard</span>
+            </a>
+
+            <div class="my-2 border-t border-[#f3e5e8]"></div>
+
+            <button
+              id="logoutBtn"
+              class="w-full flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-[#fff1f3] transition text-[#d89ca4] text-sm font-medium"
+            >
+              <span class="text-lg">Logout</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <button
+        id="menu-btn"
+        class="lg:hidden fixed top-6 right-6 z-[9999] w-11 h-11 rounded-full bg-white/90 border border-[#ead9dd] shadow-lg flex items-center justify-center text-2xl"
+        style="color: #5c4a4a"
+      >
+        Menu
+      </button>
+    </nav>
+
+    <div
+      id="mobile-menu-overlay"
+      class="fixed inset-0 bg-black/20 backdrop-blur-md hidden items-center justify-center z-50 lg:hidden"
+    >
+      <div
+        class="bg-white/80 backdrop-blur-xl rounded-[2rem] px-10 py-12 w-[85%] max-w-sm shadow-2xl text-center relative"
+      >
+        <button
+          id="close-menu"
+          class="absolute top-4 right-6 text-3xl"
+          style="color: #5c4a4a"
+        >
+          x
+        </button>
+
+        <h2
+          class="text-4xl mb-8"
+          style="font-family: &quot;Great Vibes&quot;, cursive; color: #d89ca4"
+        >
+          IvyFacialGlow
+        </h2>
+
+        <ul
+          class="flex flex-col gap-6 text-xl font-medium"
+          style="color: #5c4a4a"
+        >
+          <li><a href="index.html" class="mobile-link">Home</a></li>
+          <li><a href="shop.html" class="mobile-link">Shop</a></li>
+          <li>
+            <a href="index.html#skin-quiz" class="mobile-link">Skin Quiz</a>
+          </li>
+          <li><a href="index.html#about" class="mobile-link">About</a></li>
+          <li><a href="index.html#contact" class="mobile-link">Contact</a></li>
+          <li><a href="cart.html" class="mobile-link">Cart</a></li>
+        </ul>
+
+        <div class="mt-8 flex flex-col gap-4">
+          <button
+            id="mobile-theme-toggle"
+            class="border border-stone-300 rounded-full py-3 text-base"
+            style="color: #5c4a4a"
+          >
+            Dark Mode
+          </button>
+
+          <a
+            id="mobileLoginBtn"
+            href="login.html"
+            class="rounded-full py-3 text-white text-base bg-[#d89ca4]"
+          >
+            Login
+          </a>
+          <a href="orders.html" data-auth="orders" class="hidden rounded-full py-3 border border-[#ead9dd] text-base" style="color:#5c4a4a;">My Orders</a>
+          <button id="mobileLogoutBtn" data-auth="logout" class="hidden rounded-full py-3 border border-[#ead9dd] text-base" style="color:#5c4a4a;">Logout</button>
+        </div>
+      </div>
+    </div>
+
+    <header class="px-4 sm:px-6 md:px-12 pt-16 md:pt-24 pb-12 text-center">
+      <p class="uppercase tracking-[0.3em] text-sm mb-4" style="color: #7a6a6a">
+        Discover More
+      </p>
+
+      <h1
+        class="text-5xl md:text-6xl mb-6"
+        style="font-family: &quot;Playfair Display&quot;, serif; color: #5c4a4a"
+      >
+        Shop all products
+      </h1>
+
+      <p
+        class="max-w-2xl mx-auto text-sm md:text-base leading-7"
+        style="color: #7a6a6a"
+      >
+        Explore skincare, beauty essentials, self-care treats, and curated
+        bundles made to fit your routine and mood.
+      </p>
+    </header>
+
+    <section class="px-4 sm:px-6 md:px-12 pb-10">
+      <div
+        class="max-w-7xl mx-auto filter-box rounded-[2rem] border border-[#ead9dd] p-4 md:p-5"
+      >
+        <div
+          class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between"
+        >
+          <div class="flex-1">
+            <input
+              type="text"
+              id="searchInput"
+              placeholder="Search products..."
+              class="w-full px-5 py-3 rounded-full border border-[#ead9dd] bg-transparent outline-none text-sm"
+            />
+          </div>
+
+          <div class="hidden md:flex items-center gap-3">
+            <select
+              id="categoryFilter"
+              class="px-4 py-3 rounded-full border border-[#ead9dd] bg-transparent text-sm outline-none"
+            >
+              <option value="all">All Categories</option>
+              <option value="skincare">Skincare</option>
+              <option value="hair-accessories">Hair Accessories</option>
+              <option value="fashion-accessories">Fashion Accessories</option>
+              <option value="beauty-tools">Beauty Tools</option>
+              <option value="lifestyle">Lifestyle</option>
+              <option value="jewelry">Jewelry</option>
+            </select>
+
+            <select
+              id="moodFilter"
+              class="px-4 py-3 rounded-full border border-[#ead9dd] bg-transparent text-sm outline-none"
+            >
+              <option value="all">All Moods</option>
+              <option value="soft-calming">Soft & Calming</option>
+              <option value="fresh-clean">Fresh & Clean</option>
+              <option value="glow-boost">Glow Boost</option>
+              <option value="cozy-reset">Cozy Reset</option>
+            </select>
+
+            <select
+              id="sortFilter"
+              class="px-4 py-3 rounded-full border border-[#ead9dd] bg-transparent text-sm outline-none"
+            >
+              <option value="default">Sort</option>
+              <option value="low-high">Price: Low to High</option>
+              <option value="high-low">Price: High to Low</option>
+              <option value="a-z">Name: A to Z</option>
+            </select>
+          </div>
+
+          <button
+            id="openMobileFilter"
+            type="button"
+            class="md:hidden w-full px-5 py-3 rounded-full border border-[#ead9dd] text-sm text-[#5C4A4A] bg-white/80 backdrop-blur-md"
+          >
+            Filter Products
+          </button>
+        </div>
+
+        <div class="mt-4 flex items-center justify-between">
+          <p id="resultsCount" class="text-sm" style="color: #7a6a6a">
+            0 products
+          </p>
+          <button
+            id="clearAllBtn"
+            type="button"
+            class="text-sm border-b border-[#d89ca4] text-[#d89ca4]"
+          >
+            Clear All
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-4 sm:px-6 md:px-12 pb-20">
+      <div
+        id="productsGrid"
+        class="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4 md:gap-8"
+      ></div>
+    </section>
+
+    <footer class="px-6 md:px-12 pt-20 pb-10 border-t border-[#ead9dd]">
+      <div
+        class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10 mb-12"
+      >
+        <div>
+          <h2
+            class="text-4xl mb-4"
+            style="
+              font-family: &quot;Great Vibes&quot;, cursive;
+              color: #d89ca4;
+            "
+          >
+            IvyFacialGlow
+          </h2>
+          <p class="text-sm leading-7" style="color: #7a6a6a">
+            Beauty, skincare, and self-care made to feel softer, calmer, and
+            more personal.
+          </p>
+        </div>
+
+        <div>
+          <h3
+            class="text-xl mb-5"
+            style="
+              font-family: &quot;Playfair Display&quot;, serif;
+              color: #5c4a4a;
+            "
+          >
+            Shop
+          </h3>
+          <ul class="space-y-3 text-sm" style="color: #7a6a6a">
+            <li><a href="shop.html">All Products</a></li>
+            <li><a href="shop.html?category=skincare">Skincare</a></li>
+            <li><a href="shop.html?category=self-care">Self-Care</a></li>
+            <li><a href="shop.html?category=bundles">Bundles</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3
+            class="text-xl mb-5"
+            style="
+              font-family: &quot;Playfair Display&quot;, serif;
+              color: #5c4a4a;
+            "
+          >
+            Explore
+          </h3>
+          <ul class="space-y-3 text-sm" style="color: #7a6a6a">
+            <li><a href="index.html#skin-quiz">Skin Quiz</a></li>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+            <li><a href="#">Saved Routine</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3
+            class="text-xl mb-5"
+            style="
+              font-family: &quot;Playfair Display&quot;, serif;
+              color: #5c4a4a;
+            "
+          >
+            Follow Us
+          </h3>
+          <div class="flex gap-4">
+            <a
+              href="http://tiktok.com/@ivy_facialglow?lang=en"
+              target="_blank"
+              class="w-12 h-12 rounded-full border border-[#ead9dd] flex items-center justify-center text-[#d89ca4]"
+              >TT</a
+            >
+            <a
+              href="https://wa.link/w482ij"
+              target="_blank"
+              class="w-12 h-12 rounded-full border border-[#ead9dd] flex items-center justify-center text-[#d89ca4]"
+              >WA</a
+            >
+            <a
+              href="https://chat.whatsapp.com/HvgAGmtSjR1Cr3qPrimYsr?mode=gi_t"
+              target="_blank"
+              class="w-12 h-12 rounded-full border border-[#ead9dd] flex items-center justify-center text-[#d89ca4]"
+              >WG</a
+            >
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <button
+      id="back-to-top"
+      class="fixed bottom-6 right-6 w-14 h-14 rounded-full border border-[#ead9dd] bg-white/80 backdrop-blur-md text-[#d89ca4] text-2xl shadow-lg opacity-0 pointer-events-none transition-all duration-300 z-50"
+    >
+      Top
+    </button>
+
+    <div
+      id="productDrawerOverlay"
+      class="fixed inset-0 hidden bg-black/20 backdrop-blur-sm z-[999]"
+    ></div>
+
+    <aside
+      id="productDrawer"
+      class="drawer-panel fixed bottom-0 right-0 w-full md:w-[430px] h-[88vh] md:h-screen bg-white shadow-2xl z-[1000] translate-y-full md:translate-y-0 md:translate-x-full transition-transform duration-500 ease-in-out rounded-t-[2rem] md:rounded-none md:rounded-l-[2rem] overflow-y-auto border-l border-transparent"
+    >
+      <div class="relative p-5 md:p-6">
+        <button
+          id="closeProductDrawer"
+          class="absolute top-4 right-5 text-3xl text-[#5C4A4A] z-10"
+        >
+          x
+        </button>
+
+        <div id="productDrawerContent"></div>
+      </div>
+    </aside>
+
+    <div
+      id="mobileFilterOverlay"
+      class="fixed inset-0 hidden bg-black/20 backdrop-blur-sm z-[998] md:hidden"
+    ></div>
+
+    <aside
+      id="mobileFilterDrawer"
+      class="mobile-filter-panel fixed bottom-0 left-0 w-full max-h-[80vh] bg-white rounded-t-[2rem] shadow-2xl z-[999] translate-y-full transition-transform duration-500 ease-in-out md:hidden overflow-y-auto border-t border-transparent"
+    >
+      <div class="p-5">
+        <div class="flex items-center justify-between mb-5">
+          <h3
+            class="text-2xl"
+            style="
+              font-family: &quot;Playfair Display&quot;, serif;
+              color: #5c4a4a;
+            "
+          >
+            Filters
+          </h3>
+
+          <button
+            id="closeMobileFilter"
+            type="button"
+            class="text-3xl text-[#5C4A4A]"
+          >
+            x
+          </button>
+        </div>
+
+        <div class="flex flex-col gap-4">
+          <select
+            id="mobileCategoryFilter"
+            class="w-full px-4 py-3 rounded-full border border-[#ead9dd] bg-transparent text-sm outline-none"
+          >
+            <option value="all">All Categories</option>
+            <option value="skincare">Skincare</option>
+            <option value="hair-accessories">Hair Accessories</option>
+            <option value="fashion-accessories">Fashion Accessories</option>
+            <option value="beauty-tools">Beauty Tools</option>
+            <option value="lifestyle">Lifestyle</option>
+            <option value="jewelry">Jewelry</option>
+          </select>
+
+          <select
+            id="mobileMoodFilter"
+            class="w-full px-4 py-3 rounded-full border border-[#ead9dd] bg-transparent text-sm outline-none"
+          >
+            <option value="all">All Moods</option>
+            <option value="soft-calming">Soft & Calming</option>
+            <option value="fresh-clean">Fresh & Clean</option>
+            <option value="glow-boost">Glow Boost</option>
+            <option value="cozy-reset">Cozy Reset</option>
+          </select>
+
+          <select
+            id="mobileSortFilter"
+            class="w-full px-4 py-3 rounded-full border border-[#ead9dd] bg-transparent text-sm outline-none"
+          >
+            <option value="default">Sort</option>
+            <option value="low-high">Price: Low to High</option>
+            <option value="high-low">Price: High to Low</option>
+            <option value="a-z">Name: A to Z</option>
+          </select>
+
+          <button
+            id="applyMobileFilters"
+            type="button"
+            class="w-full px-6 py-4 rounded-full bg-[#d89ca4] text-white"
+          >
+            Apply Filters
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <div
+      id="cartToast"
+      class="fixed bottom-6 right-6 bg-[#d89ca4] text-white px-5 py-3 rounded-full shadow-lg opacity-0 translate-y-5 transition-all duration-300 z-50 hidden"
+    >
+      <span id="cartToastText">Added to bag</span>
+    </div>
+
+    <script src="data/product.js"></script>
+    <script type="module" src="js/shop.js"></script>
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>

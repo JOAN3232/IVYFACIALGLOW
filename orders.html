@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>IVYFACIALGLOW | My Orders</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@600;700;800&family=Poppins:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script type="module" src="js/orders.js"></script>
+</head>
+
+  <body class="bg-[#fffafa]">
+    <!-- NAVBAR  -->
+    <nav
+      id="navbar"
+      class="flex items-center justify-between px-6 md:px-12 py-5 bg-white/80 backdrop-blur-md border-b border-stone-200 sticky top-0 z-50 transition-all duration-300"
+    >
+      <div
+        class="text-4xl tracking-wide"
+        style="font-family: &quot;Great Vibes&quot;, cursive; color: #d89ca4"
+      >
+        IvyFacialGlow
+      </div>
+
+      <ul
+        class="hidden md:flex items-center gap-10 text-lg font-medium"
+        style="font-family: &quot;Poppins&quot;, sans-serif; color: #5c4a4a"
+      >
+        <li>
+          <a
+            href="index.html"
+            class="relative inline-block after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-[#d89ca4] hover:after:w-full after:transition-all after:duration-300"
+          >
+            Home
+          </a>
+        </li>
+
+        <li>
+          <a
+            href="shop.html"
+            class="relative inline-block after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-[#d89ca4] hover:after:w-full after:transition-all after:duration-300"
+          >
+            Shop
+          </a>
+        </li>
+
+        <li>
+          <a
+            href="index.html#skin-quiz"
+            class="relative inline-block after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-[#d89ca4] hover:after:w-full after:transition-all after:duration-300"
+          >
+            Skin Quiz
+          </a>
+        </li>
+
+        <li>
+          <a
+            href="index.html#about"
+            class="relative inline-block after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-[#d89ca4] hover:after:w-full after:transition-all after:duration-300"
+          >
+            About
+          </a>
+        </li>
+
+        <li>
+          <a
+            href="index.html#contact"
+            class="relative inline-block after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-[#d89ca4] hover:after:w-full after:transition-all after:duration-300"
+          >
+            Contact
+          </a>
+        </li>
+      </ul>
+
+      <div
+        class="hidden md:flex items-center gap-4"
+        style="font-family: &quot;Poppins&quot;, sans-serif"
+      >
+        <button
+          id="theme-toggle"
+          class="px-4 py-2 rounded-full border border-stone-300 text-sm hover:bg-[#fff7f8]"
+          style="color: #5c4a4a"
+        >
+          Dark Mode
+        </button>
+
+        <a
+          href="cart.html"
+          class="relative px-5 py-2 rounded-full border border-[#ead9dd] text-sm transition hover:bg-[#fff7f8] flex items-center gap-2"
+          style="color: #5c4a4a"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            class="w-4 h-4"
+          >
+            <path d="M6 8h12l-1 11H7L6 8Z" />
+            <path d="M9 8V6a3 3 0 0 1 6 0v2" />
+          </svg>
+
+          <span
+            id="cart-count"
+            class="absolute -top-2 -right-2 min-w-[22px] h-[22px] px-1 rounded-full bg-[#d89ca4] text-white text-[11px] flex items-center justify-center"
+          >
+            0
+          </span>
+        </a>
+       <div class="relative" data-auth-actions>
+
+  <!-- LOGIN BUTTON -->
+  <a
+    id="loginBtn"
+    href="login.html"
+    class="px-5 py-2 rounded-full text-sm transition text-white bg-[#d89ca4] hover:opacity-90"
+  >
+    Login
+  </a>
+
+  <!-- ACCOUNT BUTTON -->
+  <button
+    id="accountBtn"
+    class="hidden px-5 py-2 rounded-full text-sm border border-[#ead9dd] hover:bg-[#fff7f8]"
+    style="color: #5c4a4a"
+  >
+    Account ▾
+  </button>
+
+  <!-- DROPDOWN -->
+<div
+  id="accountDropdown"
+  class="hidden absolute right-0 mt-4 w-64 bg-white/95 backdrop-blur-xl border border-[#f1dfe3] rounded-[1.7rem] shadow-2xl p-2 z-50 overflow-hidden animate-dropdown"
+>
+
+   <a
+  href="profile.html"
+  class="flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-[#fff7f8] transition text-[#5C4A4A] text-sm font-medium"
+>
+  <span class="text-lg">👤</span>
+  Profile
+</a>
+
+<a
+  href="orders.html"
+  class="flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-[#fff7f8] transition text-[#5C4A4A] text-sm font-medium"
+>
+  <span class="text-lg">📦</span>
+  My Orders
+</a>
+
+<a
+  href="admin-login.html"
+  id="adminLink"
+  class="hidden flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-[#fff7f8] transition text-[#5C4A4A] text-sm font-medium"
+>
+  <span class="text-lg">🛠</span>
+  Admin Dashboard
+</a>
+
+<div class="my-2 border-t border-[#f3e5e8]"></div>
+
+<button
+  id="logoutBtn"
+  class="w-full flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-[#fff1f3] transition text-[#d89ca4] text-sm font-medium"
+>
+  <span class="text-lg">↪</span>
+  Logout
+</button>
+
+  </div>
+</div>
+</div>
+      <!-- MOBILE MENU  -->
+ <button
+  id="menu-btn"
+  class="md:hidden fixed top-6 right-6 z-[9999] w-11 h-11 rounded-full bg-white/90 border border-[#ead9dd] shadow-lg flex items-center justify-center text-2xl"
+  style="color: #5c4a4a"
+>
+  ☰
+</button>
+    </nav>
+    <div
+      id="mobile-menu-overlay"
+      class="fixed inset-0 bg-black/20 backdrop-blur-md hidden items-center justify-center z-50 lg:hidden"
+    >
+      <div
+        class="bg-white/80 backdrop-blur-xl rounded-[2rem] px-10 py-12 w-[85%] max-w-sm shadow-2xl text-center relative"
+      >
+        <button
+          id="close-menu"
+          class="absolute top-4 right-6 text-3xl"
+          style="color: #5c4a4a"
+        >
+          ×
+        </button>
+
+        <h2
+          class="text-4xl mb-8"
+          style="font-family: &quot;Great Vibes&quot;, cursive; color: #d89ca4"
+        >
+          IvyFacialGlow
+        </h2>
+
+        <ul
+          class="flex flex-col gap-6 text-xl font-medium"
+          style="font-family: &quot;Poppins&quot;, sans-serif; color: #5c4a4a"
+        >
+          <li><a href="index.html" class="mobile-link">Home</a></li>
+          <li><a href="shop.html" class="mobile-link">Shop</a></li>
+          <li><a href="index.html#skin-quiz" class="mobile-link">Skin Quiz</a></li>
+          <li><a href="index.html#about" class="mobile-link">About</a></li>
+          <li><a href="index.html#contact" class="mobile-link">Contact</a></li>
+          <li><a href="cart.html" class="mobile-link">Cart</a></li>
+          <li><a href="profile.html" class="mobile-link">Profile</a></li>
+          <li><a href="orders.html" class="mobile-link">Orders</a></li>
+        
+        </ul>
+
+        <div class="mt-8 flex flex-col gap-4">
+          <button
+            id="mobile-theme-toggle"
+            class="border border-stone-300 rounded-full py-3 text-base"
+            style="color: #5c4a4a"
+          >
+            Dark Mode
+          </button>
+
+          <div id="mobile-auth-area" class="flex flex-col gap-4"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HERO  -->
+
+    <main class="px-6 md:px-12 py-16">
+      <section class="max-w-7xl mx-auto">
+        <div class="text-center mb-12">
+          <p class="uppercase tracking-[0.3em] text-sm text-[#7A6A6A] mb-3">
+            Order History
+          </p>
+
+          <h1
+            class="text-4xl md:text-5xl mb-4"
+            style="
+              font-family: &quot;Playfair Display&quot;, serif;
+              color: #5c4a4a;
+            "
+          >
+            My Orders
+          </h1>
+
+          <p
+            class="max-w-xl mx-auto text-sm md:text-base text-[#7A6A6A] leading-7"
+          >
+            Track your IvyFacialGlow purchases, order status, and confirmation
+            updates.
+          </p>
+        </div>
+
+        <div
+          id="ordersContainer"
+          class="grid grid-cols-1 lg:grid-cols-2 gap-6"
+        ></div>
+      </section>
+    </main>
+
+    <!-- FOOETR   -->
+    <footer
+      class="px-6 md:px-12 pt-20 pb-10 border-t border-[#ead9dd] footer-section"
+    >
+      <div
+        class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10 mb-12"
+      >
+        <div>
+          <h2
+            class="text-4xl mb-4"
+            style="
+              font-family: &quot;Great Vibes&quot;, cursive;
+              color: #d89ca4;
+            "
+          >
+            IvyFacialGlow
+          </h2>
+
+          <p class="text-sm leading-7 secondary-text" style="color: #7a6a6a">
+            Beauty, skincare, and self-care made to feel softer, calmer, and
+            more personal.
+          </p>
+        </div>
+
+        <div>
+          <h3
+            class="text-xl mb-5 main-text"
+            style="
+              font-family: &quot;Playfair Display&quot;, serif;
+              color: #5c4a4a;
+            "
+          >
+            Shop
+          </h3>
+
+          <ul class="space-y-3 text-sm secondary-text" style="color: #7a6a6a">
+            <li>
+              <a href="shop.html" class="hover:text-[#d89ca4] transition"
+                >All Products</a
+              >
+            </li>
+            <li>
+              <a
+                href="shop.html?category=skincare"
+                class="hover:text-[#d89ca4] transition"
+                >Skincare</a
+              >
+            </li>
+            <li>
+              <a
+                href="shop.html?category=self-care"
+                class="hover:text-[#d89ca4] transition"
+                >Self-Care</a
+              >
+            </li>
+            <li>
+              <a
+                href="shop.html?category=bundles"
+                class="hover:text-[#d89ca4] transition"
+                >Bundles</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h3
+            class="text-xl mb-5 main-text"
+            style="
+              font-family: &quot;Playfair Display&quot;, serif;
+              color: #5c4a4a;
+            "
+          >
+            Explore
+          </h3>
+
+          <ul class="space-y-3 text-sm secondary-text" style="color: #7a6a6a">
+            <li>
+              <a href="index.html#skin-quiz" class="hover:text-[#d89ca4] transition"
+                >Skin Quiz</a
+              >
+            </li>
+            <li>
+              <a href="index.html#about" class="hover:text-[#d89ca4] transition">About</a>
+            </li>
+            <li>
+              <a href="index.html#contact" class="hover:text-[#d89ca4] transition"
+                >Contact</a
+              >
+            </li>
+            <li>
+              <a href="#" class="hover:text-[#d89ca4] transition"
+                >Saved Routine</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h3
+            class="text-xl mb-5 main-text"
+            style="
+              font-family: &quot;Playfair Display&quot;, serif;
+              color: #5c4a4a;
+            "
+          >
+            Follow Us
+          </h3>
+
+          <div class="flex gap-4">
+            <a
+              href="http://tiktok.com/@ivy_facialglow?lang=en"
+              target="_blank"
+              class="w-12 h-12 rounded-full border border-[#ead9dd] flex items-center justify-center text-[#d89ca4] hover:bg-[#d89ca4] hover:text-white transition"
+            >
+              TT
+            </a>
+
+            <a
+              href="https://wa.link/w482ij"
+              target="_blank"
+              class="w-12 h-12 rounded-full border border-[#ead9dd] flex items-center justify-center text-[#d89ca4] hover:bg-[#d89ca4] hover:text-white transition"
+            >
+              WA
+            </a>
+
+            <a
+              href="https://chat.whatsapp.com/HvgAGmtSjR1Cr3qPrimYsr?mode=gi_t"
+              target="_blank"
+              class="w-12 h-12 rounded-full border border-[#ead9dd] flex items-center justify-center text-[#d89ca4] hover:bg-[#d89ca4] hover:text-white transition"
+            >
+              WG
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="border-t border-[#ead9dd] pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-sm secondary-text"
+        style="color: #7a6a6a"
+      >
+        <p>© 2026 IvyFacialGlow. All rights reserved.</p>
+
+        <div class="flex gap-6">
+          <a href="#" class="hover:text-[#d89ca4] transition">Privacy Policy</a>
+          <a href="#" class="hover:text-[#d89ca4] transition">Terms</a>
+        </div>
+      </div>
+    </footer>
+
+    <button
+      id="back-to-top"
+      class="fixed bottom-6 right-6 w-14 h-14 rounded-full border border-[#ead9dd] bg-white/80 backdrop-blur-md text-[#d89ca4] text-2xl shadow-lg opacity-0 pointer-events-none transition-all duration-300 z-50"
+    >
+      ↑
+    </button>
+
+    <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/navbar.js"></script>
+  </body>
+</html>

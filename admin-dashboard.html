@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard | IvyFacialGlow</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background:
+        linear-gradient(180deg, rgba(255, 248, 249, 0.95), rgba(255, 255, 255, 0.98) 42%),
+        #fffafa;
+    }
+
+    .display-font {
+      font-family: "Playfair Display", serif;
+    }
+
+    .admin-shell {
+      min-height: 100vh;
+    }
+
+    .glass-panel {
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid rgba(234, 217, 221, 0.95);
+      box-shadow: 0 18px 45px rgba(92, 74, 74, 0.07);
+      backdrop-filter: blur(16px);
+    }
+
+    .stat-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 1.5rem;
+      background: #ffffff;
+      border: 1px solid #ead9dd;
+      box-shadow: 0 12px 35px rgba(92, 74, 74, 0.06);
+    }
+
+    .stat-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 5px;
+      background: var(--accent, #d89ca4);
+    }
+
+    .field {
+      width: 100%;
+      border-radius: 999px;
+      border: 1px solid #ead9dd;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 0.9rem 1rem;
+      font-size: 0.875rem;
+      color: #5c4a4a;
+      outline: none;
+      transition: border-color 180ms ease, box-shadow 180ms ease;
+    }
+
+    .field:focus {
+      border-color: #d89ca4;
+      box-shadow: 0 0 0 4px rgba(216, 156, 164, 0.16);
+    }
+
+    .textarea-field {
+      border-radius: 1.25rem;
+      resize: none;
+    }
+
+    .upload-box {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      border-radius: 1.25rem;
+      border: 1px dashed #d89ca4;
+      background: rgba(255, 241, 243, 0.58);
+      padding: 1rem;
+    }
+
+    .upload-preview {
+      width: 4.5rem;
+      height: 4.5rem;
+      border-radius: 1rem;
+      border: 1px solid #ead9dd;
+      background: #fffafa;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 420px) {
+      header .display-font {
+        font-size: 1.55rem;
+        line-height: 1.15;
+      }
+    }
+
+    .admin-actions-menu {
+      display: none;
+    }
+
+    @media (max-width: 639px) {
+      .admin-actions {
+        display: none;
+      }
+
+      .admin-actions.is-open {
+        display: grid;
+      }
+
+      .admin-actions-menu {
+        display: inline-flex;
+      }
+    }
+  </style>
+</head>
+
+<body class="admin-page text-[#5C4A4A]">
+  <div class="admin-shell">
+    <header class="sticky top-0 z-50 border-b border-[#ead9dd] bg-white/85 backdrop-blur-xl">
+      <div class="max-w-7xl mx-auto px-5 md:px-8 py-4">
+        <div class="flex items-center justify-between gap-4">
+          <div class="min-w-0">
+            <p class="text-[11px] uppercase tracking-[0.28em] text-[#b98a92] mb-1">
+              IvyFacialGlow Studio
+            </p>
+            <h1 class="display-font text-2xl md:text-3xl text-[#5C4A4A]">
+              Admin Dashboard
+            </h1>
+          </div>
+
+          <button
+            id="adminActionsMenuBtn"
+            type="button"
+            class="admin-actions-menu shrink-0 h-11 px-4 rounded-full border border-[#ead9dd] bg-white items-center justify-center text-sm font-medium text-[#5C4A4A] hover:bg-[#fff1f3] transition"
+            aria-label="Open admin actions"
+            aria-expanded="false"
+          >
+            Menu
+          </button>
+        </div>
+
+        <div
+          id="adminActions"
+          class="admin-actions mt-4 sm:mt-0 sm:flex sm:items-center sm:justify-end gap-3 grid-cols-1"
+        >
+          <button
+            type="button"
+            data-theme-toggle
+            class="w-full sm:w-auto px-4 md:px-5 py-2.5 rounded-full border border-[#ead9dd] bg-white text-sm font-medium hover:bg-[#fff1f3] transition"
+          >
+            Dark Mode
+          </button>
+
+          <button
+            id="adminLogoutBtn"
+            type="button"
+            class="w-full sm:w-auto px-4 md:px-5 py-2.5 rounded-full border border-[#ead9dd] bg-white text-sm font-medium hover:bg-[#fff1f3] transition"
+          >
+            Admin Logout
+          </button>
+
+          <a
+            href="index.html"
+            class="w-full sm:w-auto text-center px-4 md:px-5 py-2.5 rounded-full bg-[#5C4A4A] text-white text-sm font-medium hover:bg-[#d89ca4] transition"
+          >
+            Store
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-5 md:px-8 py-8 md:py-10">
+      <section class="glass-panel rounded-[1.75rem] p-6 md:p-8 mb-8">
+        <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
+          <div class="max-w-2xl">
+            <p class="text-sm font-medium text-[#b98a92] mb-3">
+              Operations Overview
+            </p>
+            <h2 class="display-font text-4xl md:text-5xl leading-tight text-[#5C4A4A] mb-4">
+              Orders, approvals, and product availability in one place.
+            </h2>
+            <p class="text-sm md:text-base leading-7 text-[#7A6A6A]">
+              Review customer orders, approve pending purchases, and keep the storefront tidy.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-3 gap-3 w-full lg:w-[420px]">
+            <div class="stat-card p-5" style="--accent:#d89ca4;">
+              <p class="text-xs uppercase tracking-[0.18em] text-[#9b8a8a] mb-3">Total</p>
+              <h3 id="totalOrders" class="text-3xl font-semibold text-[#d89ca4]">0</h3>
+            </div>
+
+            <div class="stat-card p-5" style="--accent:#e8b84f;">
+              <p class="text-xs uppercase tracking-[0.18em] text-[#9b8a8a] mb-3">Pending</p>
+              <h3 id="pendingOrders" class="text-3xl font-semibold text-yellow-500">0</h3>
+            </div>
+
+            <div class="stat-card p-5" style="--accent:#5fb985;">
+              <p class="text-xs uppercase tracking-[0.18em] text-[#9b8a8a] mb-3">Approved</p>
+              <h3 id="approvedOrders" class="text-3xl font-semibold text-green-600">0</h3>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="grid grid-cols-1 xl:grid-cols-[420px_1fr] gap-8 items-start">
+        <aside class="glass-panel rounded-[1.75rem] p-6 md:p-7 xl:sticky xl:top-28">
+          <div class="mb-6">
+            <p class="text-xs uppercase tracking-[0.22em] text-[#b98a92] mb-2">
+              Inventory
+            </p>
+            <h2 class="display-font text-3xl text-[#5C4A4A]">
+              Add Product
+            </h2>
+            <p class="text-sm text-[#7A6A6A] leading-6 mt-2">
+              New products appear on this browser's storefront preview.
+            </p>
+          </div>
+
+          <form id="productForm" class="space-y-4">
+            <input id="productName" type="text" placeholder="Product name" class="field" required />
+            <input id="productPrice" type="number" placeholder="Price" class="field" required />
+
+            <label class="upload-box cursor-pointer">
+              <img
+                id="productImagePreview"
+                class="upload-preview"
+                alt="Product preview"
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96' viewBox='0 0 96 96'%3E%3Crect width='96' height='96' rx='18' fill='%23fffafa'/%3E%3Cpath d='M28 63l12-15 10 12 7-8 12 11H28z' fill='%23ead9dd'/%3E%3Ccircle cx='62' cy='34' r='7' fill='%23d89ca4'/%3E%3C/svg%3E"
+              />
+              <span class="min-w-0">
+                <span class="block text-sm font-medium text-[#5C4A4A]">
+                  Upload product photo
+                </span>
+                <span id="productImageName" class="block text-xs text-[#7A6A6A] mt-1 truncate">
+                  Tap to choose from your phone
+                </span>
+              </span>
+              <input id="productImage" type="file" accept="image/*" class="hidden" required />
+            </label>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <select id="productCategory" class="field">
+                <option value="skincare">Skincare</option>
+                <option value="hair-accessories">Hair Accessories</option>
+                <option value="fashion-accessories">Fashion Accessories</option>
+                <option value="beauty-tools">Beauty Tools</option>
+                <option value="lifestyle">Lifestyle</option>
+                <option value="jewelry">Jewelry</option>
+              </select>
+
+              <select id="productMood" class="field">
+                <option value="soft-calming">Soft & Calming</option>
+                <option value="fresh-clean">Fresh & Clean</option>
+                <option value="glow-boost">Glow Boost</option>
+                <option value="cozy-reset">Cozy Reset</option>
+              </select>
+            </div>
+
+            <textarea id="productDescription" placeholder="Description" class="field textarea-field" rows="4"></textarea>
+
+            <button
+              id="productSubmitBtn"
+              type="submit"
+              class="w-full px-5 py-3.5 rounded-full bg-[#5C4A4A] text-white text-sm font-medium hover:bg-[#d89ca4] transition"
+            >
+              Add Product
+            </button>
+
+            <button
+              id="cancelProductEditBtn"
+              type="button"
+              class="hidden w-full px-5 py-3.5 rounded-full border border-[#ead9dd] text-[#5C4A4A] text-sm font-medium hover:bg-[#fff1f3] transition"
+            >
+              Cancel Edit
+            </button>
+
+            <p id="adminProductMessage" class="min-h-5 text-sm text-[#b98a92]"></p>
+          </form>
+        </aside>
+
+        <div class="space-y-8">
+          <section class="glass-panel rounded-[1.75rem] p-6 md:p-7">
+            <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-6">
+              <div>
+                <p class="text-xs uppercase tracking-[0.22em] text-[#b98a92] mb-2">
+                  Product List
+                </p>
+                <h2 class="display-font text-3xl text-[#5C4A4A]">
+                  Store Inventory
+                </h2>
+              </div>
+            </div>
+
+            <div id="adminProductsContainer" class="grid grid-cols-1 lg:grid-cols-2 gap-4"></div>
+          </section>
+
+          <section>
+            <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-5">
+              <div>
+                <p class="text-xs uppercase tracking-[0.22em] text-[#b98a92] mb-2">
+                  Order Desk
+                </p>
+                <h2 class="display-font text-3xl text-[#5C4A4A]">
+                  Customer Orders
+                </h2>
+              </div>
+            </div>
+
+            <div id="ordersContainer" class="grid gap-5"></div>
+          </section>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="data/product.js"></script>
+  <script type="module" src="js/theme.js"></script>
+  <script type="module" src="js/admin.js"></script>
+</body>
+</html>

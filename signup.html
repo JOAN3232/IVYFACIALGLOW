@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IvyFacialGlow | Sign Up</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@600;700;800&family=Poppins:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+        background:
+          linear-gradient(135deg, rgba(255, 241, 243, 0.96), rgba(255, 255, 255, 0.92) 46%, rgba(250, 246, 247, 0.98)),
+          #fffafa;
+      }
+
+      .display-font {
+        font-family: "Playfair Display", serif;
+      }
+
+      .script-font {
+        font-family: "Great Vibes", cursive;
+      }
+
+      .auth-panel {
+        background: rgba(255, 255, 255, 0.84);
+        border: 1px solid rgba(234, 217, 221, 0.96);
+        box-shadow: 0 24px 70px rgba(92, 74, 74, 0.12);
+        backdrop-filter: blur(18px);
+      }
+
+      .field {
+        width: 100%;
+        border-radius: 999px;
+        border: 1px solid #ead9dd;
+        background: rgba(255, 255, 255, 0.92);
+        padding: 1rem 1.15rem;
+        font-size: 0.875rem;
+        color: #5c4a4a;
+        outline: none;
+        transition: border-color 180ms ease, box-shadow 180ms ease;
+      }
+
+      .field:focus {
+        border-color: #d89ca4;
+        box-shadow: 0 0 0 4px rgba(216, 156, 164, 0.16);
+      }
+    </style>
+  </head>
+
+  <body class="auth-page min-h-screen text-[#5C4A4A]">
+    <main class="min-h-screen grid lg:grid-cols-[1fr_540px]">
+      <section class="hidden lg:flex flex-col justify-between p-10 xl:p-14">
+        <a href="index.html" class="script-font text-5xl text-[#d89ca4] w-fit">
+          IvyFacialGlow
+        </a>
+
+        <div class="max-w-xl">
+          <p class="text-xs uppercase tracking-[0.3em] text-[#b98a92] mb-5">
+            Create Your Account
+          </p>
+
+          <h1 class="display-font text-6xl leading-tight text-[#5C4A4A] mb-6">
+            Start a softer shopping routine.
+          </h1>
+
+          <p class="text-base leading-8 text-[#7A6A6A]">
+            Save your details, follow your orders, and keep your favorite beauty picks close.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-3 gap-4 max-w-2xl">
+          <div class="rounded-[1.5rem] border border-[#ead9dd] bg-white/70 p-5">
+            <p class="text-2xl font-semibold text-[#d89ca4]">01</p>
+            <p class="text-sm text-[#7A6A6A] mt-2">Easy checkout</p>
+          </div>
+          <div class="rounded-[1.5rem] border border-[#ead9dd] bg-white/70 p-5">
+            <p class="text-2xl font-semibold text-[#d89ca4]">02</p>
+            <p class="text-sm text-[#7A6A6A] mt-2">Order history</p>
+          </div>
+          <div class="rounded-[1.5rem] border border-[#ead9dd] bg-white/70 p-5">
+            <p class="text-2xl font-semibold text-[#d89ca4]">03</p>
+            <p class="text-sm text-[#7A6A6A] mt-2">Personal details</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="flex items-center justify-center px-5 py-8 lg:px-10">
+        <div class="auth-panel w-full max-w-md rounded-[2rem] p-6 md:p-8">
+          <div class="flex items-center justify-between gap-4 mb-8">
+            <a href="index.html" class="script-font text-4xl text-[#d89ca4]">
+              IvyFacialGlow
+            </a>
+
+            <a
+              href="index.html"
+              class="px-4 py-2 rounded-full border border-[#ead9dd] bg-white text-xs font-medium hover:bg-[#fff1f3] transition"
+            >
+              Store
+            </a>
+          </div>
+
+          <button
+            type="button"
+            data-theme-toggle
+            class="mb-6 px-4 py-2 rounded-full border border-[#ead9dd] bg-white text-xs font-medium hover:bg-[#fff1f3] transition"
+          >
+            Dark Mode
+          </button>
+
+          <p class="text-xs uppercase tracking-[0.25em] text-[#b98a92] mb-3">
+            Customer Signup
+          </p>
+
+          <h2 class="display-font text-4xl md:text-5xl mb-4">
+            Create Account
+          </h2>
+
+          <p class="text-sm text-[#7A6A6A] leading-7 mb-8">
+            Join IvyFacialGlow to save your details and track your orders.
+          </p>
+
+          <form id="signupForm" class="space-y-5">
+            <div>
+              <label class="block text-sm mb-2 text-[#7A6A6A]">Full Name</label>
+              <input
+                type="text"
+                id="signupName"
+                placeholder="Enter your full name"
+                class="field"
+                autocomplete="name"
+                required
+              />
+            </div>
+
+            <div>
+              <label class="block text-sm mb-2 text-[#7A6A6A]">Email Address</label>
+              <input
+                type="email"
+                id="signupEmail"
+                placeholder="you@example.com"
+                class="field"
+                autocomplete="email"
+                required
+              />
+            </div>
+
+            <div>
+              <label class="block text-sm mb-2 text-[#7A6A6A]">Password</label>
+              <div class="relative">
+                <input
+                  type="password"
+                  id="signupPassword"
+                  placeholder="Create a password"
+                  class="field pr-16"
+                  autocomplete="new-password"
+                  required
+                />
+                <button
+                  type="button"
+                  id="toggleSignupPassword"
+                  class="absolute right-5 top-1/2 -translate-y-1/2 text-sm text-[#b98a92]"
+                >
+                  Show
+                </button>
+              </div>
+              <p id="passwordHint" class="text-xs mt-2 text-[#b98a92]">
+                Use at least 6 characters.
+              </p>
+            </div>
+
+            <button
+              type="submit"
+              id="signupBtn"
+              class="w-full px-6 py-4 rounded-full bg-[#5C4A4A] text-white text-sm font-medium hover:bg-[#d89ca4] transition disabled:opacity-60 flex items-center justify-center gap-2"
+            >
+              <span id="btnText">Create Account</span>
+              <span id="btnLoader" class="hidden animate-spin">...</span>
+            </button>
+          </form>
+
+          <p id="signupMessage" class="min-h-5 text-sm mt-5 text-center"></p>
+
+          <p class="text-sm text-center mt-6 text-[#7A6A6A]">
+            Already have an account?
+            <a href="login.html" class="text-[#d89ca4] font-medium">Login</a>
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="js/theme.js"></script>
+    <script type="module" src="js/supabaseClient.js"></script>
+    <script type="module" src="js/signup.js"></script>
+  </body>
+</html>

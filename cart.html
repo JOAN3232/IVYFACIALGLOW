@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IvyFacialGlow | Cart</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@400;500;600&family=Great+Vibes&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+      }
+
+      .dark-mode {
+        background-color: #1f1a1d !important;
+        color: #f5e9ec !important;
+      }
+
+      .dark-mode #navbar {
+        background: rgba(31, 26, 29, 0.88) !important;
+        border-bottom: 1px solid #3b3136 !important;
+        backdrop-filter: blur(18px);
+      }
+
+      .dark-mode #navbar a,
+      .dark-mode #navbar button,
+      .dark-mode #navbar span,
+      .dark-mode #navbar ul {
+        color: #f5e9ec !important;
+      }
+
+      .dark-mode .cart-card,
+      .dark-mode .summary-card,
+      .dark-mode .empty-card {
+        background: transparent !important;
+        border-color: #4a3b42 !important;
+      }
+
+      .dark-mode .cart-image-wrap {
+        background: #2b2327 !important;
+      }
+    </style>
+  </head>
+  <body class="bg-stone-50 text-stone-800 transition-colors duration-300">
+    <!-- NAVBAR -->
+    <nav
+      id="navbar"
+      class="flex items-center justify-between px-6 md:px-12 py-5 bg-white/80 backdrop-blur-md border-b border-stone-200 sticky top-0 z-50"
+    >
+      <div
+        class="text-4xl tracking-wide"
+        style="font-family: &quot;Great Vibes&quot;, cursive; color: #d89ca4"
+      >
+        IvyFacialGlow
+      </div>
+
+      <ul
+        class="hidden md:flex items-center gap-10 text-lg font-medium"
+        style="color: #5c4a4a"
+      >
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="index.html#skin-quiz">Skin Quiz</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+
+      <div class="hidden lg:flex items-center gap-4">
+        <button
+          id="theme-toggle"
+          class="px-4 py-2 rounded-full border border-stone-300 text-sm hover:bg-stone-100 transition"
+          style="color: #5c4a4a"
+        >
+          Dark Mode
+        </button>
+
+        <a
+          href="cart.html"
+          class="relative px-5 py-2 rounded-full border border-[#ead9dd] text-sm transition hover:bg-[#fff7f8] flex items-center gap-2"
+          style="color: #5c4a4a"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            class="w-4 h-4"
+          >
+            <path d="M6 8h12l-1 11H7L6 8Z" />
+            <path d="M9 8V6a3 3 0 0 1 6 0v2" />
+          </svg>
+
+      
+
+          <span
+            id="cart-count"
+            class="absolute -top-2 -right-2 min-w-[22px] h-[22px] px-1 rounded-full bg-[#d89ca4] text-white text-[11px] flex items-center justify-center"
+          >
+            0
+          </span>
+        </a>
+
+
+<div class="relative" data-auth-actions>
+
+  <!-- LOGIN BUTTON -->
+  <a
+    id="loginBtn"
+    href="login.html"
+    class="px-5 py-2 rounded-full text-sm transition text-white bg-[#d89ca4] hover:opacity-90"
+  >
+    Login
+  </a>
+
+  <!-- ACCOUNT BUTTON -->
+  <button
+    id="accountBtn"
+    class="hidden px-5 py-2 rounded-full text-sm border border-[#ead9dd] hover:bg-[#fff7f8]"
+    style="color: #5c4a4a"
+  >
+    Account ▾
+  </button>
+
+  <!-- DROPDOWN -->
+<div
+  id="accountDropdown"
+  class="hidden absolute right-0 mt-4 w-64 bg-white/95 backdrop-blur-xl border border-[#f1dfe3] rounded-[1.7rem] shadow-2xl p-2 z-50 overflow-hidden animate-dropdown"
+>
+
+   <a
+  href="profile.html"
+  class="flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-[#fff7f8] transition text-[#5C4A4A] text-sm font-medium"
+>
+  <span class="text-lg">👤</span>
+  Profile
+</a>
+
+<a
+  href="orders.html"
+  class="flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-[#fff7f8] transition text-[#5C4A4A] text-sm font-medium"
+>
+  <span class="text-lg">📦</span>
+  My Orders
+</a>
+
+<a
+  href="admin-login.html"
+  id="adminLink"
+  class="hidden flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-[#fff7f8] transition text-[#5C4A4A] text-sm font-medium"
+>
+  <span class="text-lg">🛠</span>
+  Admin Dashboard
+</a>
+
+<div class="my-2 border-t border-[#f3e5e8]"></div>
+
+<button
+  id="logoutBtn"
+  class="w-full flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-[#fff1f3] transition text-[#d89ca4] text-sm font-medium"
+>
+  <span class="text-lg">↪</span>
+  Logout
+</button>
+
+  </div>
+</div>
+</div>
+<button
+  id="menu-btn"
+  class="lg:hidden fixed top-6 right-6 z-[9999] w-11 h-11 rounded-full bg-white/90 border border-[#ead9dd] shadow-lg flex items-center justify-center text-2xl"
+  style="color: #5c4a4a"
+>
+  ☰
+</button>
+    </nav>
+
+    <!-- MOBILE MENU -->
+    <div
+      id="mobile-menu-overlay"
+      class="fixed inset-0 bg-black/20 backdrop-blur-md hidden items-center justify-center z-50 lg:hidden"
+    >
+      <div
+        class="bg-white/80 backdrop-blur-xl rounded-[2rem] px-10 py-12 w-[85%] max-w-sm shadow-2xl text-center relative"
+      >
+        <button
+          id="close-menu"
+          class="absolute top-4 right-6 text-3xl"
+          style="color: #5c4a4a"
+        >
+          ×
+        </button>
+
+        <h2
+          class="text-4xl mb-8"
+          style="font-family: &quot;Great Vibes&quot;, cursive; color: #d89ca4"
+        >
+          IvyFacialGlow
+        </h2>
+
+        <ul
+          class="flex flex-col gap-6 text-xl font-medium"
+          style="color: #5c4a4a"
+        >
+          <li><a href="index.html" class="mobile-link">Home</a></li>
+          <li><a href="shop.html" class="mobile-link">Shop</a></li>
+          <li>
+            <a href="index.html#skin-quiz" class="mobile-link">Skin Quiz</a>
+          </li>
+          <li><a href="index.html#about" class="mobile-link">About</a></li>
+          <li><a href="index.html#contact" class="mobile-link">Contact</a></li>
+          <li><a href="cart.html" class="mobile-link">Cart</a></li>
+        </ul>
+
+        <div class="mt-8 flex flex-col gap-4">
+          <button
+            id="mobile-theme-toggle"
+            class="border border-stone-300 rounded-full py-3 text-base"
+            style="color: #5c4a4a"
+          >
+            Dark Mode
+          </button>
+
+          <a
+            id="mobileLoginBtn"
+            href="login.html"
+            class="rounded-full py-3 text-white text-base bg-[#d89ca4]"
+          >
+            Login
+          </a>
+          <a href="orders.html" data-auth="orders" class="hidden rounded-full py-3 border border-[#ead9dd] text-base" style="color:#5c4a4a;">My Orders</a>
+          <button id="mobileLogoutBtn" data-auth="logout" class="hidden rounded-full py-3 border border-[#ead9dd] text-base" style="color:#5c4a4a;">Logout</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- HERO -->
+    <header class="px-6 md:px-12 pt-16 md:pt-24 pb-10 text-center">
+      <p class="uppercase tracking-[0.3em] text-sm mb-4" style="color: #7a6a6a">
+        Your Glow Bag
+      </p>
+
+      <h1
+        class="text-5xl md:text-6xl mb-6"
+        style="font-family: &quot;Playfair Display&quot;, serif; color: #5c4a4a"
+      >
+        Shopping cart
+      </h1>
+
+      <p
+        class="max-w-2xl mx-auto text-sm md:text-base leading-7"
+        style="color: #7a6a6a"
+      >
+        Review your selected products, update quantities, and get ready to check
+        out.
+      </p>
+    </header>
+
+    <!-- CART SECTION -->
+    <section class="px-6 md:px-12 pb-20">
+      <div
+        class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[1.7fr_0.9fr] gap-10"
+      >
+        <!-- LEFT -->
+        <div>
+          <div id="cartItemsContainer" class="space-y-5"></div>
+
+          <div
+            id="emptyCartState"
+            class="empty-card hidden rounded-[2rem] border border-[#ead9dd] p-10 text-center"
+          >
+            <h2
+              class="text-3xl mb-4"
+              style="
+                font-family: &quot;Playfair Display&quot;, serif;
+                color: #5c4a4a;
+              "
+            >
+              Your glow bag is waiting
+            </h2>
+
+            <p class="text-sm md:text-base mb-6" style="color: #7a6a6a">
+              You haven’t added anything yet. Explore the shop and find your
+              soft-life favorites.
+            </p>
+
+            <a
+              href="shop.html"
+              class="inline-block px-8 py-4 rounded-full bg-[#d89ca4] text-white"
+            >
+              Continue Shopping
+            </a>
+          </div>
+        </div>
+
+        <!-- RIGHT -->
+        <aside>
+          <div
+            class="summary-card rounded-[2rem] border border-[#ead9dd] p-6 md:p-8 sticky top-28"
+          >
+            <h2
+              class="text-3xl mb-6"
+              style="
+                font-family: &quot;Playfair Display&quot;, serif;
+                color: #5c4a4a;
+              "
+            >
+              Order summary
+            </h2>
+
+            <div class="space-y-4 mb-6">
+              <div class="flex items-center justify-between text-sm">
+                <span style="color: #7a6a6a">Subtotal</span>
+                <span id="cartSubtotal" style="color: #5c4a4a">₦0</span>
+              </div>
+
+              <div class="space-y-3">
+                <div class="flex items-center justify-between text-sm">
+                  <span style="color: #7a6a6a">Delivery</span>
+                  <span id="deliveryPrice" style="color: #5c4a4a">₦0</span>
+                </div>
+
+                <select
+                  id="deliverySelect"
+                  class="w-full px-4 py-3 rounded-full border border-[#ead9dd] bg-transparent outline-none text-sm"
+                >
+                  <option value="0">Pickup — ₦0</option>
+                  <option value="1500">Lagos Mainland — ₦1,500</option>
+                  <option value="2500">Lagos Island — ₦2,500</option>
+                  <option value="4000">Outside Lagos — ₦4,000</option>
+                </select>
+              </div>
+
+              <div
+                class="border-t border-[#ead9dd] pt-4 flex items-center justify-between"
+              >
+                <span class="text-base font-medium" style="color: #5c4a4a"
+                  >Total</span
+                >
+                <span
+                  id="cartTotal"
+                  class="text-lg font-semibold text-[#d89ca4]"
+                  >₦0</span
+                >
+              </div>
+            </div>
+
+            <div class="flex flex-col gap-3">
+              <a
+                href="checkout.html"
+                class="w-full px-6 py-4 rounded-full border border-[#ead9dd] text-center"
+                style="color: #d89ca4"
+              >
+                Proceed to checkout
+              </a>
+
+              <a
+                href="shop.html"
+                class="w-full px-6 py-4 rounded-full border border-[#ead9dd] text-center"
+                style="color: #5c4a4a"
+              >
+                Continue Shopping
+              </a>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+
+    <script src="js/cart.js"></script>
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>

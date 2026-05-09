@@ -1,0 +1,1553 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IVYFACIALGLOW|HOME</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@600;700&family=Poppins:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    
+    
+    <style>
+
+      html{
+        scroll-behavior: smooth;
+      }
+      .dark-mode {
+        background-color: #1f1a1d !important;
+        color: #f5e9ec !important;
+      }
+
+      .dark-mode .product-card-1,
+      .dark-mode .product-card-2,
+      .dark-mode .product-card-3,
+      .dark-mode .product-card-4 {
+        background-color: #2f252b !important;
+      }
+
+      .dark-mode .product-card-1:hover,
+      .dark-mode .product-card-2:hover,
+      .dark-mode .product-card-3:hover,
+      .dark-mode .product-card-4:hover {
+        background-color: #44323d !important;
+      }
+
+      .product-card {
+        background: transparent;
+      }
+
+      .dark-mode .product-card {
+        border-color: #4a3b42 !important;
+        background: transparent !important;
+      }
+
+      .dark-mode .product-card:hover {
+        background-color: rgba(216, 156, 164, 0.06) !important;
+      }
+
+      .hero-info-card {
+        background: transparent;
+        border: 1.5px solid #ead9dd;
+        backdrop-filter: blur(14px);
+      }
+
+      .dark-mode .hero-info-card {
+        border-color: #4a3b42;
+        background: transparent;
+      }
+
+      .dark-mode .hero-info-card:hover {
+        background: rgba(216, 156, 164, 0.06);
+      }
+      .dark-mode #navbar {
+        background: transparent !important;
+        border-bottom: 1px solid #3b3136 !important;
+        backdrop-filter: blur(18px);
+      }
+
+      .dark-mode #navbar a,
+      .dark-mode #navbar button,
+      .dark-mode #navbar ul {
+        color: #f5e9ec !important;
+      }
+
+      .dark-mode #navbar .text-4xl {
+        color: #d89ca4 !important;
+      }
+
+      .dark-mode .quiz-box {
+        background-color: #241d21 !important;
+        border: 1px solid #3b3136;
+      }
+
+      .dark-mode .quiz-box h2,
+      .dark-mode .quiz-box h3,
+      .dark-mode .quiz-box p,
+      .dark-mode .quiz-box button {
+        color: #f5e9ec !important;
+      }
+
+      .quiz-option.selected {
+        background-color: #d89ca4 !important;
+        color: white !important;
+        border-color: #d89ca4 !important;
+      }
+
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+
+      .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+
+      .dark-mode .best-card {
+        border-color: #4a3b42 !important;
+        background: transparent !important;
+      }
+
+      .dark-mode .best-card:hover {
+        background-color: rgba(216, 156, 164, 0.06) !important;
+      }
+      .dark-mode .best-card {
+        border-color: #4a3b42 !important;
+        background: transparent !important;
+      }
+
+      .dark-mode .best-card:hover {
+        background-color: rgba(216, 156, 164, 0.06) !important;
+      }
+      .dark-mode .bundle-card {
+    border-color: #4a3b42 !important;
+    background: transparent !important;
+  }
+
+  .dark-mode .bundle-card:hover {
+    background-color: rgba(216, 156, 164, 0.06) !important;
+  }
+  .dark-mode .why-card {
+    border-color: #4a3b42 !important;
+    background: transparent !important;
+  }
+
+  .dark-mode .why-card:hover {
+    background-color: rgba(216, 156, 164, 0.06) !important;
+  }
+
+  .dark-mode .why-card div {
+    border-color: #4a3b42 !important;
+  }
+   .dark-mode .testimonial-card {
+    border-color: #4a3b42 !important;
+    background: transparent !important;
+  }
+
+  .dark-mode .testimonial-card:hover {
+    background-color: rgba(216, 156, 164, 0.06) !important;
+  }
+   .dark-mode .newsletter-card {
+    border-color: #4a3b42 !important;
+    background: transparent !important;
+  }
+
+  .dark-mode .newsletter-card input {
+    border-color: #4a3b42 !important;
+    color: #f5e9ec !important;
+  }
+
+  .dark-mode .newsletter-card input::placeholder {
+    color: #b9a8ad !important;
+  }
+  .dark-mode .footer-section {
+    border-color: #4a3b42 !important;
+  }
+
+  .dark-mode .footer-section .border-t {
+    border-color: #4a3b42 !important;
+  }
+
+  .dark-mode .footer-section a.w-12 {
+    border-color: #4a3b42 !important;
+  }
+  .fade-up {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 1s ease;
+  }
+
+  .fade-up.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+   .dark-mode #back-to-top {
+    background: rgba(31, 26, 29, 0.9) !important;
+    border-color: #4a3b42 !important;
+    color: #d89ca4 !important;
+  }
+
+  #back-to-top.show {
+    opacity: 1;
+    pointer-events: auto;
+  }
+    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+<script type="module">
+  import { supabase } from "./js/supabaseClient.js";
+
+  async function updateMobileAuthMenu() {
+    const authArea = document.getElementById("mobile-auth-area");
+    if (!authArea) return;
+
+    const { data } = await supabase.auth.getUser();
+    const user = data?.user;
+
+    if (user) {
+      authArea.innerHTML = `
+        <a href="profile.html" class="mobile-link">Profile</a>
+        <a href="orders.html" class="mobile-link">My Orders</a>
+        <button
+          id="mobileLogoutBtn"
+          class="border border-stone-300 rounded-full py-3 text-base"
+          style="color:#5c4a4a;"
+        >
+          Logout
+        </button>
+      `;
+
+      document.getElementById("mobileLogoutBtn").addEventListener("click", async () => {
+        await supabase.auth.signOut();
+        window.location.href = "index.html";
+      });
+    } else {
+      authArea.innerHTML = `
+        <a href="login.html" class="px-6 py-3 rounded-full text-white bg-[#d89ca4]">
+          Login
+        </a>
+        <a href="signup.html" class="px-6 py-3 rounded-full border border-[#ead9dd]" style="color:#5c4a4a;">
+          Sign Up
+        </a>
+      `;
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", updateMobileAuthMenu);
+</script>
+</head>
+  <body
+    class="bg-stone-50 text-stone-800 transition-colors duration-300"
+    style="font-family: &quot;Poppins&quot;, sans-serif"
+  >
+    <!-- NAVBAR  -->
+    <nav
+      id="navbar"
+      class="flex items-center justify-between px-6 md:px-12 py-5 bg-white/80 backdrop-blur-md border-b border-stone-200 sticky top-0 z-50 transition-all duration-300"
+    >
+      <div
+        class="text-4xl tracking-wide"
+        style="font-family: &quot;Great Vibes&quot;, cursive; color: #d89ca4"
+      >
+        IvyFacialGlow
+      </div>
+
+      <ul
+        class="hidden lg:flex items-center gap-10 text-lg font-medium"
+        style="font-family: &quot;Poppins&quot;, sans-serif; color: #5c4a4a"
+      >
+    <li>
+  <a href="index.html" class="relative inline-block after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-[#d89ca4] hover:after:w-full after:transition-all after:duration-300">
+    Home
+  </a>
+</li>
+
+<li>
+  <a href="shop.html" class="relative inline-block after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-[#d89ca4] hover:after:w-full after:transition-all after:duration-300">
+    Shop
+  </a>
+</li>
+
+<li>
+  <a href="#skin-quiz" class="relative inline-block after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-[#d89ca4] hover:after:w-full after:transition-all after:duration-300">
+    Skin Quiz
+  </a>
+</li>
+
+<li>
+  <a href="#about" class="relative inline-block after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-[#d89ca4] hover:after:w-full after:transition-all after:duration-300">
+    About
+  </a>
+</li>
+
+<li>
+  <a href="#contact" class="relative inline-block after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-[#d89ca4] hover:after:w-full after:transition-all after:duration-300">
+    Contact
+  </a>
+</li>
+      </ul>
+
+      <div
+        class="hidden md:flex items-center gap-4"
+        style="font-family: &quot;Poppins&quot;, sans-serif"
+      >
+        <button
+          id="theme-toggle"
+          class="px-4 py-2 rounded-full border border-stone-300 text-sm hover:bg-[#fff7f8]"
+          style="color: #5c4a4a"
+        >
+          Dark Mode
+        </button>
+
+<a
+  href="cart.html"
+  class="relative px-5 py-2 rounded-full border border-[#ead9dd] text-sm transition hover:bg-[#fff7f8] flex items-center gap-2"
+  style="color: #5c4a4a"
+>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.8"
+    class="w-4 h-4"
+  >
+    <path d="M6 8h12l-1 11H7L6 8Z" />
+    <path d="M9 8V6a3 3 0 0 1 6 0v2" />
+  </svg>
+
+
+  <span
+    id="cart-count"
+    class="absolute -top-2 -right-2 min-w-[22px] h-[22px] px-1 rounded-full bg-[#d89ca4] text-white text-[11px] flex items-center justify-center"
+  >
+    0
+  </span>
+</a>
+   <div class="flex items-center gap-3">
+
+  <!-- LOGIN -->
+  <a
+    id="loginBtn"
+    href="login.html"
+    class="px-5 py-2 rounded-full text-sm transition text-white bg-[#d89ca4] hover:opacity-90"
+  >
+    Login
+  </a>
+
+  <!-- ACCOUNT DROPDOWN -->
+  <div class="relative hidden" id="accountWrapper">
+
+    <button
+      id="accountBtn"
+      class="px-5 py-2 rounded-full border border-[#ead9dd] text-sm hover:bg-[#fff7f8]"
+      style="color:#5c4a4a"
+    >
+      My Account ▾
+    </button>
+
+    <div
+      id="accountDropdown"
+      class="hidden absolute right-0 mt-4 w-64 bg-white/95 backdrop-blur-xl border border-[#f1dfe3] rounded-[1.7rem] shadow-2xl p-2 z-50 overflow-hidden"
+    >
+
+      <a
+        href="profile.html"
+        class="flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-[#fff7f8] transition text-[#5C4A4A] text-sm font-medium"
+      >
+        <span class="text-lg">👤</span>
+        Profile
+      </a>
+
+      <a
+        href="orders.html"
+        class="flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-[#fff7f8] transition text-[#5C4A4A] text-sm font-medium"
+      >
+        <span class="text-lg">📦</span>
+        My Orders
+      </a>
+
+      <a
+        href="admin-login.html"
+        id="adminLink"
+        class="hidden flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-[#fff7f8] transition text-[#5C4A4A] text-sm font-medium"
+      >
+        <span class="text-lg">🛠</span>
+        Admin Dashboard
+      </a>
+
+      <div class="my-2 border-t border-[#f3e5e8]"></div>
+
+      <button
+        id="logoutBtn"
+        class="w-full flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-[#fff1f3] transition text-[#d89ca4] text-sm font-medium"
+      >
+        <span class="text-lg">↪</span>
+        Logout
+      </button>
+
+    </div>
+  </div>
+</div>
+</div>
+
+  <button
+  id="menu-btn"
+  class="lg:hidden fixed top-6 right-6 z-[9999] w-11 h-11 rounded-full bg-white/90 border border-[#ead9dd] shadow-lg flex items-center justify-center text-2xl"
+  style="color: #5c4a4a"
+>
+  ☰
+</button>
+    </nav>
+
+      <!-- MOBILE MENU  -->
+
+    <div
+      id="mobile-menu-overlay"
+      class="fixed inset-0 bg-black/20 backdrop-blur-md hidden items-center justify-center z-50 lg:hidden"
+    >
+      <div
+        class="bg-white/80 backdrop-blur-xl rounded-[2rem] px-10 py-12 w-[85%] max-w-sm shadow-2xl text-center relative"
+      >
+        <button
+          id="close-menu"
+          class="absolute top-4 right-6 text-3xl"
+          style="color: #5c4a4a"
+        >
+          ×
+        </button>
+
+        <h2
+          class="text-4xl mb-8"
+          style="font-family: &quot;Great Vibes&quot;, cursive; color: #d89ca4"
+        >
+          IvyFacialGlow
+        </h2>
+
+        <ul
+          class="flex flex-col gap-6 text-xl font-medium"
+          style="font-family: &quot;Poppins&quot;, sans-serif; color: #5c4a4a"
+        >
+   <li><a href="index.html" class="mobile-link">Home</a></li>
+<li><a href="shop.html" class="mobile-link">Shop</a></li>
+<li><a href="#skin-quiz" class="mobile-link">Skin Quiz</a></li>
+<li><a href="#about" class="mobile-link">About</a></li>
+<li><a href="#contact" class="mobile-link">Contact</a></li>
+<li><a href="cart.html" class="mobile-link">Cart</a></li>
+        </ul>
+
+        <div class="mt-8 flex flex-col gap-4">
+          <button
+            id="mobile-theme-toggle"
+            class="border border-stone-300 rounded-full py-3 text-base"
+            style="color: #5c4a4a"
+          >
+            Dark Mode
+          </button>
+
+  <div id="mobile-auth-area" class="flex flex-col gap-4"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HERO SECTION  -->
+
+    <header
+      class="px-6 md:px-12 pt-16 md:pt-24 pb-20 text-center relative overflow-hidden"
+    >
+      <div class="max-w-4xl mx-auto">
+        <p class="uppercase tracking-[0.3em] text-sm mb-5 text-stone-500">
+          Glow beyond skincare
+        </p>
+
+        <h1
+          class="text-5xl md:text-7xl leading-tight mb-6"
+          style="
+            font-family: &quot;Playfair Display&quot;, serif;
+            color: #5c4a4a;
+          "
+        >
+          Beauty, skincare, Girly Essentials and self-care curated just for you
+        </h1>
+
+        <p
+          class="max-w-2xl mx-auto text-base md:text-lg leading-8 mb-8"
+          style="color: #7a6a6a"
+        >
+          Discover products and girly essentials that match your mood, your routine, and your glow.
+          From skincare essentials to soft lifestyle finds, IvyFacialGlow is
+          your space to feel good.
+        </p>
+
+        <div class="flex flex-col sm:flex-row justify-center gap-4 mb-14">
+          <a
+            href="shop.html"
+            class="px-8 py-4 rounded-full text-white bg-[#d89ca4] hover:opacity-90 transition"
+          >
+            Shop Now
+          </a>
+
+          <a
+            href="#skin-quiz"
+            class="px-8 py-4 rounded-full border border-stone-300 hover:bg-stone-100 transition"
+            style="color: #5c4a4a"
+          >
+            Take Skin Quiz
+          </a>
+        </div>
+      </div>
+
+      <div class="relative max-w-6xl mx-auto h-[420px] md:h-[500px]">
+        <div
+          class="absolute left-1/2 -translate-x-1/2 w-[85%] md:w-[60%] h-[320px] md:h-[420px] rounded-[3rem] overflow-hidden shadow-2xl"
+        >
+          <img
+            src="images/banners/hero-main.jpg"
+            alt=""
+            class="w-full h-full object-cover"
+          />
+        </div>
+
+        <div
+          class="absolute left-0 top-10 md:top-16 w-40 md:w-52 hero-info-card rounded-3xl p-4 shadow-xl transition duration-300"
+        >
+          <p class="text-sm mb-1 secondary-text" style="color: #7a6a6a">
+            Best Seller
+          </p>
+          <h3 class="font-semibold mb-2 main-text" style="color: #5c4a4a">
+            Glow Mask Set
+          </h3>
+          <p class="text-[#d89ca4] font-medium">$24</p>
+        </div>
+
+        <div
+          class="absolute right-0 bottom-4 md:bottom-10 w-44 md:w-56 hero-info-card rounded-3xl p-4 shadow-xl transition duration-300"
+        >
+          <p class="text-sm mb-1 secondary-text" style="color: #7a6a6a">
+            Most Loved
+          </p>
+          <h3 class="font-semibold mb-2 main-text" style="color: #5c4a4a">
+            Hydrating Lip Care
+          </h3>
+          <p class="text-[#d89ca4] font-medium">$18</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- PRODUCTS PAGE  -->
+
+    <section class="featured-section px-6 md:px-12 py-20">
+      <div class="text-center mb-12">
+        <p
+          class="uppercase tracking-[0.3em] text-sm mb-3 text-stone-500 secondary-text"
+        >
+          Featured Picks
+        </p>
+
+        <h2
+          class="text-4xl md:text-5xl main-text"
+          style="
+            font-family: &quot;Playfair Display&quot;, serif;
+            color: #5c4a4a;
+          "
+        >
+          Our featured products
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div
+          class="product-card rounded-[2rem] p-5 border border-[#ead9dd] hover:shadow-xl hover:-translate-y-1 transition duration-300"
+        >
+          <img
+            src="images/products/product1.jpg"
+            alt="Glow Face Mask"
+            class="w-full h-64 object-cover rounded-[1.5rem] mb-4"
+          />
+
+          <h3
+            class="text-xl font-semibold mb-2 main-text"
+            style="color: #5c4a4a"
+          >
+            Glow Face Mask
+          </h3>
+
+          <p
+            class="text-sm mb-4 leading-6 secondary-text"
+            style="color: #7a6a6a"
+          >
+            Refresh and brighten your skin with a soft glow finish.
+          </p>
+
+          <div class="flex items-center justify-between">
+            <span class="font-medium text-lg text-[#d89ca4]">$22</span>
+
+            <button
+              class="px-4 py-2 rounded-full text-sm text-white bg-[#d89ca4] hover:opacity-90 transition"
+            >
+              Add to Cart
+            </button>
+          </div>
+        </div>
+
+        <div
+          class="product-card rounded-[2rem] p-5 border border-[#ead9dd] hover:shadow-xl hover:-translate-y-1 transition duration-300"
+        >
+          <img
+            src="images/products/product2.jpg"
+            alt="Hydrating Cleanser"
+            class="w-full h-64 object-cover rounded-[1.5rem] mb-4"
+          />
+
+          <h3
+            class="text-xl font-semibold mb-2 main-text"
+            style="color: #5c4a4a"
+          >
+            Hydrating Cleanser
+          </h3>
+
+          <p
+            class="text-sm mb-4 leading-6 secondary-text"
+            style="color: #7a6a6a"
+          >
+            A gentle cleanser that leaves your skin soft, clean, and refreshed.
+          </p>
+
+          <div class="flex items-center justify-between">
+            <span class="font-medium text-lg text-[#d89ca4]">$18</span>
+
+            <button
+              class="px-4 py-2 rounded-full text-sm text-white bg-[#d89ca4] hover:opacity-90 transition"
+            >
+              Add to Cart
+            </button>
+          </div>
+        </div>
+        <div
+          class="product-card rounded-[2rem] p-5 border border-[#ead9dd] hover:shadow-xl hover:-translate-y-1 transition duration-300"
+        >
+          <img
+            src="images/products/product3.jpg"
+            alt="Lip Care Duo"
+            class="w-full h-64 object-cover rounded-[1.5rem] mb-4"
+          />
+
+          <h3
+            class="text-xl font-semibold mb-2 main-text"
+            style="color: #5c4a4a"
+          >
+            Lip Care Duo
+          </h3>
+
+          <p
+            class="text-sm mb-4 leading-6 secondary-text"
+            style="color: #7a6a6a"
+          >
+            Nourish and smooth your lips with this soft everyday duo.
+          </p>
+
+          <div class="flex items-center justify-between">
+            <span class="font-medium text-lg text-[#d89ca4]">$15</span>
+
+            <button
+              class="px-4 py-2 rounded-full text-sm text-white bg-[#d89ca4] hover:opacity-90 transition"
+            >
+              Add to Cart
+            </button>
+          </div>
+        </div>
+        <div
+          class="product-card rounded-[2rem] p-5 border border-[#ead9dd] hover:shadow-xl hover:-translate-y-1 transition duration-300"
+        >
+          <img
+            src="images/products/product4.jpg"
+            alt="Soft Self-Care Set"
+            class="w-full h-64 object-cover rounded-[1.5rem] mb-4"
+          />
+
+          <h3
+            class="text-xl font-semibold mb-2 main-text"
+            style="color: #5c4a4a"
+          >
+            Soft Self-Care Set
+          </h3>
+
+          <p
+            class="text-sm mb-4 leading-6 secondary-text"
+            style="color: #7a6a6a"
+          >
+            A curated set for slow mornings and calm evening routines.
+          </p>
+
+          <div class="flex items-center justify-between">
+            <span class="font-medium text-lg text-[#d89ca4]">$30</span>
+
+            <button
+              class="px-4 py-2 rounded-full text-sm text-white bg-[#d89ca4] hover:opacity-90 transition"
+            >
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CATEGORY SECTION  -->
+
+    <section class="px-6 md:px-12 py-20">
+      <div class="text-center mb-12">
+        <p class="uppercase tracking-[0.3em] text-sm mb-3 text-stone-500">
+          Explore More
+        </p>
+        <h2
+          class="text-4xl md:text-5xl"
+          style="
+            font-family: &quot;Playfair Display&quot;, serif;
+            color: #5c4a4a;
+          "
+        >
+          Shop the soft life
+        </h2>
+      </div>
+
+      <div class="relative max-w-6xl mx-auto overflow-hidden rounded-[2rem]">
+        <div
+          id="category-slider"
+          class="flex transition-transform duration-500"
+        >
+          <div class="min-w-full relative h-[450px]">
+            <img
+              src="images/categories/skincare.jpg"
+              alt="Skincare"
+              class="w-full h-full object-cover"
+            />
+            <div class="absolute inset-0 bg-black/25"></div>
+            <div class="absolute bottom-10 left-8 md:left-12 text-white">
+              <h3
+                class="text-3xl md:text-5xl mb-3"
+                style="font-family: &quot;Playfair Display&quot;, serif"
+              >
+                Skincare Essentials
+              </h3>
+              <p class="mb-5 text-sm md:text-base max-w-md">
+                Gentle cleansers, serums, lotions, and glow-boosting care.
+              </p>
+              <a
+                href="shop.html"
+                class="inline-block px-6 py-3 rounded-full bg-[#d89ca4] text-white"
+                >Shop Now</a
+              >
+            </div>
+          </div>
+
+          <div class="min-w-full relative h-[450px]">
+            <img
+              src="images/categories/hair-accessories.jpg"
+              alt="Hair Accessories"
+              class="w-full h-full object-cover"
+            />
+            <div class="absolute inset-0 bg-black/25"></div>
+            <div class="absolute bottom-10 left-8 md:left-12 text-white">
+              <h3
+                class="text-3xl md:text-5xl mb-3"
+                style="font-family: &quot;Playfair Display&quot;, serif"
+              >
+                Hair Accessories
+              </h3>
+              <p class="mb-5 text-sm md:text-base max-w-md">
+                Soft scrunchies, claw clips, and cute finishing touches.
+              </p>
+              <a
+                href="shop.html"
+                class="inline-block px-6 py-3 rounded-full bg-[#d89ca4] text-white"
+                >Shop Now</a
+              >
+            </div>
+          </div>
+
+          <div class="min-w-full relative h-[450px]">
+            <img
+              src="images/categories/face-masks.jpg"
+              alt="Face Masks"
+              class="w-full h-full object-cover"
+            />
+            <div class="absolute inset-0 bg-black/25"></div>
+            <div class="absolute bottom-10 left-8 md:left-12 text-white">
+              <h3
+                class="text-3xl md:text-5xl mb-3"
+                style="font-family: &quot;Playfair Display&quot;, serif"
+              >
+                Face Masks
+              </h3>
+              <p class="mb-5 text-sm md:text-base max-w-md">
+                Hydrating, calming, and glow-ready masks for reset days.
+              </p>
+              <a
+                href="shop.html"
+                class="inline-block px-6 py-3 rounded-full bg-[#d89ca4] text-white"
+                >Shop Now</a
+              >
+            </div>
+          </div>
+
+          <div class="min-w-full relative h-[450px]">
+            <img
+              src="images/categories/room-decor.jpg"
+              alt="Room Decor"
+              class="w-full h-full object-cover"
+            />
+            <div class="absolute inset-0 bg-black/25"></div>
+            <div class="absolute bottom-10 left-8 md:left-12 text-white">
+              <h3
+                class="text-3xl md:text-5xl mb-3"
+                style="font-family: &quot;Playfair Display&quot;, serif"
+              >
+                Cozy Room Decor
+              </h3>
+              <p class="mb-5 text-sm md:text-base max-w-md">
+                Fluffy hearts, soft accents, and decor for your calm space.
+              </p>
+              <a
+                href="shop.html"
+                class="inline-block px-6 py-3 rounded-full bg-[#d89ca4] text-white"
+                >Shop Now</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skin Quiz / Find Your Routine -->
+
+    <section id="skin-quiz" class="px-6 md:px-12 py-24">
+      <div
+        class="max-w-6xl mx-auto rounded-[3rem] border border-[#ead9dd] dark:border-[#4a3b42] p-8 md:p-14 flex flex-col lg:flex-row items-center gap-10"
+      >
+        <div class="lg:w-1/2">
+          <p
+            class="uppercase tracking-[0.3em] text-sm mb-4 text-stone-500 secondary-text"
+          >
+            Personalized For You
+          </p>
+
+          <h2
+            class="text-4xl md:text-5xl mb-6 main-text"
+            style="
+              font-family: &quot;Playfair Display&quot;, serif;
+              color: #5c4a4a;
+            "
+          >
+            Find the perfect routine for your skin
+          </h2>
+
+          <p
+            class="text-base md:text-lg leading-8 mb-8 secondary-text"
+            style="color: #7a6a6a"
+          >
+            Take a quick skin quiz and get product recommendations based on your
+            skin type, mood, and self-care goals.
+          </p>
+
+          <a
+            href="#"
+            id="open-quiz"
+            class="inline-block px-8 py-4 rounded-full text-white bg-[#d89ca4] hover:opacity-90 transition"
+          >
+            Start Quiz
+          </a>
+        </div>
+
+        <div class="lg:w-1/2 grid grid-cols-2 gap-4">
+          <div class="rounded-[2rem] border border-[#ead9dd] p-6 text-center">
+            <p class="text-sm mb-2 secondary-text" style="color: #7a6a6a">
+              Skin Type
+            </p>
+            <h3 class="text-xl font-semibold main-text" style="color: #5c4a4a">
+              Dry / Oily / Combo
+            </h3>
+          </div>
+
+          <div class="rounded-[2rem] border border-[#ead9dd] p-6 text-center">
+            <p class="text-sm mb-2 secondary-text" style="color: #7a6a6a">
+              Goal
+            </p>
+            <h3 class="text-xl font-semibold main-text" style="color: #5c4a4a">
+              Glow / Acne / Calm
+            </h3>
+          </div>
+
+          <div class="rounded-[2rem] border border-[#ead9dd] p-6 text-center">
+            <p class="text-sm mb-2 secondary-text" style="color: #7a6a6a">
+              Routine
+            </p>
+            <h3 class="text-xl font-semibold main-text" style="color: #5c4a4a">
+              Simple / Full
+            </h3>
+          </div>
+
+          <div class="rounded-[2rem] border border-[#ead9dd] p-6 text-center">
+            <p class="text-sm mb-2 secondary-text" style="color: #7a6a6a">
+              Mood
+            </p>
+            <h3 class="text-xl font-semibold main-text" style="color: #5c4a4a">
+              Soft / Fresh / Cozy
+            </h3>
+          </div>
+        </div>
+      </div>
+    </section>
+
+<div
+  id="quiz-modal"
+  class="fixed inset-0 hidden items-center justify-center bg-black/30 backdrop-blur-md z-[999] px-4"
+>
+<div
+  class="quiz-box w-full max-w-2xl max-h-[90vh] flex flex-col rounded-[2rem] bg-white p-6 md:p-10 shadow-2xl relative"
+>
+        <button
+          id="close-quiz"
+          class="absolute top-5 right-6 text-3xl text-[#5C4A4A]"
+        >
+          ×
+        </button>
+<div id="quiz-content" class="flex-1 overflow-y-auto pr-2"></div>
+      </div>
+    </div>
+
+    <!-- BEST SELLERS  -->
+     <section class="px-6 md:px-12 py-24 ">
+ <div class="text-center mb-12">
+    <p class="uppercase tracking-[0.3em] text-sm mb-3 secondary-text" style="color: #7A6A6A;">
+      Most Loved
+    </p>
+
+    <h2 class="text-4xl md:text-5xl main-text mb-4" style="font-family: 'Playfair Display', serif; color: #5C4A4A;">
+      Best Sellers
+    </h2>
+
+    <p class="max-w-xl mx-auto text-sm md:text-base secondary-text" style="color: #7A6A6A;">
+      The products everyone keeps coming back for ✨
+    </p>
+  </div>
+    <div class="relative overflow-hidden">
+        <div
+          id="best-seller-slider"
+          class="flex gap-6 transition-transform duration-700 ease-in-out"
+        >
+          <div
+            class="min-w-[280px] md:min-w-[300px] best-card rounded-[2rem] p-5 border border-[#ead9dd] transition hover:-translate-y-1 hover:shadow-xl"
+          >
+            <img
+              src="images/products/bestseller1.jpg"
+              alt="Overnight Glow Set"
+              class="w-full h-72 object-cover rounded-[1.5rem] mb-5"
+            />
+
+            <p class="text-sm mb-2 secondary-text" style="color: #7a6a6a">
+              Hydrating Care
+            </p>
+
+            <h3
+              class="text-2xl mb-3 main-text"
+              style="
+                font-family: &quot;Playfair Display&quot;, serif;
+                color: #5c4a4a;
+              "
+            >
+              Overnight Glow Set
+            </h3>
+
+            <div class="flex items-center justify-between">
+              <span class="text-[#d89ca4] text-xl font-medium">$36</span>
+              <button
+                class="w-12 h-12 rounded-full border border-[#ead9dd] text-[#d89ca4] text-xl"
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          <div
+            class="min-w-[280px] md:min-w-[300px] best-card rounded-[2rem] p-5 border border-[#ead9dd] transition hover:-translate-y-1 hover:shadow-xl"
+          >
+            <img
+              src="images/products/bestseller2.jpg"
+              alt="Soft Lips Duo"
+              class="w-full h-72 object-cover rounded-[1.5rem] mb-5"
+            />
+
+            <p class="text-sm mb-2 secondary-text" style="color: #7a6a6a">
+              Lip Care
+            </p>
+
+            <h3
+              class="text-2xl mb-3 main-text"
+              style="
+                font-family: &quot;Playfair Display&quot;, serif;
+                color: #5c4a4a;
+              "
+            >
+              Soft Lips Duo
+            </h3>
+
+            <div class="flex items-center justify-between">
+              <span class="text-[#d89ca4] text-xl font-medium">$18</span>
+              <button
+                class="w-12 h-12 rounded-full border border-[#ead9dd] text-[#d89ca4] text-xl"
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          <div
+            class="min-w-[280px] md:min-w-[300px] best-card rounded-[2rem] p-5 border border-[#ead9dd] transition hover:-translate-y-1 hover:shadow-xl"
+          >
+            <img
+              src="images/products/bestseller3.jpg"
+              alt="Sunday Reset Box"
+              class="w-full h-72 object-cover rounded-[1.5rem] mb-5"
+            />
+
+            <p class="text-sm mb-2 secondary-text" style="color: #7a6a6a">
+              Self-Care
+            </p>
+
+            <h3
+              class="text-2xl mb-3 main-text"
+              style="
+                font-family: &quot;Playfair Display&quot;, serif;
+                color: #5c4a4a;
+              "
+            >
+              Sunday Reset Box
+            </h3>
+
+            <div class="flex items-center justify-between">
+              <span class="text-[#d89ca4] text-xl font-medium">$42</span>
+              <button
+                class="w-12 h-12 rounded-full border border-[#ead9dd] text-[#d89ca4] text-xl"
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          <div
+            class="min-w-[280px] md:min-w-[300px] best-card rounded-[2rem] p-5 border border-[#ead9dd] transition hover:-translate-y-1 hover:shadow-xl"
+          >
+            <img
+              src="images/products/bestseller4.jpg"
+              alt="Rose Quartz Facial Set"
+              class="w-full h-72 object-cover rounded-[1.5rem] mb-5"
+            />
+
+            <p class="text-sm mb-2 secondary-text" style="color: #7a6a6a">
+              Glow Tools
+            </p>
+
+            <h3
+              class="text-2xl mb-3 main-text"
+              style="
+                font-family: &quot;Playfair Display&quot;, serif;
+                color: #5c4a4a;
+              "
+            >
+              Rose Quartz Facial Set
+            </h3>
+
+            <div class="flex items-center justify-between">
+              <span class="text-[#d89ca4] text-xl font-medium">$28</span>
+              <button
+                class="w-12 h-12 rounded-full border border-[#ead9dd] text-[#d89ca4] text-xl"
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+               <div class="min-w-[280px] md:min-w-[300px] best-card rounded-[2rem] p-5 border border-[#ead9dd] transition hover:-translate-y-1 hover:shadow-xl">
+        <img src="images/products/bestseller3.jpg" alt="Sunday Reset Box" class="w-full h-72 object-cover rounded-[1.5rem] mb-5">
+
+        <p class="text-sm mb-2 secondary-text" style="color: #7A6A6A;">Self-Care</p>
+
+        <h3 class="text-2xl mb-3 main-text" style="font-family: 'Playfair Display', serif; color: #5C4A4A;">
+          Sunday Reset Box
+        </h3>
+
+        <div class="flex items-center justify-between">
+          <span class="text-[#d89ca4] text-xl font-medium">$42</span>
+          <button class="w-12 h-12 rounded-full border border-[#ead9dd] text-[#d89ca4] text-xl">+</button>
+        </div>
+      </div>
+
+        <!-- duplicate 1 -->
+      <div class="min-w-[280px] md:min-w-[300px] best-card rounded-[2rem] p-5 border border-[#ead9dd] transition hover:-translate-y-1 hover:shadow-xl">
+        <img src="images/products/bestseller1.jpg" alt="Overnight Glow Set" class="w-full h-72 object-cover rounded-[1.5rem] mb-5">
+
+        <p class="text-sm mb-2 secondary-text" style="color: #7A6A6A;">Hydrating Care</p>
+
+        <h3 class="text-2xl mb-3 main-text" style="font-family: 'Playfair Display', serif; color: #5C4A4A;">
+          Overnight Glow Set
+        </h3>
+
+        <div class="flex items-center justify-between">
+          <span class="text-[#d89ca4] text-xl font-medium">$36</span>
+          <button class="w-12 h-12 rounded-full border border-[#ead9dd] text-[#d89ca4] text-xl">+</button>
+        </div>
+      </div>
+</div>
+
+<!-- SHOP BY MOOD  -->
+ <section class="px-6 md:px-12 py-24">
+  <div class="text-center mb-12">
+    <p class="uppercase tracking-[0.3em] text-sm mb-3 text-stone-500 secondary-text">
+      Curated For Every Feeling
+    </p>
+
+    <h2 class="text-4xl md:text-5xl main-text" style="font-family: 'Playfair Display', serif; color: #5C4A4A;">
+      Shop by mood
+    </h2>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    
+    <div class="mood-card relative h-[320px] rounded-[2rem] overflow-hidden group">
+      <img src="images/moods/soft-calming.jpg" alt="Soft & Calming" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+      <div class="absolute inset-0 bg-black/25"></div>
+      <div class="absolute bottom-8 left-8 text-white">
+        <p class="uppercase tracking-[0.2em] text-xs mb-3">Soft & Calming</p>
+        <h3 class="text-3xl md:text-4xl mb-3" style="font-family: 'Playfair Display', serif;">
+          Reset gently
+        </h3>
+     <a href="shop.html?mood=soft-calming" class="inline-block px-6 py-3 rounded-full border border-white text-white hover:bg-white hover:text-[#5C4A4A] transition">
+  Explore
+</a>
+      </div>
+    </div>
+
+    <div class="mood-card relative h-[320px] rounded-[2rem] overflow-hidden group">
+      <img src="images/moods/fresh-clean.jpg" alt="Fresh & Clean" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+      <div class="absolute inset-0 bg-black/25"></div>
+      <div class="absolute bottom-8 left-8 text-white">
+        <p class="uppercase tracking-[0.2em] text-xs mb-3">Fresh & Clean</p>
+        <h3 class="text-3xl md:text-4xl mb-3" style="font-family: 'Playfair Display', serif;">
+          Feel refreshed
+        </h3>
+<a href="shop.html?mood=fresh-clean" class="inline-block px-6 py-3 rounded-full border border-white text-white hover:bg-white hover:text-[#5C4A4A] transition">
+  Explore
+</a>
+      </div>
+    </div>
+
+    <div class="mood-card relative h-[320px] rounded-[2rem] overflow-hidden group">
+      <img src="images/moods/glow-boost.jpg" alt="Glow Boost" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+      <div class="absolute inset-0 bg-black/25"></div>
+      <div class="absolute bottom-8 left-8 text-white">
+        <p class="uppercase tracking-[0.2em] text-xs mb-3">Glow Boost</p>
+        <h3 class="text-3xl md:text-4xl mb-3" style="font-family: 'Playfair Display', serif;">
+          Shine brighter
+        </h3>
+  <a href="shop.html?mood=glow-boost" class="inline-block px-6 py-3 rounded-full border border-white text-white hover:bg-white hover:text-[#5C4A4A] transition">
+  Explore
+</a>
+      </div>
+    </div>
+
+    <div class="mood-card relative h-[320px] rounded-[2rem] overflow-hidden group">
+      <img src="images/moods/cozy-reset.jpg" alt="Cozy Reset" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+      <div class="absolute inset-0 bg-black/25"></div>
+      <div class="absolute bottom-8 left-8 text-white">
+        <p class="uppercase tracking-[0.2em] text-xs mb-3">Cozy Reset</p>
+        <h3 class="text-3xl md:text-4xl mb-3" style="font-family: 'Playfair Display', serif;">
+          Slow down softly
+        </h3>
+     <a href="shop.html?mood=cozy-reset" class="inline-block px-6 py-3 rounded-full border border-white text-white hover:bg-white hover:text-[#5C4A4A] transition">
+  Explore
+</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- BUNDLE RECCOMENDATIONS  -->
+
+<section class="px-6 md:px-12 py-24">
+  <div class="text-center mb-12">
+    <p class="uppercase tracking-[0.3em] text-sm mb-3 text-stone-500 secondary-text">
+      Curated Sets
+    </p>
+
+    <h2 class="text-4xl md:text-5xl main-text" style="font-family: 'Playfair Display', serif; color: #5C4A4A;">
+      Bundle recommendations
+    </h2>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+    <div class="bundle-card rounded-[2rem] border border-[#ead9dd] overflow-hidden transition hover:-translate-y-1 hover:shadow-xl">
+      <img src="images/bundles/bundle1.jpg" alt="Glow Starter Set" class="w-full h-72 object-cover">
+
+      <div class="p-6">
+        <p class="text-sm mb-2 secondary-text" style="color: #7A6A6A;">For Everyday Glow</p>
+
+        <h3 class="text-3xl mb-4 main-text" style="font-family: 'Playfair Display', serif; color: #5C4A4A;">
+          Glow Starter Set
+        </h3>
+
+        <p class="text-sm leading-7 mb-6 secondary-text" style="color: #7A6A6A;">
+          Includes cleanser, glow serum, face mask, and lip care.
+        </p>
+
+        <div class="flex items-center justify-between">
+          <span class="text-[#d89ca4] text-2xl font-medium">$48</span>
+
+          <button class="px-6 py-3 rounded-full bg-[#d89ca4] text-white hover:opacity-90 transition">
+            Add Bundle
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="bundle-card rounded-[2rem] border border-[#ead9dd] overflow-hidden transition hover:-translate-y-1 hover:shadow-xl">
+      <img src="images/bundles/bundle2.jpg" alt="Soft Girl Essentials" class="w-full h-72 object-cover">
+
+      <div class="p-6">
+        <p class="text-sm mb-2 secondary-text" style="color: #7A6A6A;">For Cozy Self-Care</p>
+
+        <h3 class="text-3xl mb-4 main-text" style="font-family: 'Playfair Display', serif; color: #5C4A4A;">
+          Soft Girl Essentials
+        </h3>
+
+        <p class="text-sm leading-7 mb-6 secondary-text" style="color: #7A6A6A;">
+          Includes fluffy socks, face mask, lip balm, scrunchie, and candle.
+        </p>
+
+        <div class="flex items-center justify-between">
+          <span class="text-[#d89ca4] text-2xl font-medium">$56</span>
+
+          <button class="px-6 py-3 rounded-full bg-[#d89ca4] text-white hover:opacity-90 transition">
+            Add Bundle
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="bundle-card rounded-[2rem] border border-[#ead9dd] overflow-hidden transition hover:-translate-y-1 hover:shadow-xl">
+      <img src="images/bundles/bundle3.jpg" alt="Spa Night Box" class="w-full h-72 object-cover">
+
+      <div class="p-6">
+        <p class="text-sm mb-2 secondary-text" style="color: #7A6A6A;">For Reset Days</p>
+
+        <h3 class="text-3xl mb-4 main-text" style="font-family: 'Playfair Display', serif; color: #5C4A4A;">
+          Spa Night Box
+        </h3>
+
+        <p class="text-sm leading-7 mb-6 secondary-text" style="color: #7A6A6A;">
+          Includes hydrating mask, rose quartz roller, candle, and under-eye patches.
+        </p>
+
+        <div class="flex items-center justify-between">
+          <span class="text-[#d89ca4] text-2xl font-medium">$64</span>
+
+          <button class="px-6 py-3 rounded-full bg-[#d89ca4] text-white hover:opacity-90 transition">
+            Add Bundle
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+   
+<!-- WHY CHOOSE IVYFACIALGLOW  -->
+
+<section id="about" class="px-6 md:px-12 py-24">
+  <div class="text-center mb-14">
+    <p class="uppercase tracking-[0.3em] text-sm mb-3 text-stone-500 secondary-text">
+      Why Us
+    </p>
+
+    <h2 class="text-4xl md:text-5xl main-text" style="font-family: 'Playfair Display', serif; color: #5C4A4A;">
+      Why choose IvyFacialGlow
+    </h2>
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+    <div class="why-card rounded-[2rem] border border-[#ead9dd] p-8 text-center transition hover:-translate-y-1 hover:shadow-xl">
+      <div class="w-14 h-14 mx-auto mb-6 rounded-full border border-[#ead9dd] flex items-center justify-center text-2xl text-[#d89ca4]">
+        ✨
+      </div>
+
+      <h3 class="text-2xl mb-4 main-text" style="font-family: 'Playfair Display', serif; color: #5C4A4A;">
+        Personalized Picks
+      </h3>
+
+      <p class="text-sm leading-7 secondary-text" style="color: #7A6A6A;">
+        Find products that match your skin type, mood, and self-care routine.
+      </p>
+    </div>
+
+    <div class="why-card rounded-[2rem] border border-[#ead9dd] p-8 text-center transition hover:-translate-y-1 hover:shadow-xl">
+      <div class="w-14 h-14 mx-auto mb-6 rounded-full border border-[#ead9dd] flex items-center justify-center text-2xl text-[#d89ca4]">
+        ♡
+      </div>
+
+      <h3 class="text-2xl mb-4 main-text" style="font-family: 'Playfair Display', serif; color: #5C4A4A;">
+        Curated Bundles
+      </h3>
+
+      <p class="text-sm leading-7 secondary-text" style="color: #7A6A6A;">
+        Shop complete sets designed to make your routine easier and more enjoyable.
+      </p>
+    </div>
+
+    <div class="why-card rounded-[2rem] border border-[#ead9dd] p-8 text-center transition hover:-translate-y-1 hover:shadow-xl">
+      <div class="w-14 h-14 mx-auto mb-6 rounded-full border border-[#ead9dd] flex items-center justify-center text-2xl text-[#d89ca4]">
+        ☁
+      </div>
+
+      <h3 class="text-2xl mb-4 main-text" style="font-family: 'Playfair Display', serif; color: #5C4A4A;">
+        Soft & Elegant
+      </h3>
+
+      <p class="text-sm leading-7 secondary-text" style="color: #7A6A6A;">
+        A shopping experience designed to feel calm, beautiful, and easy to use.
+      </p>
+    </div>
+
+    <div class="why-card rounded-[2rem] border border-[#ead9dd] p-8 text-center transition hover:-translate-y-1 hover:shadow-xl">
+      <div class="w-14 h-14 mx-auto mb-6 rounded-full border border-[#ead9dd] flex items-center justify-center text-2xl text-[#d89ca4]">
+        ↺
+      </div>
+
+      <h3 class="text-2xl mb-4 main-text" style="font-family: 'Playfair Display', serif; color: #5C4A4A;">
+        Save Your Routine
+      </h3>
+
+      <p class="text-sm leading-7 secondary-text" style="color: #7A6A6A;">
+        Bookmark your quiz results and favorite products to come back anytime.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- TESTIMONIAL  -->
+ <section class="px-6 md:px-12 py-24">
+  <div class="text-center mb-14">
+    <p class="uppercase tracking-[0.3em] text-sm mb-3 text-stone-500 secondary-text">
+      Loved By Many
+    </p>
+
+    <h2 class="text-4xl md:text-5xl main-text" style="font-family: 'Playfair Display', serif; color: #5C4A4A;">
+      What our customers say
+    </h2>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+    <div class="testimonial-card rounded-[2rem] border border-[#ead9dd] p-8 transition hover:-translate-y-1 hover:shadow-xl">
+      <p class="text-[#d89ca4] text-2xl mb-5">★★★★★</p>
+      <p class="text-sm leading-7 mb-6 secondary-text" style="color: #7A6A6A;">
+        I loved how soft and calming the whole shopping experience felt. The products looked beautiful and the bundle idea made choosing so easy.
+      </p>
+      <h3 class="text-xl main-text" style="font-family: 'Playfair Display', serif; color: #5C4A4A;">
+        Amara
+      </h3>
+    </div>
+
+    <div class="testimonial-card rounded-[2rem] border border-[#ead9dd] p-8 transition hover:-translate-y-1 hover:shadow-xl">
+      <p class="text-[#d89ca4] text-2xl mb-5">★★★★★</p>
+      <p class="text-sm leading-7 mb-6 secondary-text" style="color: #7A6A6A;">
+        The skin quiz made it feel personal instead of overwhelming. I already knew what products would suit me before even checking out.
+      </p>
+      <h3 class="text-xl main-text" style="font-family: 'Playfair Display', serif; color: #5C4A4A;">
+        Kemi
+      </h3>
+    </div>
+
+    <div class="testimonial-card rounded-[2rem] border border-[#ead9dd] p-8 transition hover:-translate-y-1 hover:shadow-xl">
+      <p class="text-[#d89ca4] text-2xl mb-5">★★★★★</p>
+      <p class="text-sm leading-7 mb-6 secondary-text" style="color: #7A6A6A;">
+        Everything feels curated, from the mood shopping to the self-care bundles. It doesn’t look like a regular shop website at all.
+      </p>
+      <h3 class="text-xl main-text" style="font-family: 'Playfair Display', serif; color: #5C4A4A;">
+        Zara
+      </h3>
+    </div>
+
+  </div>
+</section>
+
+<!-- NEWS LETTER  -->
+ <!-- NEWSLETTER -->
+<section id="contact" class="px-6 md:px-12 py-24">
+  <div class="max-w-5xl mx-auto rounded-[3rem] border border-[#ead9dd] p-8 md:p-14 text-center newsletter-card">
+
+    <p class="uppercase tracking-[0.3em] text-sm mb-4 text-stone-500 secondary-text">
+      Stay In The Glow
+    </p>
+
+    <h2
+      class="text-4xl md:text-5xl mb-6 main-text"
+      style="font-family: 'Playfair Display', serif; color: #5C4A4A;"
+    >
+      Join our newsletter
+    </h2>
+
+    <p
+      class="max-w-2xl mx-auto text-sm md:text-base leading-7 mb-8 secondary-text"
+      style="color: #7A6A6A;"
+    >
+      Be the first to hear about new arrivals, self-care tips, bundle drops,
+      and exclusive offers made just for you.
+    </p>
+
+    <form
+      id="newNewsletterForm"
+      class="flex gap-3"
+      onsubmit="subscribeNewsletter(event)"
+    >
+      <input
+        type="email"
+        id="newNewsletterEmail"
+        placeholder="Enter your email"
+        required
+        class="px-4 py-3 rounded-full border w-full"
+      />
+
+      <button
+        type="submit"
+        class="px-6 py-3 bg-[#c79aa3] text-white rounded-full"
+      >
+        Subscribe
+      </button>
+    </form>
+
+    <p id="newsletterMsg" class="text-sm mt-3"></p>
+
+  </div>
+</section>
+
+  <!-- FOOTER  -->
+   <footer class="px-6 md:px-12 pt-20 pb-10 border-t border-[#ead9dd] footer-section">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+
+    <div>
+      <h2 class="text-4xl mb-4" style="font-family: 'Great Vibes', cursive; color: #d89ca4;">
+        IvyFacialGlow
+      </h2>
+
+      <p class="text-sm leading-7 secondary-text" style="color: #7A6A6A;">
+        Beauty, skincare, and self-care made to feel softer, calmer, and more personal.
+      </p>
+    </div>
+
+    <div>
+      <h3 class="text-xl mb-5 main-text" style="font-family: 'Playfair Display', serif; color: #5C4A4A;">
+        Shop
+      </h3>
+
+      <ul class="space-y-3 text-sm secondary-text" style="color: #7A6A6A;">
+        <li><a href="shop.html" class="hover:text-[#d89ca4] transition">All Products</a></li>
+        <li><a href="shop.html?category=skincare" class="hover:text-[#d89ca4] transition">Skincare</a></li>
+        <li><a href="shop.html?category=self-care" class="hover:text-[#d89ca4] transition">Self-Care</a></li>
+        <li><a href="shop.html?category=bundles" class="hover:text-[#d89ca4] transition">Bundles</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h3 class="text-xl mb-5 main-text" style="font-family: 'Playfair Display', serif; color: #5C4A4A;">
+        Explore
+      </h3>
+
+      <ul class="space-y-3 text-sm secondary-text" style="color: #7A6A6A;">
+     <li><a href="#skin-quiz" class="hover:text-[#d89ca4] transition">Skin Quiz</a></li>
+<li><a href="#about" class="hover:text-[#d89ca4] transition">About</a></li>
+<li><a href="#contact" class="hover:text-[#d89ca4] transition">Contact</a></li>
+<li><a href="#" class="hover:text-[#d89ca4] transition">Saved Routine</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h3 class="text-xl mb-5 main-text" style="font-family: 'Playfair Display', serif; color: #5C4A4A;">
+        Follow Us
+      </h3>
+
+      <div class="flex gap-4">
+<a href="http://tiktok.com/@ivy_facialglow?lang=en" target="_blank" class="w-12 h-12 rounded-full border border-[#ead9dd] flex items-center justify-center text-[#d89ca4] hover:bg-[#d89ca4] hover:text-white transition">
+  TT
+</a>
+
+<a href="https://wa.link/w482ij" target="_blank" class="w-12 h-12 rounded-full border border-[#ead9dd] flex items-center justify-center text-[#d89ca4] hover:bg-[#d89ca4] hover:text-white transition">
+  WA
+</a>
+
+<a href="https://chat.whatsapp.com/HvgAGmtSjR1Cr3qPrimYsr?mode=gi_t" target="_blank" class="w-12 h-12 rounded-full border border-[#ead9dd] flex items-center justify-center text-[#d89ca4] hover:bg-[#d89ca4] hover:text-white transition">
+  WG
+</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="border-t border-[#ead9dd] pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-sm secondary-text" style="color: #7A6A6A;">
+    <p>© 2026 IvyFacialGlow. All rights reserved.</p>
+
+    <div class="flex gap-6">
+      <a href="#" class="hover:text-[#d89ca4] transition">Privacy Policy</a>
+      <a href="#" class="hover:text-[#d89ca4] transition">Terms</a>
+      <a href="admin-login.html" class="hover:text-[#d89ca4] transition">Admin</a>
+    </div>
+  </div>
+</footer>
+
+<button id="back-to-top" class="fixed bottom-6 right-6 w-14 h-14 rounded-full border border-[#ead9dd] bg-white/80 backdrop-blur-md text-[#d89ca4] text-2xl shadow-lg opacity-0 pointer-events-none transition-all duration-300 z-50">
+  ↑
+  </button>
+
+  
+
+
+<script>
+  async function subscribeNewsletter(event) {
+    event.preventDefault();
+
+    const email = document.getElementById("newNewsletterEmail").value;
+    const msg = document.getElementById("newsletterMsg");
+
+    try {
+      const response = await fetch("https://formspree.io/f/mojylrjq", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({ email: email })
+      });
+
+      if (response.ok) {
+        window.location.href = "./thank-you.html";
+      } else {
+        msg.textContent = "Something went wrong. Please try again.";
+      }
+    } catch (error) {
+      msg.textContent = "Network error. Please try again.";
+    }
+  }
+</script>
+<script type="module" src="js/main.js"></script>
+<script src="js/quiz.js"></script>
+  </body>
+</html>
