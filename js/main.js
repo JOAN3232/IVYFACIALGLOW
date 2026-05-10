@@ -10,38 +10,97 @@ function injectSharedThemeStyles() {
   style.id = "ivy-shared-theme-styles";
   style.textContent = `
     #mobile-menu-overlay {
-      padding: 1rem;
-      background: rgba(55, 44, 48, 0.28) !important;
-      backdrop-filter: blur(18px);
+      padding: 0;
+      background: rgba(31, 24, 29, 0.42) !important;
+      backdrop-filter: blur(10px);
+      justify-content: flex-end !important;
+      align-items: stretch !important;
+    }
+
+    #menu-btn {
+      font-size: 0 !important;
+      gap: 0.22rem;
+      flex-direction: column;
+      background: transparent !important;
+      border: 0 !important;
+      box-shadow: none !important;
+      border-radius: 0 !important;
+    }
+
+    #menu-btn::before,
+    #menu-btn::after,
+    #menu-btn .hamburger-line {
+      content: "";
+      display: block;
+      width: 1.15rem;
+      height: 2px;
+      border-radius: 999px;
+      background: #5c4a4a;
     }
 
     #mobile-menu-overlay > div {
-      width: min(92vw, 23rem) !important;
-      max-height: min(88vh, 40rem);
+      width: min(86vw, 22rem) !important;
+      min-height: 100vh;
+      max-height: 100vh;
       overflow-y: auto;
-      border-radius: 1.75rem !important;
-      border: 1px solid rgba(234, 217, 221, 0.95);
-      background: rgba(255, 252, 252, 0.94) !important;
-      box-shadow: 0 24px 70px rgba(92, 74, 74, 0.22);
+      border-radius: 0 !important;
+      border: 0 !important;
+      border-left: 1px solid rgba(234, 217, 221, 0.95) !important;
+      background:
+        linear-gradient(180deg, rgba(255, 250, 251, 0.98), rgba(255, 247, 248, 0.98)) !important;
+      box-shadow: -24px 0 70px rgba(92, 74, 74, 0.22);
+      padding: 1.4rem 1.25rem 1.6rem !important;
+    }
+
+    #mobile-menu-overlay > div > a:first-of-type {
+      display: block;
+      width: min-content;
+      max-width: 12rem;
+      margin: 0 3rem 1.6rem 0;
+      font-size: clamp(2rem, 8vw, 2.6rem) !important;
+      line-height: 1 !important;
+      color: #d89ca4 !important;
     }
 
     #mobile-menu-overlay .mobile-link {
-      display: block;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
       width: 100%;
-      border-radius: 999px;
-      padding: 0.7rem 1rem;
+      border-radius: 0.95rem;
+      min-height: 3rem;
+      padding: 0.75rem 0.95rem;
       color: #5c4a4a !important;
-      transition: background 180ms ease, color 180ms ease, transform 180ms ease;
+      font-size: 0.95rem !important;
+      line-height: 1.2 !important;
+      font-weight: 600 !important;
+      letter-spacing: 0 !important;
+      border: 1px solid transparent;
+      transition: background 180ms ease, color 180ms ease, border-color 180ms ease, transform 180ms ease;
     }
 
     #mobile-menu-overlay .mobile-link:hover {
-      background: #fff1f3;
+      background: rgba(255, 241, 243, 0.86);
+      border-color: #ead9dd;
       color: #c98590 !important;
-      transform: translateY(-1px);
+      transform: translateX(2px);
     }
 
     #mobile-menu-overlay ul {
       gap: 0.35rem !important;
+      font-size: 1rem !important;
+      line-height: 1.2 !important;
+      margin: 0 !important;
+      padding: 0.85rem 0 !important;
+      border-top: 1px solid #f1e4e7;
+      border-bottom: 1px solid #f1e4e7;
+    }
+
+    #mobile-menu-overlay [data-auth-actions],
+    #mobile-menu-overlay #mobile-auth-area,
+    #mobile-menu-overlay .mt-8 {
+      margin-top: 1.1rem !important;
+      gap: 0.55rem !important;
     }
 
     #mobile-menu-overlay #mobile-theme-toggle,
@@ -49,16 +108,26 @@ function injectSharedThemeStyles() {
     #mobile-menu-overlay #mobileLogoutBtn,
     #mobile-menu-overlay [data-auth="orders"] {
       min-height: 2.75rem;
-      border-radius: 999px !important;
+      border-radius: 0.95rem !important;
+      padding: 0.7rem 1rem !important;
+      font-size: 0.9rem !important;
+      font-weight: 600 !important;
+      line-height: 1.2 !important;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.72);
     }
 
     #close-menu {
-      width: 2.4rem;
-      height: 2.4rem;
+      width: 2.1rem;
+      height: 2.1rem;
       border-radius: 999px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      font-size: 1.45rem !important;
+      line-height: 1 !important;
+      top: 1.2rem !important;
+      right: 1.2rem !important;
       transition: background 180ms ease, color 180ms ease;
     }
 
@@ -129,9 +198,14 @@ function injectSharedThemeStyles() {
     }
 
     body.dark-mode #mobile-menu-overlay > div {
-      background: rgba(36, 29, 33, 0.96) !important;
+      background:
+        linear-gradient(180deg, rgba(36, 29, 33, 0.98), rgba(31, 24, 29, 0.98)) !important;
       border-color: #4a3b42;
-      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.38);
+      box-shadow: -24px 0 70px rgba(0, 0, 0, 0.42);
+    }
+
+    body.dark-mode #mobile-menu-overlay ul {
+      border-color: #4a3b42 !important;
     }
 
     body.dark-mode #mobile-menu-overlay .mobile-link,
@@ -146,12 +220,32 @@ function injectSharedThemeStyles() {
       color: #f0aebb !important;
     }
 
+    body.dark-mode #mobile-menu-overlay #mobile-theme-toggle,
+    body.dark-mode #mobile-menu-overlay #mobileLoginBtn,
+    body.dark-mode #mobile-menu-overlay #mobileLogoutBtn,
+    body.dark-mode #mobile-menu-overlay [data-auth="orders"] {
+      background: rgba(31, 24, 29, 0.84) !important;
+      border-color: #57464e !important;
+    }
+
     body.dark-mode #back-to-top,
     body.dark-mode #menu-btn,
     body.dark-mode #accountDropdown {
       background: rgba(36, 29, 33, 0.94) !important;
       border-color: #4a3b42 !important;
       color: #f5e9ec !important;
+    }
+
+    body.dark-mode #menu-btn {
+      background: transparent !important;
+      border: 0 !important;
+      box-shadow: none !important;
+    }
+
+    body.dark-mode #menu-btn::before,
+    body.dark-mode #menu-btn::after,
+    body.dark-mode #menu-btn .hamburger-line {
+      background: #f5e9ec;
     }
   `;
 
