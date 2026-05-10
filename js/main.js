@@ -9,12 +9,104 @@ function injectSharedThemeStyles() {
   const style = document.createElement("style");
   style.id = "ivy-shared-theme-styles";
   style.textContent = `
+    :root {
+      --ivy-ease: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    @keyframes ivyFadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes ivyBackdropIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes ivyMenuSlideIn {
+      from {
+        opacity: 0;
+        transform: translateX(1.4rem);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes ivySheetSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(1rem);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    .ivy-reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition:
+        opacity 700ms var(--ivy-ease),
+        transform 700ms var(--ivy-ease);
+      transition-delay: var(--ivy-reveal-delay, 0ms);
+      will-change: opacity, transform;
+    }
+
+    .ivy-reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .shop-card,
+    .product-card,
+    .cart-card,
+    .checkout-card,
+    .order-card,
+    .summary-card,
+    #ordersContainer > *,
+    #cartItems > *,
+    #checkoutItems > *,
+    #productsGrid > * {
+      transition:
+        transform 260ms var(--ivy-ease),
+        box-shadow 260ms ease,
+        border-color 260ms ease,
+        background-color 260ms ease;
+    }
+
+    .shop-card:hover,
+    .product-card:hover,
+    #productsGrid > article:hover {
+      transform: translateY(-4px);
+    }
+
     #mobile-menu-overlay {
       padding: 0;
       background: rgba(31, 24, 29, 0.42) !important;
       backdrop-filter: blur(10px);
       justify-content: flex-end !important;
       align-items: stretch !important;
+    }
+
+    #mobile-menu-overlay.flex {
+      animation: ivyBackdropIn 220ms ease-out both;
     }
 
     #menu-btn {
@@ -136,6 +228,66 @@ function injectSharedThemeStyles() {
       color: #c98590;
     }
 
+    #mobile-menu-overlay.flex > div {
+      animation: ivyMenuSlideIn 360ms var(--ivy-ease) both;
+    }
+
+    #productDrawerOverlay:not(.hidden),
+    #mobileFilterOverlay:not(.hidden),
+    #quiz-modal.flex {
+      animation: ivyBackdropIn 220ms ease-out both;
+    }
+
+    #productDrawer,
+    #mobileFilterDrawer,
+    .drawer-panel,
+    .mobile-filter-panel {
+      transition:
+        transform 420ms var(--ivy-ease),
+        opacity 260ms ease !important;
+      will-change: transform, opacity;
+    }
+
+    #productDrawer.drawer-open,
+    #mobileFilterDrawer.drawer-open {
+      animation: ivySheetSlideIn 360ms var(--ivy-ease) both;
+    }
+
+    button,
+    a,
+    input,
+    textarea,
+    select {
+      transition:
+        background-color 220ms ease,
+        border-color 220ms ease,
+        color 220ms ease,
+        box-shadow 220ms ease,
+        transform 220ms var(--ivy-ease);
+    }
+
+    button:hover,
+    a[href]:hover {
+      transform: translateY(-1px);
+    }
+
+    #menu-btn::before,
+    #menu-btn::after,
+    #menu-btn .hamburger-line {
+      transition:
+        transform 240ms var(--ivy-ease),
+        opacity 200ms ease,
+        background-color 220ms ease;
+    }
+
+    #menu-btn:hover::before {
+      transform: translateX(-2px);
+    }
+
+    #menu-btn:hover::after {
+      transform: translateX(2px);
+    }
+
     body.dark-mode {
       background: #1f1a1d !important;
       color: #f5e9ec !important;
@@ -247,6 +399,25 @@ function injectSharedThemeStyles() {
     body.dark-mode #menu-btn .hamburger-line {
       background: #f5e9ec;
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 1ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 1ms !important;
+      }
+
+      .ivy-reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
   `;
 
   document.head.appendChild(style);
@@ -271,6 +442,59 @@ function updateCartCount() {
 window.updateCartCount = updateCartCount;
 window.addEventListener("cartUpdated", updateCartCount);
 document.addEventListener("DOMContentLoaded", updateCartCount);
+
+function setupRevealAnimations(root = document) {
+  const elements = Array.from(
+    root.querySelectorAll(
+      [
+        "main > section",
+        "footer",
+        ".shop-card",
+        ".product-card",
+        ".cart-card",
+        ".checkout-card",
+        ".summary-card",
+        "#productsGrid > *",
+        "#cartItems > *",
+        "#checkoutItems > *",
+        "#ordersContainer > *",
+      ].join(",")
+    )
+  ).filter((element) => {
+    return (
+      !element.classList.contains("ivy-reveal") &&
+      !element.closest("#mobile-menu-overlay") &&
+      !element.closest("#productDrawer") &&
+      !element.closest("#mobileFilterDrawer")
+    );
+  });
+
+  if (!elements.length) return;
+
+  if (!("IntersectionObserver" in window)) {
+    elements.forEach((element) => element.classList.add("ivy-reveal", "is-visible"));
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      });
+    },
+    { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+  );
+
+  elements.forEach((element, index) => {
+    element.classList.add("ivy-reveal");
+    element.style.setProperty("--ivy-reveal-delay", `${Math.min(index % 6, 5) * 55}ms`);
+    observer.observe(element);
+  });
+}
+
+window.setupIvyAnimations = setupRevealAnimations;
 
 function applySavedTheme() {
   document.body.classList.toggle("dark-mode", localStorage.getItem("theme") === "dark");
@@ -363,6 +587,8 @@ document.addEventListener("click", async (e) => {
 // MAIN UI INIT
 // =================================
 document.addEventListener("DOMContentLoaded", () => {
+  setupRevealAnimations();
+
   // ACCOUNT DROPDOWN
   const accountBtn = document.getElementById("accountBtn");
   const accountDropdown = document.getElementById("accountDropdown");

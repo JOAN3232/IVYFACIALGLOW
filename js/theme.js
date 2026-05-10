@@ -4,6 +4,98 @@ function injectThemeStyles() {
   const style = document.createElement("style");
   style.id = "ivy-shared-theme-styles";
   style.textContent = `
+    :root {
+      --ivy-ease: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    @keyframes ivyFadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes ivySoftPop {
+      from {
+        opacity: 0;
+        transform: translateY(12px) scale(0.985);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes ivyMenuDrop {
+      from {
+        opacity: 0;
+        transform: translateY(-0.5rem);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    button,
+    a,
+    input,
+    textarea,
+    select {
+      transition:
+        background-color 220ms ease,
+        border-color 220ms ease,
+        color 220ms ease,
+        box-shadow 220ms ease,
+        transform 220ms var(--ivy-ease);
+    }
+
+    button:hover,
+    a[href]:hover {
+      transform: translateY(-1px);
+    }
+
+    body.auth-page main > section:first-child,
+    body.auth-page .auth-panel,
+    body.auth-page .login-panel {
+      animation: ivySoftPop 640ms var(--ivy-ease) both;
+    }
+
+    body.auth-page main > section:first-child {
+      animation-delay: 80ms;
+    }
+
+    body.admin-page .glass-panel,
+    body.admin-page .stat-card,
+    body.admin-page #adminProductsContainer > *,
+    body.admin-page #ordersContainer > * {
+      animation: ivyFadeUp 620ms var(--ivy-ease) both;
+    }
+
+    body.admin-page .stat-card:nth-child(2),
+    body.admin-page #adminProductsContainer > *:nth-child(2),
+    body.admin-page #ordersContainer > *:nth-child(2) {
+      animation-delay: 70ms;
+    }
+
+    body.admin-page .stat-card:nth-child(3),
+    body.admin-page #adminProductsContainer > *:nth-child(3),
+    body.admin-page #ordersContainer > *:nth-child(3) {
+      animation-delay: 140ms;
+    }
+
+    body.admin-page .admin-actions.is-open {
+      animation: ivyMenuDrop 240ms var(--ivy-ease) both;
+    }
+
     body.dark-mode {
       background:
         radial-gradient(circle at top right, rgba(216, 156, 164, 0.12), transparent 34rem),
@@ -299,6 +391,20 @@ function injectThemeStyles() {
     body.admin-page.dark-mode .text-\\[\\#b98a92\\],
     body.admin-page.dark-mode .text-\\[\\#d89ca4\\] {
       color: #f0aebb !important;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 1ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 1ms !important;
+      }
     }
   `;
 

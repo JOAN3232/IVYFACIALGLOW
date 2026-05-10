@@ -170,6 +170,7 @@ function displayProducts(items) {
         </p>
       </div>
     `;
+    window.setupIvyAnimations?.(productsGrid);
     return;
   }
 
@@ -203,6 +204,8 @@ function displayProducts(items) {
       </article>
     `;
   });
+
+  window.setupIvyAnimations?.(productsGrid);
 }
 
 function applyFilters() {

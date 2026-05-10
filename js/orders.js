@@ -324,6 +324,7 @@ async function loadOrders() {
   }
 
   container.innerHTML = orders.map(renderOrderCard).join("");
+  window.setupIvyAnimations?.(container);
   isLoadingOrders = false;
 }
 
