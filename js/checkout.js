@@ -111,44 +111,73 @@ function refresh() {
 window.addEventListener("cartUpdated", refresh);
 
 // =========================
-// PLACE ORDER (SUPABASE)
+// PAYMENT CONFIRMATION + PLACE ORDER
 // =========================
 function setupPlaceOrder(user) {
   const placeOrderBtn = document.getElementById("placeOrderBtn");
+  const confirmTransferBtn = document.getElementById("confirmTransferBtn");
   const checkoutForm = document.getElementById("checkoutForm");
   const successBox = document.getElementById("orderSuccess");
-  let isPlacingOrder = false;
+  const paymentStatusText = document.getElementById("paymentStatusText");
+  const paymentConfirmedModal = document.getElementById("paymentConfirmedModal");
+  const continueAfterPaymentBtn = document.getElementById("continueAfterPaymentBtn");
+  const pendingOrderKey = `ivy_pending_payment_order_${user.id}`;
+  let isSubmittingPayment = false;
+  let confirmedOrderId = "";
+  let paymentChannel = null;
 
-  placeOrderBtn?.addEventListener("click", async () => {
-    if (isPlacingOrder) return;
+  function setPaymentMessage(message) {
+    if (paymentStatusText) paymentStatusText.textContent = message;
+  }
 
+  function lockPlaceOrder(message = "Place Order unlocks after the admin confirms your payment.") {
+    if (placeOrderBtn) {
+      placeOrderBtn.disabled = true;
+      placeOrderBtn.textContent = "Place Order";
+    }
+    setPaymentMessage(message);
+  }
+
+  function unlockPlaceOrder(orderId, showModal = true) {
+    confirmedOrderId = orderId;
+    if (placeOrderBtn) {
+      placeOrderBtn.disabled = false;
+      placeOrderBtn.textContent = "Place Order";
+    }
+    if (confirmTransferBtn) {
+      confirmTransferBtn.disabled = true;
+      confirmTransferBtn.textContent = "Payment Confirmed";
+    }
+    setPaymentMessage("Payment received. You can now place your order.");
+
+    if (showModal) {
+      paymentConfirmedModal?.classList.remove("hidden");
+      paymentConfirmedModal?.classList.add("flex");
+    }
+  }
+
+  function validateCheckoutDetails() {
     const cart = getCart();
-
-    const name = document.getElementById("fullName")?.value;
-    const phone = document.getElementById("phone")?.value;
-    const email = document.getElementById("email")?.value || user.email;
-    const address = document.getElementById("address")?.value;
+    const name = document.getElementById("fullName")?.value.trim();
+    const phone = document.getElementById("phone")?.value.trim();
+    const email = document.getElementById("email")?.value.trim() || user.email;
+    const address = document.getElementById("address")?.value.trim();
 
     if (!name || !phone || !address) {
       alert("Please fill in required fields");
-      return;
+      return null;
     }
 
     if (!cart.length) {
       alert("Cart is empty");
-      return;
+      return null;
     }
 
-    const delivery = Number(
-      document.getElementById("deliverySelect")?.value || 0,
-    );
-
-    const subtotal = cart.reduce((sum, i) => sum + i.price * i.quantity, 0);
-
+    const delivery = Number(document.getElementById("deliverySelect")?.value || 0);
+    const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
     const total = subtotal + delivery;
 
-    // 🔥 INSERT ORDER INTO SUPABASE
-    const orderForDatabase = {
+    return {
       user_id: user.id,
       full_name: name,
       phone,
@@ -158,40 +187,129 @@ function setupPlaceOrder(user) {
       subtotal,
       delivery,
       total,
-      status: "pending",
+      payment_method: "bank-transfer",
+      payment_status: "awaiting_confirmation",
+      status: "awaiting_payment",
       created_at: new Date().toISOString(),
     };
+  }
 
-    isPlacingOrder = true;
-    if (placeOrderBtn) {
-      placeOrderBtn.disabled = true;
-      placeOrderBtn.textContent = "Placing order...";
+  function watchPaymentConfirmation(orderId) {
+    if (!orderId) return;
+    if (paymentChannel) supabase.removeChannel(paymentChannel);
+
+    paymentChannel = supabase
+      .channel(`checkout-payment-${orderId}`)
+      .on(
+        "postgres_changes",
+        {
+          event: "UPDATE",
+          schema: "public",
+          table: "orders",
+          filter: `id=eq.${orderId}`,
+        },
+        (payload) => {
+          const order = payload.new;
+          if (order?.payment_status === "confirmed") {
+            unlockPlaceOrder(order.id, true);
+          }
+        }
+      )
+      .subscribe();
+  }
+
+  async function restorePendingPayment() {
+    const pendingOrderId = sessionStorage.getItem(pendingOrderKey);
+    if (!pendingOrderId) {
+      lockPlaceOrder();
+      return;
     }
 
-    const { error } = await supabase
+    const { data, error } = await supabase
       .from("orders")
-      .insert([orderForDatabase]);
+      .select("id,payment_status,status")
+      .eq("id", pendingOrderId)
+      .eq("user_id", user.id)
+      .maybeSingle();
+
+    if (error || !data || ["cancelled", "deleted"].includes(String(data.status || "").toLowerCase())) {
+      sessionStorage.removeItem(pendingOrderKey);
+      lockPlaceOrder();
+      return;
+    }
+
+    watchPaymentConfirmation(data.id);
+
+    if (data.payment_status === "confirmed") {
+      unlockPlaceOrder(data.id, false);
+      return;
+    }
+
+    if (confirmTransferBtn) {
+      confirmTransferBtn.disabled = true;
+      confirmTransferBtn.textContent = "Waiting For Admin Confirmation";
+    }
+    lockPlaceOrder("Transfer submitted. Waiting for admin to confirm payment.");
+  }
+
+  confirmTransferBtn?.addEventListener("click", async () => {
+    if (isSubmittingPayment) return;
+
+    const orderForDatabase = validateCheckoutDetails();
+    if (!orderForDatabase) return;
+
+    isSubmittingPayment = true;
+    if (confirmTransferBtn) {
+      confirmTransferBtn.disabled = true;
+      confirmTransferBtn.textContent = "Sending for confirmation...";
+    }
+    lockPlaceOrder("Sending your payment confirmation to admin...");
+
+    const { data, error } = await supabase
+      .from("orders")
+      .insert([orderForDatabase])
+      .select("id")
+      .single();
 
     if (error) {
       console.log("ORDER ERROR:", error);
       alert(error.message);
-      isPlacingOrder = false;
-      if (placeOrderBtn) {
-        placeOrderBtn.disabled = false;
-        placeOrderBtn.textContent = "Place Order";
+      isSubmittingPayment = false;
+      if (confirmTransferBtn) {
+        confirmTransferBtn.disabled = false;
+        confirmTransferBtn.textContent = "I Have Made The Transfer";
       }
+      lockPlaceOrder();
       return;
     }
 
-    // clear cart
+    sessionStorage.setItem(pendingOrderKey, data.id);
+    watchPaymentConfirmation(data.id);
+    setPaymentMessage("Transfer submitted. Waiting for admin to confirm payment.");
+    if (confirmTransferBtn) confirmTransferBtn.textContent = "Waiting For Admin Confirmation";
+  });
+
+  placeOrderBtn?.addEventListener("click", () => {
+    if (!confirmedOrderId) {
+      alert("Please wait for admin to confirm your payment first.");
+      return;
+    }
+
     localStorage.removeItem("cart");
-
+    sessionStorage.removeItem(pendingOrderKey);
     refresh();
-
     checkoutForm?.classList.add("hidden");
     successBox?.classList.remove("hidden");
+
     setTimeout(() => {
       window.location.href = "orders.html";
     }, 1500);
   });
+
+  continueAfterPaymentBtn?.addEventListener("click", () => {
+    paymentConfirmedModal?.classList.add("hidden");
+    paymentConfirmedModal?.classList.remove("flex");
+  });
+
+  restorePendingPayment();
 }

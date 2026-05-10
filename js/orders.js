@@ -43,6 +43,7 @@ function getShortOrderId(orderId) {
 
 function normalizeStatus(status) {
   const value = String(status || "pending").toLowerCase();
+  if (["awaiting_payment", "payment_pending"].includes(value)) return "awaiting_payment";
   if (["accepted", "approved", "confirmed"].includes(value)) return "approved";
   if (["preparing", "processing"].includes(value)) return "preparing";
   if (["out_for_delivery", "out-for-delivery", "delivery"].includes(value)) return "out_for_delivery";
@@ -53,6 +54,17 @@ function normalizeStatus(status) {
 
 function getStatusMeta(status) {
   const normalized = normalizeStatus(status);
+
+  if (normalized === "awaiting_payment") {
+    return {
+      label: "Awaiting Payment",
+      badgeClass: "bg-pink-100 text-pink-700 border-pink-200",
+      messageClass: "bg-pink-50 border-pink-200",
+      title: "Waiting for payment confirmation",
+      body: "Your transfer has been sent to admin for confirmation. Once confirmed, your order will move to pending approval.",
+      activeStep: 0,
+    };
+  }
 
   if (normalized === "approved") {
     return {
@@ -190,7 +202,7 @@ async function fetchRemoteOrders(user) {
 function renderOrderCard(order) {
   const status = getStatusMeta(order.status);
   const items = Array.isArray(order.items) ? order.items : [];
-  const canCancel = normalizeStatus(order.status) === "pending";
+  const canCancel = ["awaiting_payment", "pending"].includes(normalizeStatus(order.status));
   const orderNumber = getShortOrderId(order.id);
 
   return `
@@ -364,7 +376,7 @@ async function cancelOrder(orderId) {
     .update({ status: "cancelled" })
     .eq("id", orderId)
     .eq("user_id", currentUser.id)
-    .eq("status", "pending")
+    .in("status", ["awaiting_payment", "pending"])
     .select("id");
 
   if (error) {

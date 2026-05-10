@@ -77,7 +77,7 @@ for update
 to authenticated
 using (
   user_id = auth.uid()
-  and status = 'pending'
+  and status in ('awaiting_payment', 'pending')
 )
 with check (
   user_id = auth.uid()
@@ -91,7 +91,7 @@ for delete
 to authenticated
 using (
   user_id = auth.uid()
-  and status = 'pending'
+  and status in ('awaiting_payment', 'pending')
 );
 
 drop policy if exists "Admins can delete orders" on public.orders;
@@ -108,6 +108,9 @@ on public.orders (user_id, created_at desc);
 
 create index if not exists orders_status_created_at_idx
 on public.orders (status, created_at desc);
+
+create index if not exists orders_payment_status_created_at_idx
+on public.orders (payment_status, created_at desc);
 
 do $$
 begin

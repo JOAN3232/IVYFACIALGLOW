@@ -60,6 +60,7 @@ function getShortOrderId(orderId) {
 
 function normalizeOrderStatus(status) {
   const value = String(status || "pending").toLowerCase();
+  if (["awaiting_payment", "payment_pending"].includes(value)) return "awaiting_payment";
   if (["accepted", "approved", "confirmed"].includes(value)) return "approved";
   if (["preparing", "processing"].includes(value)) return "preparing";
   if (["out_for_delivery", "out-for-delivery", "delivery"].includes(value)) return "out_for_delivery";
@@ -70,6 +71,12 @@ function normalizeOrderStatus(status) {
 function getOrderStatusMeta(status) {
   const normalized = normalizeOrderStatus(status);
   const meta = {
+    awaiting_payment: {
+      label: "Awaiting Payment",
+      badgeClass: "bg-pink-100 text-pink-700",
+      nextLabel: "Confirm Payment",
+      nextStatus: "pending",
+    },
     pending: {
       label: "Pending",
       badgeClass: "bg-yellow-100 text-yellow-700",
@@ -401,9 +408,11 @@ async function checkAdmin() {
 
 function updateOrderStats(orders) {
   totalOrdersEl.textContent = orders.length;
-  pendingOrdersEl.textContent = orders.filter((o) => normalizeOrderStatus(o.status) === "pending").length;
+  pendingOrdersEl.textContent = orders.filter((o) =>
+    ["awaiting_payment", "pending"].includes(normalizeOrderStatus(o.status))
+  ).length;
   approvedOrdersEl.textContent = orders.filter(
-    (o) => normalizeOrderStatus(o.status) !== "pending"
+    (o) => !["awaiting_payment", "pending"].includes(normalizeOrderStatus(o.status))
   ).length;
 }
 
@@ -424,6 +433,12 @@ function renderOrders(orders) {
   ordersContainer.innerHTML = orders.map((order) => {
     const items = Array.isArray(order.items) ? order.items : [];
     const status = getOrderStatusMeta(order.status);
+    const normalizedStatus = normalizeOrderStatus(order.status);
+    const paymentConfirmed = order.payment_status === "confirmed";
+    const paymentLabel = paymentConfirmed ? "Payment Confirmed" : "Awaiting Payment";
+    const paymentClass = paymentConfirmed
+      ? "bg-green-50 text-green-700 border-green-200"
+      : "bg-pink-50 text-pink-700 border-pink-200";
     const orderNumber = getShortOrderId(order.id);
 
     return `
@@ -456,6 +471,14 @@ function renderOrders(orders) {
             <p class="text-xs text-[#9b8a8a] mb-1">Delivery</p>
             <p class="font-medium text-[#5C4A4A]">${escapeHtml(order.address || "N/A")}</p>
           </div>
+          <div class="rounded-2xl border p-3 ${paymentClass}">
+            <p class="text-xs mb-1">Payment</p>
+            <p class="font-medium">${paymentLabel}</p>
+          </div>
+          <div class="rounded-2xl bg-[#fffafa] border border-[#f1e4e7] p-3">
+            <p class="text-xs text-[#9b8a8a] mb-1">Method</p>
+            <p class="font-medium text-[#5C4A4A]">${escapeHtml(order.payment_method || "bank-transfer")}</p>
+          </div>
         </div>
 
         <div class="mb-5">
@@ -481,7 +504,11 @@ function renderOrders(orders) {
 
           <div class="flex flex-col sm:flex-row gap-2">
             ${
-              status.nextStatus
+              normalizedStatus === "awaiting_payment"
+                ? `<button onclick="confirmOrderPayment('${escapeHtml(order.id)}')" class="px-5 py-2.5 rounded-full bg-[#d89ca4] hover:bg-[#c98590] transition text-white text-sm font-medium">
+                    Confirm Payment
+                  </button>`
+                : status.nextStatus
                 ? `<button onclick="updateOrderStatus('${escapeHtml(order.id)}', '${status.nextStatus}')" class="px-5 py-2.5 rounded-full bg-[#5C4A4A] hover:bg-green-600 transition text-white text-sm font-medium">
                     ${status.nextLabel}
                   </button>`
@@ -531,6 +558,25 @@ window.updateOrderStatus = async function (orderId, status) {
   }
 
   alert("Order status updated.");
+  loadAdminOrders();
+};
+
+window.confirmOrderPayment = async function (orderId) {
+  const { error } = await adminSupabase
+    .from("orders")
+    .update({
+      payment_status: "confirmed",
+      status: "pending",
+    })
+    .eq("id", orderId);
+
+  if (error) {
+    console.log(error);
+    alert("Could not confirm payment.");
+    return;
+  }
+
+  alert("Payment confirmed. The buyer can now place the order.");
   loadAdminOrders();
 };
 

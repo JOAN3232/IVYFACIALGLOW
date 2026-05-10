@@ -353,6 +353,12 @@ function injectThemeStyles() {
       color: #f09aa7 !important;
     }
 
+    body.admin-page.dark-mode .bg-pink-50,
+    body.admin-page.dark-mode .bg-pink-100 {
+      background-color: rgba(216, 156, 164, 0.15) !important;
+      color: #f0aebb !important;
+    }
+
     body.admin-page.dark-mode button.bg-\\[\\#5C4A4A\\] {
       background: #d89ca4 !important;
       color: #241d21 !important;
