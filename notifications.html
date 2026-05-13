@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IvyFacialGlow | Notifications</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@600;700;800&family=Poppins:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <body class="bg-[#fffafa] text-[#5C4A4A]" style="font-family: 'Poppins', sans-serif;">
+    <nav
+      id="navbar"
+      class="sticky top-0 z-50 flex items-center justify-between border-b border-stone-200 bg-white/80 px-6 py-5 backdrop-blur-md md:px-12"
+    >
+      <a href="index.html" class="text-4xl tracking-wide text-[#d89ca4]" style="font-family: 'Great Vibes', cursive;">
+        IvyFacialGlow
+      </a>
+
+      <div class="flex items-center gap-3">
+        <a href="orders.html" class="rounded-full border border-[#ead9dd] px-5 py-2 text-sm hover:bg-[#fff7f8]">
+          My Orders
+        </a>
+        <a href="shop.html" class="rounded-full bg-[#d89ca4] px-5 py-2 text-sm text-white">
+          Shop
+        </a>
+      </div>
+    </nav>
+
+    <main class="px-6 py-14 md:px-12">
+      <section class="mx-auto max-w-3xl">
+        <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p class="mb-3 text-xs uppercase tracking-[0.3em] text-[#b98a92]">
+              Order Updates
+            </p>
+            <h1 class="text-4xl text-[#5C4A4A]" style="font-family: 'Playfair Display', serif;">
+              Notifications
+            </h1>
+          </div>
+
+          <button
+            id="markAllReadBtn"
+            type="button"
+            class="w-fit rounded-full border border-[#ead9dd] bg-white px-5 py-3 text-sm font-medium hover:bg-[#fff7f8]"
+          >
+            Mark All Read
+          </button>
+        </div>
+
+        <div
+          id="notificationsEmpty"
+          class="hidden rounded-[1.5rem] border border-[#ead9dd] bg-white p-8 text-center"
+        >
+          <h2 class="mb-2 text-xl font-semibold text-[#5C4A4A]">No notifications yet</h2>
+          <p class="text-sm leading-6 text-[#7A6A6A]">
+            Your payment, approval, delivery, and order updates will appear here.
+          </p>
+        </div>
+
+        <div id="notificationsList" class="grid gap-4"></div>
+      </section>
+    </main>
+
+    <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/notifications-page.js"></script>
+  </body>
+</html>

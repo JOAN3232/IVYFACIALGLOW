@@ -112,6 +112,59 @@ function getOrderStatusMeta(status) {
   return meta[normalized] || meta.pending;
 }
 
+function getCustomerNotification(status, orderId) {
+  const orderNumber = getShortOrderId(orderId);
+  const normalized = normalizeOrderStatus(status);
+  const copy = {
+    pending: {
+      title: "Your payment has been confirmed",
+      message: `Order #${orderNumber} is ready for you to place your order.`,
+    },
+    approved: {
+      title: "Your order has been approved",
+      message: `Order #${orderNumber} has been approved and will be prepared soon.`,
+    },
+    preparing: {
+      title: "Your order is being prepared",
+      message: `Order #${orderNumber} is now being packed.`,
+    },
+    out_for_delivery: {
+      title: "Your order is out for delivery",
+      message: `Order #${orderNumber} is on its way. Please keep your phone available.`,
+    },
+    delivered: {
+      title: "Your order has been delivered",
+      message: `Order #${orderNumber} has been marked as delivered. Thank you for shopping with IvyFacialGlow.`,
+    },
+    cancelled: {
+      title: "Your order was cancelled",
+      message: `Order #${orderNumber} has been cancelled.`,
+    },
+  };
+
+  return copy[normalized] || {
+    title: "Your order status changed",
+    message: `Order #${orderNumber} has been updated.`,
+  };
+}
+
+async function createCustomerNotification(order, status) {
+  if (!order?.user_id) return;
+
+  const notification = getCustomerNotification(status, order.id);
+  const { error } = await adminSupabase.from("notifications").insert([
+    {
+      user_id: order.user_id,
+      order_id: order.id,
+      type: "order_update",
+      title: notification.title,
+      message: notification.message,
+    },
+  ]);
+
+  if (error) console.log("NOTIFICATION ERROR:", error);
+}
+
 function getBaseProducts() {
   return typeof products !== "undefined" ? products : window.products || [];
 }
@@ -546,10 +599,12 @@ async function loadAdminOrders() {
 }
 
 window.updateOrderStatus = async function (orderId, status) {
-  const { error } = await adminSupabase
+  const { data, error } = await adminSupabase
     .from("orders")
     .update({ status })
-    .eq("id", orderId);
+    .eq("id", orderId)
+    .select("id,user_id,status")
+    .single();
 
   if (error) {
     console.log(error);
@@ -557,18 +612,21 @@ window.updateOrderStatus = async function (orderId, status) {
     return;
   }
 
+  await createCustomerNotification(data, status);
   alert("Order status updated.");
   loadAdminOrders();
 };
 
 window.confirmOrderPayment = async function (orderId) {
-  const { error } = await adminSupabase
+  const { data, error } = await adminSupabase
     .from("orders")
     .update({
       payment_status: "confirmed",
       status: "pending",
     })
-    .eq("id", orderId);
+    .eq("id", orderId)
+    .select("id,user_id,status")
+    .single();
 
   if (error) {
     console.log(error);
@@ -576,6 +634,7 @@ window.confirmOrderPayment = async function (orderId) {
     return;
   }
 
+  await createCustomerNotification(data, "pending");
   alert("Payment confirmed. The buyer can now place the order.");
   loadAdminOrders();
 };

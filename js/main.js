@@ -1,5 +1,6 @@
 import { getCurrentUser, listenToAuthChanges } from "./auth.js";
 import { supabase } from "./supabaseClient.js";
+import { initIvyNotifications } from "./notifications.js";
 
 const ADMIN_EMAILS = ["ivyfacialsaesthetics@gmail.com"];
 
@@ -588,6 +589,7 @@ document.addEventListener("click", async (e) => {
 // =================================
 document.addEventListener("DOMContentLoaded", () => {
   setupRevealAnimations();
+  initIvyNotifications();
 
   // ACCOUNT DROPDOWN
   const accountBtn = document.getElementById("accountBtn");

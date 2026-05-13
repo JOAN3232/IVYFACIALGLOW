@@ -181,6 +181,39 @@
       </section>
     </main>
 
+    <div
+      id="continueCheckoutModal"
+      class="fixed inset-0 z-[99999] hidden items-center justify-center bg-[#1f181d]/45 px-5 backdrop-blur-md"
+    >
+      <div class="w-full max-w-sm rounded-[2rem] border border-[#ead9dd] bg-white p-7 text-center shadow-2xl">
+        <p class="mb-3 text-xs uppercase tracking-[0.22em] text-[#b98a92]">
+          Checkout Found
+        </p>
+        <h3 class="display-font mb-3 text-3xl text-[#5C4A4A]">
+          Continue your checkout?
+        </h3>
+        <p id="continueCheckoutMessage" class="mb-6 text-sm leading-6 text-[#7A6A6A]">
+          You have an unfinished checkout waiting on this account.
+        </p>
+        <div class="flex flex-col gap-3">
+          <button
+            id="continueCheckoutBtn"
+            type="button"
+            class="w-full rounded-full bg-[#d89ca4] px-6 py-4 text-sm font-medium text-white"
+          >
+            Continue Checkout
+          </button>
+          <button
+            id="skipContinueCheckoutBtn"
+            type="button"
+            class="w-full rounded-full border border-[#ead9dd] px-6 py-4 text-sm font-medium text-[#5C4A4A]"
+          >
+            Not Now
+          </button>
+        </div>
+      </div>
+    </div>
+
     <script type="module" src="js/theme.js"></script>
     <script type="module" src="js/login.js"></script>
   </body>

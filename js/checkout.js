@@ -122,9 +122,127 @@ function setupPlaceOrder(user) {
   const paymentConfirmedModal = document.getElementById("paymentConfirmedModal");
   const continueAfterPaymentBtn = document.getElementById("continueAfterPaymentBtn");
   const pendingOrderKey = `ivy_pending_payment_order_${user.id}`;
+  const checkoutDraftKey = `ivy_checkout_draft_${user.id}`;
   let isSubmittingPayment = false;
   let confirmedOrderId = "";
   let paymentChannel = null;
+  let draftSaveTimer = null;
+  let isRestoringCheckout = false;
+  let shouldSyncCheckoutDraft = true;
+
+  const draftFields = ["fullName", "phone", "email", "deliverySelect", "address", "notes"];
+
+  function getSavedPendingOrderId() {
+    const savedOrderId = localStorage.getItem(pendingOrderKey) || sessionStorage.getItem(pendingOrderKey) || "";
+
+    if (savedOrderId && !localStorage.getItem(pendingOrderKey)) {
+      localStorage.setItem(pendingOrderKey, savedOrderId);
+    }
+
+    return savedOrderId;
+  }
+
+  function savePendingOrderId(orderId) {
+    localStorage.setItem(pendingOrderKey, orderId);
+    sessionStorage.setItem(pendingOrderKey, orderId);
+  }
+
+  function clearPendingOrderId() {
+    localStorage.removeItem(pendingOrderKey);
+    sessionStorage.removeItem(pendingOrderKey);
+  }
+
+  function fillCheckoutField(fieldId, value) {
+    const field = document.getElementById(fieldId);
+    if (field && value !== undefined && value !== null) field.value = value;
+  }
+
+  function restoreCheckoutFromOrder(order) {
+    if (!order) return;
+
+    fillCheckoutField("fullName", order.full_name);
+    fillCheckoutField("phone", order.phone);
+    fillCheckoutField("email", order.email || user.email);
+    fillCheckoutField("address", order.address);
+    fillCheckoutField("deliverySelect", String(order.delivery || 0));
+
+    if (Array.isArray(order.items) && order.items.length) {
+      localStorage.setItem("cart", JSON.stringify(order.items));
+      window.dispatchEvent(new Event("cartUpdated"));
+    }
+
+    saveCheckoutDraft();
+    refresh();
+  }
+
+  function getCheckoutDraftPayload() {
+    return {
+      user_id: user.id,
+      full_name: document.getElementById("fullName")?.value.trim() || null,
+      phone: document.getElementById("phone")?.value.trim() || null,
+      email: document.getElementById("email")?.value.trim() || user.email,
+      address: document.getElementById("address")?.value.trim() || null,
+      notes: document.getElementById("notes")?.value.trim() || null,
+      delivery: Number(document.getElementById("deliverySelect")?.value || 0),
+      items: getCart(),
+      updated_at: new Date().toISOString(),
+    };
+  }
+
+  async function saveRemoteCheckoutDraft() {
+    if (isRestoringCheckout || !shouldSyncCheckoutDraft) return;
+
+    const draft = getCheckoutDraftPayload();
+    const hasCheckoutProgress =
+      draft.items.length || draft.full_name || draft.phone || draft.address || draft.notes;
+
+    if (!hasCheckoutProgress) return;
+
+    await supabase.from("checkout_drafts").upsert(draft, { onConflict: "user_id" });
+  }
+
+  function scheduleRemoteCheckoutDraftSave() {
+    window.clearTimeout(draftSaveTimer);
+    draftSaveTimer = window.setTimeout(saveRemoteCheckoutDraft, 450);
+  }
+
+  function saveCheckoutDraft() {
+    const draft = {};
+
+    draftFields.forEach((fieldId) => {
+      const field = document.getElementById(fieldId);
+      if (field) draft[fieldId] = field.value;
+    });
+
+    localStorage.setItem(checkoutDraftKey, JSON.stringify(draft));
+    scheduleRemoteCheckoutDraftSave();
+  }
+
+  function restoreCheckoutDraft() {
+    let savedDraft = {};
+
+    try {
+      savedDraft = JSON.parse(localStorage.getItem(checkoutDraftKey) || "{}");
+    } catch (error) {
+      localStorage.removeItem(checkoutDraftKey);
+    }
+
+    draftFields.forEach((fieldId) => {
+      const field = document.getElementById(fieldId);
+      if (field && Object.prototype.hasOwnProperty.call(savedDraft, fieldId)) {
+        field.value = savedDraft[fieldId];
+      }
+    });
+
+    refresh();
+  }
+
+  draftFields.forEach((fieldId) => {
+    const field = document.getElementById(fieldId);
+    field?.addEventListener("input", saveCheckoutDraft);
+    field?.addEventListener("change", saveCheckoutDraft);
+  });
+  window.addEventListener("cartUpdated", saveCheckoutDraft);
 
   function setPaymentMessage(message) {
     if (paymentStatusText) paymentStatusText.textContent = message;
@@ -219,30 +337,38 @@ function setupPlaceOrder(user) {
   }
 
   async function restorePendingPayment() {
-    const pendingOrderId = sessionStorage.getItem(pendingOrderKey);
-    if (!pendingOrderId) {
-      lockPlaceOrder();
-      return;
+    const params = new URLSearchParams(window.location.search);
+    const orderFromUrl = params.get("order");
+    const pendingOrderId = orderFromUrl || getSavedPendingOrderId();
+    let query = supabase
+      .from("orders")
+      .select("id,user_id,full_name,phone,email,address,items,delivery,payment_status,status,created_at")
+      .eq("user_id", user.id)
+      .in("status", ["awaiting_payment"]);
+
+    if (pendingOrderId) {
+      query = query.eq("id", pendingOrderId).maybeSingle();
+    } else {
+      query = query.order("created_at", { ascending: false }).limit(1).maybeSingle();
     }
 
-    const { data, error } = await supabase
-      .from("orders")
-      .select("id,payment_status,status")
-      .eq("id", pendingOrderId)
-      .eq("user_id", user.id)
-      .maybeSingle();
+    const { data, error } = await query;
 
     if (error || !data || ["cancelled", "deleted"].includes(String(data.status || "").toLowerCase())) {
-      sessionStorage.removeItem(pendingOrderKey);
+      clearPendingOrderId();
       lockPlaceOrder();
-      return;
+      return false;
     }
 
+    isRestoringCheckout = true;
+    savePendingOrderId(data.id);
+    restoreCheckoutFromOrder(data);
+    isRestoringCheckout = false;
     watchPaymentConfirmation(data.id);
 
     if (data.payment_status === "confirmed") {
       unlockPlaceOrder(data.id, false);
-      return;
+      return true;
     }
 
     if (confirmTransferBtn) {
@@ -250,6 +376,33 @@ function setupPlaceOrder(user) {
       confirmTransferBtn.textContent = "Waiting For Admin Confirmation";
     }
     lockPlaceOrder("Transfer submitted. Waiting for admin to confirm payment.");
+    return true;
+  }
+
+  async function restoreRemoteCheckoutDraft() {
+    const { data, error } = await supabase
+      .from("checkout_drafts")
+      .select("full_name,phone,email,address,notes,delivery,items")
+      .eq("user_id", user.id)
+      .maybeSingle();
+
+    if (error || !data) return;
+
+    isRestoringCheckout = true;
+    fillCheckoutField("fullName", data.full_name);
+    fillCheckoutField("phone", data.phone);
+    fillCheckoutField("email", data.email || user.email);
+    fillCheckoutField("address", data.address);
+    fillCheckoutField("notes", data.notes);
+    fillCheckoutField("deliverySelect", String(data.delivery || 0));
+
+    if (Array.isArray(data.items) && data.items.length) {
+      localStorage.setItem("cart", JSON.stringify(data.items));
+    }
+
+    saveCheckoutDraft();
+    refresh();
+    isRestoringCheckout = false;
   }
 
   confirmTransferBtn?.addEventListener("click", async () => {
@@ -283,20 +436,28 @@ function setupPlaceOrder(user) {
       return;
     }
 
-    sessionStorage.setItem(pendingOrderKey, data.id);
+    saveCheckoutDraft();
+    savePendingOrderId(data.id);
+    shouldSyncCheckoutDraft = false;
+    window.clearTimeout(draftSaveTimer);
+    await supabase.from("checkout_drafts").delete().eq("user_id", user.id);
     watchPaymentConfirmation(data.id);
     setPaymentMessage("Transfer submitted. Waiting for admin to confirm payment.");
     if (confirmTransferBtn) confirmTransferBtn.textContent = "Waiting For Admin Confirmation";
   });
 
-  placeOrderBtn?.addEventListener("click", () => {
+  placeOrderBtn?.addEventListener("click", async () => {
     if (!confirmedOrderId) {
       alert("Please wait for admin to confirm your payment first.");
       return;
     }
 
     localStorage.removeItem("cart");
-    sessionStorage.removeItem(pendingOrderKey);
+    localStorage.removeItem(checkoutDraftKey);
+    clearPendingOrderId();
+    shouldSyncCheckoutDraft = false;
+    window.clearTimeout(draftSaveTimer);
+    await supabase.from("checkout_drafts").delete().eq("user_id", user.id);
     refresh();
     checkoutForm?.classList.add("hidden");
     successBox?.classList.remove("hidden");
@@ -311,5 +472,15 @@ function setupPlaceOrder(user) {
     paymentConfirmedModal?.classList.remove("flex");
   });
 
-  restorePendingPayment();
+  async function initCheckoutProgress() {
+    restoreCheckoutDraft();
+
+    const restoredPendingPayment = await restorePendingPayment();
+    if (restoredPendingPayment) return;
+
+    await restoreRemoteCheckoutDraft();
+    scheduleRemoteCheckoutDraftSave();
+  }
+
+  initCheckoutProgress();
 }
