@@ -157,6 +157,18 @@
 </a>
 
 <a
+  href="notifications.html"
+  data-auth="notifications"
+  class="flex items-center justify-between gap-3 px-4 py-3 rounded-2xl hover:bg-[#fff7f8] transition text-[#5C4A4A] text-sm font-medium"
+>
+  <span class="flex items-center gap-3">
+    <span class="text-lg">🔔</span>
+    Notifications
+  </span>
+  <span class="ivy-notification-badge" data-notification-count>0</span>
+</a>
+
+<a
   href="admin-login.html"
   id="adminLink"
   class="hidden flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-[#fff7f8] transition text-[#5C4A4A] text-sm font-medium"
@@ -241,6 +253,7 @@
             Login
           </a>
           <a href="orders.html" data-auth="orders" class="hidden rounded-full py-3 border border-[#ead9dd] text-base" style="color:#5c4a4a;">My Orders</a>
+          <a href="notifications.html" data-auth="notifications" class="hidden rounded-full py-3 border border-[#ead9dd] text-base" style="color:#5c4a4a;">Notifications <span class="ivy-notification-badge" data-notification-count>0</span></a>
           <button id="mobileLogoutBtn" data-auth="logout" class="hidden rounded-full py-3 border border-[#ead9dd] text-base" style="color:#5c4a4a;">Logout</button>
         </div>
       </div>
