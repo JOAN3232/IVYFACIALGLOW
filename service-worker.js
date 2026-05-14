@@ -1,4 +1,4 @@
-const CACHE_NAME = "ivyfacialglow-v1";
+const CACHE_NAME = "ivyfacialglow-v2";
 const APP_SHELL = [
   "index.html",
   "shop.html",

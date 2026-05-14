@@ -58,9 +58,12 @@ function showInstallHint({ isIos = false } = {}) {
 
 function setupPwaInstall() {
   if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("service-worker.js").catch((error) => {
-      console.log("Service worker registration failed:", error);
-    });
+    navigator.serviceWorker
+      .register("service-worker.js", { updateViaCache: "none" })
+      .then((registration) => registration.update())
+      .catch((error) => {
+        console.log("Service worker registration failed:", error);
+      });
   }
 
   window.addEventListener("beforeinstallprompt", (event) => {
