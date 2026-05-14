@@ -101,40 +101,12 @@ function injectSharedThemeStyles() {
       padding: 0 1.25rem;
     }
 
-    .ivy-nav-topbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      min-height: 2.15rem;
-      border-bottom: 1px solid #f3e5e8;
-      font-size: 0.72rem;
-      color: #7a6a6a;
-    }
-
-    .ivy-nav-topbar a {
-      color: inherit;
-      transition: color 180ms ease;
-    }
-
-    .ivy-nav-topbar a:hover {
-      color: #d89ca4;
-    }
-
-    .ivy-nav-top-links,
-    .ivy-nav-socials {
-      display: flex;
-      align-items: center;
-      gap: 1.1rem;
-      white-space: nowrap;
-    }
-
     .ivy-nav-mainrow {
       display: grid;
-      grid-template-columns: minmax(11rem, 17rem) 1fr auto;
+      grid-template-columns: minmax(10.5rem, 15rem) minmax(22rem, 1fr) auto;
       align-items: center;
-      gap: 1.5rem;
-      min-height: 4.45rem;
+      gap: 1.25rem;
+      min-height: 5rem;
     }
 
     .ivy-brand-target {
@@ -144,7 +116,7 @@ function injectSharedThemeStyles() {
       white-space: nowrap;
       font-family: "Great Vibes", cursive;
       color: #d89ca4;
-      font-size: clamp(2.25rem, 3.1vw, 3rem) !important;
+      font-size: clamp(2rem, 2.8vw, 2.65rem) !important;
       line-height: 1;
       letter-spacing: 0 !important;
     }
@@ -153,10 +125,10 @@ function injectSharedThemeStyles() {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: clamp(1.25rem, 2.4vw, 2.4rem);
+      gap: clamp(1rem, 2vw, 2rem);
       color: #5c4a4a;
-      font-size: 0.95rem;
-      font-weight: 500;
+      font-size: 0.92rem;
+      font-weight: 600;
     }
 
     .ivy-nav-links a {
@@ -189,22 +161,6 @@ function injectSharedThemeStyles() {
       justify-content: flex-end;
       gap: 0.72rem;
       min-width: 0;
-    }
-
-    .ivy-nav-promo {
-      display: block;
-      margin-bottom: 0.35rem;
-      background: #111;
-      color: #fff;
-      text-align: center;
-      font-size: 0.75rem;
-      line-height: 1.1;
-      padding: 0.58rem 1rem;
-    }
-
-    .ivy-nav-promo a {
-      color: #f7c6ce;
-      font-weight: 600;
     }
 
     .ivy-nav-icon-row {
@@ -759,9 +715,8 @@ function injectSharedThemeStyles() {
         padding: 0 0.9rem;
       }
 
-      .ivy-nav-topbar,
       .ivy-nav-mainrow,
-      .ivy-nav-promo {
+      .ivy-nav-links {
         display: none;
       }
 
@@ -787,7 +742,7 @@ function injectSharedThemeStyles() {
 
     @media (min-width: 768px) and (max-width: 1180px) {
       .ivy-nav-mainrow {
-        grid-template-columns: minmax(10rem, 13rem) 1fr auto;
+        grid-template-columns: minmax(9rem, 12rem) 1fr auto;
         gap: 1rem;
       }
 
@@ -885,7 +840,9 @@ function applySavedTheme() {
 function updateThemeButtonLabels() {
   const isDark = document.body.classList.contains("dark-mode");
   document.querySelectorAll("#theme-toggle, #mobile-theme-toggle").forEach((button) => {
-    button.textContent = isDark ? "Light Mode" : "Dark Mode";
+    if (!button.classList.contains("ivy-nav-icon-btn")) {
+      button.textContent = isDark ? "Light Mode" : "Dark Mode";
+    }
     button.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
   });
 }
@@ -936,18 +893,6 @@ function renderReferenceNavbar() {
   navbar.dataset.ivyNavReady = "true";
   navbar.innerHTML = `
     <div class="ivy-nav-shell">
-      <div class="ivy-nav-topbar">
-        <div class="ivy-nav-top-links">
-          <a href="privacy-policy.html">Privacy</a>
-          <a href="terms.html">Terms</a>
-          <a href="orders.html">Track Order</a>
-        </div>
-        <div class="ivy-nav-socials">
-          <a href="notifications.html">Notifications</a>
-          <a href="https://wa.link/w482ij" target="_blank" rel="noopener">WhatsApp</a>
-        </div>
-      </div>
-
       <div class="ivy-nav-mainrow">
         <a href="index.html" class="ivy-brand-target">IvyFacialGlow</a>
 
@@ -957,10 +902,10 @@ function renderReferenceNavbar() {
           <a href="${getNavHref("skin-quiz")}">Skin Quiz</a>
           <a href="${getNavHref("about")}">About</a>
           <a href="${getNavHref("contact")}">Contact</a>
+          <a href="orders.html" class="${linkClass("orders")}">Orders</a>
         </div>
 
         <div class="ivy-nav-actions">
-          <button id="theme-toggle" type="button" class="ivy-nav-pill">Dark Mode</button>
           <a href="cart.html" class="ivy-nav-icon-btn" data-nav-cart aria-label="Open cart">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
               <path d="M6 8h12l-1 11H7L6 8Z" />
@@ -976,6 +921,11 @@ function renderReferenceNavbar() {
             </svg>
             <span class="ivy-nav-count" data-notification-count data-empty="true">0</span>
           </a>
+          <button id="theme-toggle" type="button" class="ivy-nav-icon-btn" aria-label="Toggle dark mode">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M12 3a6 6 0 0 0 9 7 9 9 0 1 1-9-7Z" />
+            </svg>
+          </button>
           <a id="loginBtn" href="login.html" class="ivy-nav-pill">Login</a>
           <div class="ivy-nav-account hidden" id="accountWrapper">
             <button id="accountBtn" type="button" class="ivy-nav-pill">My Account ▾</button>
@@ -1028,10 +978,6 @@ function renderReferenceNavbar() {
           </button>
         </div>
       </div>
-
-      <a class="ivy-nav-promo" href="shop.html">
-        Soft glow essentials are ready. Shop skincare, self-care, and beauty picks now.
-      </a>
     </div>
   `;
 
