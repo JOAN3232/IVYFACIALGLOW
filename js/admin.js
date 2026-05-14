@@ -127,6 +127,16 @@ function normalizeOrderStatus(status) {
   return "pending";
 }
 
+function getEffectiveOrderStatus(order) {
+  const normalized = normalizeOrderStatus(order?.status);
+
+  if (order?.payment_status === "confirmed" && normalized === "awaiting_payment") {
+    return "pending";
+  }
+
+  return normalized;
+}
+
 function getOrderStatusMeta(status) {
   const normalized = normalizeOrderStatus(status);
   const meta = {
@@ -556,10 +566,10 @@ async function checkAdmin() {
 function updateOrderStats(orders) {
   totalOrdersEl.textContent = orders.length;
   pendingOrdersEl.textContent = orders.filter((o) =>
-    ["awaiting_payment", "pending"].includes(normalizeOrderStatus(o.status))
+    ["awaiting_payment", "pending"].includes(getEffectiveOrderStatus(o))
   ).length;
   approvedOrdersEl.textContent = orders.filter(
-    (o) => !["awaiting_payment", "pending"].includes(normalizeOrderStatus(o.status))
+    (o) => !["awaiting_payment", "pending"].includes(getEffectiveOrderStatus(o))
   ).length;
 }
 
@@ -579,9 +589,9 @@ function renderOrders(orders) {
 
   ordersContainer.innerHTML = orders.map((order) => {
     const items = Array.isArray(order.items) ? order.items : [];
-    const status = getOrderStatusMeta(order.status);
-    const normalizedStatus = normalizeOrderStatus(order.status);
     const paymentConfirmed = order.payment_status === "confirmed";
+    const normalizedStatus = getEffectiveOrderStatus(order);
+    const status = getOrderStatusMeta(normalizedStatus);
     const paymentLabel = paymentConfirmed ? "Payment Confirmed" : "Awaiting Payment";
     const paymentClass = paymentConfirmed
       ? "bg-green-50 text-green-700 border-green-200"
@@ -719,7 +729,7 @@ window.confirmOrderPayment = async function (orderId) {
       status: "pending",
     })
     .eq("id", orderId)
-    .select("id,user_id,status")
+    .select("id,user_id,status,payment_status")
     .single();
 
   if (error) {
@@ -729,12 +739,12 @@ window.confirmOrderPayment = async function (orderId) {
   }
 
   const notificationSaved = await createCustomerNotification(data, "pending");
+  await loadAdminOrders();
   alert(
     notificationSaved
       ? "Payment confirmed. The buyer can now place the order and has been notified."
       : "Payment confirmed. The buyer can now place the order."
   );
-  loadAdminOrders();
 };
 
 window.approveOrder = function (orderId) {
