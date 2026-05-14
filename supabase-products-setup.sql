@@ -30,7 +30,7 @@ drop policy if exists "Anyone can read active products" on public.products;
 create policy "Anyone can read active products"
 on public.products
 for select
-using (is_active = true);
+using (is_active = true or legacy_id is not null);
 
 drop policy if exists "Admins can read all products" on public.products;
 create policy "Admins can read all products"
@@ -38,7 +38,7 @@ on public.products
 for select
 to authenticated
 using (
-  auth.jwt() ->> 'email' in ('ivyfacialsaesthetics@gmail.com')
+  auth.jwt() ->> 'email' in ('ivyfacialsaesthetics@gmail.com', 'ivyfacialsasthetics@gmail.com')
 );
 
 drop policy if exists "Admins can insert products" on public.products;
@@ -47,7 +47,7 @@ on public.products
 for insert
 to authenticated
 with check (
-  auth.jwt() ->> 'email' in ('ivyfacialsaesthetics@gmail.com')
+  auth.jwt() ->> 'email' in ('ivyfacialsaesthetics@gmail.com', 'ivyfacialsasthetics@gmail.com')
 );
 
 drop policy if exists "Admins can update products" on public.products;
@@ -56,10 +56,10 @@ on public.products
 for update
 to authenticated
 using (
-  auth.jwt() ->> 'email' in ('ivyfacialsaesthetics@gmail.com')
+  auth.jwt() ->> 'email' in ('ivyfacialsaesthetics@gmail.com', 'ivyfacialsasthetics@gmail.com')
 )
 with check (
-  auth.jwt() ->> 'email' in ('ivyfacialsaesthetics@gmail.com')
+  auth.jwt() ->> 'email' in ('ivyfacialsaesthetics@gmail.com', 'ivyfacialsasthetics@gmail.com')
 );
 
 drop policy if exists "Admins can delete products" on public.products;
@@ -68,7 +68,7 @@ on public.products
 for delete
 to authenticated
 using (
-  auth.jwt() ->> 'email' in ('ivyfacialsaesthetics@gmail.com')
+  auth.jwt() ->> 'email' in ('ivyfacialsaesthetics@gmail.com', 'ivyfacialsasthetics@gmail.com')
 );
 
 insert into storage.buckets (id, name, public)
@@ -90,7 +90,7 @@ for insert
 to authenticated
 with check (
   bucket_id = 'product-images'
-  and auth.jwt() ->> 'email' in ('ivyfacialsaesthetics@gmail.com')
+  and auth.jwt() ->> 'email' in ('ivyfacialsaesthetics@gmail.com', 'ivyfacialsasthetics@gmail.com')
 );
 
 drop policy if exists "Admins can update product images" on storage.objects;
@@ -100,11 +100,11 @@ for update
 to authenticated
 using (
   bucket_id = 'product-images'
-  and auth.jwt() ->> 'email' in ('ivyfacialsaesthetics@gmail.com')
+  and auth.jwt() ->> 'email' in ('ivyfacialsaesthetics@gmail.com', 'ivyfacialsasthetics@gmail.com')
 )
 with check (
   bucket_id = 'product-images'
-  and auth.jwt() ->> 'email' in ('ivyfacialsaesthetics@gmail.com')
+  and auth.jwt() ->> 'email' in ('ivyfacialsaesthetics@gmail.com', 'ivyfacialsasthetics@gmail.com')
 );
 
 drop policy if exists "Admins can delete product images" on storage.objects;
@@ -114,5 +114,5 @@ for delete
 to authenticated
 using (
   bucket_id = 'product-images'
-  and auth.jwt() ->> 'email' in ('ivyfacialsaesthetics@gmail.com')
+  and auth.jwt() ->> 'email' in ('ivyfacialsaesthetics@gmail.com', 'ivyfacialsasthetics@gmail.com')
 );

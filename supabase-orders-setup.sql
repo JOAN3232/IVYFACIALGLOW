@@ -59,7 +59,7 @@ on public.orders
 for select
 to authenticated
 using (
-  auth.jwt() ->> 'email' in ('ivyfacialsaesthetics@gmail.com')
+  auth.jwt() ->> 'email' in ('ivyfacialsaesthetics@gmail.com', 'ivyfacialsasthetics@gmail.com')
 );
 
 drop policy if exists "Admins can approve orders" on public.orders;
@@ -68,10 +68,10 @@ on public.orders
 for update
 to authenticated
 using (
-  auth.jwt() ->> 'email' in ('ivyfacialsaesthetics@gmail.com')
+  auth.jwt() ->> 'email' in ('ivyfacialsaesthetics@gmail.com', 'ivyfacialsasthetics@gmail.com')
 )
 with check (
-  auth.jwt() ->> 'email' in ('ivyfacialsaesthetics@gmail.com')
+  auth.jwt() ->> 'email' in ('ivyfacialsaesthetics@gmail.com', 'ivyfacialsasthetics@gmail.com')
 );
 
 drop policy if exists "Customers can mark pending orders cancelled" on public.orders;
@@ -104,7 +104,7 @@ on public.orders
 for delete
 to authenticated
 using (
-  auth.jwt() ->> 'email' in ('ivyfacialsaesthetics@gmail.com')
+  auth.jwt() ->> 'email' in ('ivyfacialsaesthetics@gmail.com', 'ivyfacialsasthetics@gmail.com')
 );
 
 create index if not exists orders_user_id_created_at_idx
@@ -161,7 +161,7 @@ on public.notifications
 for insert
 to authenticated
 with check (
-  auth.jwt() ->> 'email' in ('ivyfacialsaesthetics@gmail.com')
+  auth.jwt() ->> 'email' in ('ivyfacialsaesthetics@gmail.com', 'ivyfacialsasthetics@gmail.com')
 );
 
 drop policy if exists "Admins can read customer notifications" on public.notifications;
@@ -170,7 +170,7 @@ on public.notifications
 for select
 to authenticated
 using (
-  auth.jwt() ->> 'email' in ('ivyfacialsaesthetics@gmail.com')
+  auth.jwt() ->> 'email' in ('ivyfacialsaesthetics@gmail.com', 'ivyfacialsasthetics@gmail.com')
 );
 
 create index if not exists notifications_user_id_created_at_idx

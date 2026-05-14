@@ -490,6 +490,32 @@ async function createReplacementForStoreProduct(product) {
   });
 }
 
+async function syncStoreProductAvailability(product, isActive) {
+  const payload = {
+    name: product.name,
+    price: Number(product.price || 0),
+    image_url: product.image,
+    category: product.category,
+    mood: product.mood,
+    description: product.description || null,
+    fun_fact: product.funFact || null,
+    legacy_id: String(product.id),
+    is_active: isActive,
+  };
+
+  const { error } = await adminSupabase
+    .from("products")
+    .upsert(payload, { onConflict: "legacy_id" });
+
+  if (error) {
+    console.log("STORE PRODUCT STOCK ERROR:", error);
+    setProductMessage(error.message || "Could not update product online.");
+    return false;
+  }
+
+  return true;
+}
+
 function updateLocalProduct(product) {
   const nextProducts = getAdminProducts().map((item) => {
     if (String(item.id) !== String(editingProduct.id)) return item;
@@ -808,6 +834,27 @@ window.toggleStock = async function (productId) {
     await loadRemoteProducts();
     renderProducts();
     setProductMessage("Product availability updated.");
+    return;
+  }
+
+  const storeProduct = getBaseProducts().find((product) => String(product.id) === String(productId));
+  if (storeProduct) {
+    const hiddenIds = new Set(getOutOfStockIds());
+    const shouldRestore = hiddenIds.has(String(productId));
+    const synced = await syncStoreProductAvailability(storeProduct, shouldRestore);
+
+    if (!synced) return;
+
+    if (shouldRestore) {
+      hiddenIds.delete(String(productId));
+    } else {
+      hiddenIds.add(String(productId));
+    }
+
+    writeJson(OUT_OF_STOCK_KEY, [...hiddenIds]);
+    await loadRemoteProducts();
+    renderProducts();
+    setProductMessage("Product availability updated online.");
     return;
   }
 

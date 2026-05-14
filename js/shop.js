@@ -75,7 +75,11 @@ function getVisibleProducts() {
       !removedIds.has(String(product.id))
   );
 
-  return [...visibleBaseProducts, ...remoteProducts, ...getStoredProducts()].filter(
+  return [
+    ...visibleBaseProducts,
+    ...remoteProducts.filter((product) => product.isActive !== false),
+    ...getStoredProducts(),
+  ].filter(
     (product) =>
       !hiddenIds.has(String(product.id)) &&
       !removedIds.has(String(product.id))
@@ -101,7 +105,6 @@ async function loadRemoteProducts() {
   const { data, error } = await supabase
     .from("products")
     .select("*")
-    .eq("is_active", true)
     .order("created_at", { ascending: false });
 
   if (error) {
