@@ -78,6 +78,7 @@ function ensureNotificationLinks() {
 function updateBadges(count) {
   document.querySelectorAll("[data-notification-count]").forEach((badge) => {
     badge.textContent = String(count);
+    badge.dataset.empty = count > 0 ? "false" : "true";
     badge.classList.toggle("is-visible", count > 0);
   });
 }

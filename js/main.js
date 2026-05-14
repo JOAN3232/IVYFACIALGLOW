@@ -84,6 +84,77 @@ function injectSharedThemeStyles() {
       --ivy-ease: cubic-bezier(0.22, 1, 0.36, 1);
     }
 
+    #navbar {
+      gap: 1rem;
+    }
+
+    #navbar > div:first-child,
+    #navbar > a:first-child {
+      flex: 0 1 auto;
+      min-width: 0;
+      max-width: min(42vw, 20rem);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: clamp(2rem, 4.4vw, 3rem) !important;
+      line-height: 1.05;
+    }
+
+    .ivy-nav-icon-row {
+      display: none;
+      align-items: center;
+      gap: 0.55rem;
+      margin-left: auto;
+    }
+
+    .ivy-nav-icon-btn {
+      position: relative;
+      display: inline-flex;
+      width: 2.65rem;
+      height: 2.65rem;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #ead9dd;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      color: #5c4a4a;
+      box-shadow: 0 10px 30px rgba(92, 74, 74, 0.08);
+      transition: background 180ms ease, transform 180ms ease, border-color 180ms ease;
+    }
+
+    .ivy-nav-icon-btn:hover {
+      background: #fff7f8;
+      border-color: #e0c8ce;
+      transform: translateY(-1px);
+    }
+
+    .ivy-nav-icon-btn svg {
+      width: 1.08rem;
+      height: 1.08rem;
+    }
+
+    .ivy-nav-count {
+      position: absolute;
+      top: -0.36rem;
+      right: -0.28rem;
+      min-width: 1.18rem;
+      height: 1.18rem;
+      padding: 0 0.22rem;
+      border-radius: 999px;
+      background: #d89ca4;
+      color: #fff;
+      font-size: 0.64rem;
+      line-height: 1.18rem;
+      text-align: center;
+      font-weight: 600;
+      box-shadow: 0 0 0 2px #fff;
+    }
+
+    .ivy-nav-count:empty,
+    .ivy-nav-count[data-empty="true"] {
+      display: none;
+    }
+
     @keyframes ivyFadeUp {
       from {
         opacity: 0;
@@ -453,16 +524,21 @@ function injectSharedThemeStyles() {
 
     body.dark-mode #back-to-top,
     body.dark-mode #menu-btn,
+    body.dark-mode .ivy-nav-icon-btn,
     body.dark-mode #accountDropdown {
       background: rgba(36, 29, 33, 0.94) !important;
       border-color: #4a3b42 !important;
       color: #f5e9ec !important;
     }
 
+    body.dark-mode .ivy-nav-count {
+      box-shadow: 0 0 0 2px #241d21;
+    }
+
     body.dark-mode #menu-btn {
-      background: transparent !important;
-      border: 0 !important;
-      box-shadow: none !important;
+      background: rgba(36, 29, 33, 0.94) !important;
+      border: 1px solid #4a3b42 !important;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18) !important;
     }
 
     body.dark-mode #menu-btn::before,
@@ -489,6 +565,44 @@ function injectSharedThemeStyles() {
         transform: none;
       }
     }
+
+    @media (max-width: 767px) {
+      #navbar {
+        padding: 0.85rem 1rem !important;
+        min-height: 4.6rem;
+      }
+
+      #navbar > div:first-child,
+      #navbar > a:first-child {
+        max-width: calc(100vw - 12.25rem);
+        font-size: clamp(1.85rem, 8.2vw, 2.45rem) !important;
+      }
+
+      .ivy-nav-icon-row {
+        display: inline-flex;
+      }
+
+      #menu-btn {
+        position: static !important;
+        z-index: auto !important;
+        width: 2.65rem !important;
+        height: 2.65rem !important;
+        flex: 0 0 2.65rem;
+        background: rgba(255, 255, 255, 0.9) !important;
+        box-shadow: 0 10px 30px rgba(92, 74, 74, 0.08) !important;
+      }
+    }
+
+    @media (min-width: 768px) and (max-width: 1180px) {
+      #navbar {
+        padding-left: 1.5rem !important;
+        padding-right: 1.5rem !important;
+      }
+
+      #navbar ul {
+        gap: 1.5rem !important;
+      }
+    }
   `;
 
   document.head.appendChild(style);
@@ -503,11 +617,11 @@ function updateCartCount() {
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
   const count = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
 
-  const el =
-    document.getElementById("cartCount") ||
-    document.getElementById("cart-count");
-
-  if (el) el.textContent = count;
+  const counters = document.querySelectorAll("#cartCount, #cart-count, [data-cart-count]");
+  counters.forEach((el) => {
+    el.textContent = String(count);
+    el.dataset.empty = count > 0 ? "false" : "true";
+  });
 }
 
 window.updateCartCount = updateCartCount;
@@ -587,6 +701,61 @@ function setTheme(isDark) {
 
 applySavedTheme();
 
+function createNavIcon({ href, label, badgeType, svg }) {
+  const link = document.createElement("a");
+  link.href = href;
+  link.className = "ivy-nav-icon-btn";
+  link.setAttribute("aria-label", label);
+  link.innerHTML = `
+    ${svg}
+    <span class="ivy-nav-count" ${badgeType === "cart" ? "data-cart-count" : "data-notification-count"} data-empty="true">0</span>
+  `;
+  return link;
+}
+
+function setupSharedNavActions() {
+  const navbar = document.getElementById("navbar");
+  if (!navbar || navbar.querySelector(".ivy-nav-icon-row")) return;
+
+  const row = document.createElement("div");
+  row.className = "ivy-nav-icon-row";
+
+  row.append(
+    createNavIcon({
+      href: "cart.html",
+      label: "Open cart",
+      badgeType: "cart",
+      svg: `
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M6 8h12l-1 11H7L6 8Z" />
+          <path d="M9 8V6a3 3 0 0 1 6 0v2" />
+        </svg>
+      `,
+    }),
+    createNavIcon({
+      href: "notifications.html",
+      label: "Open notifications",
+      badgeType: "notifications",
+      svg: `
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M15 17H9" />
+          <path d="M18 8a6 6 0 1 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9" />
+          <path d="M13.7 21a2 2 0 0 1-3.4 0" />
+        </svg>
+      `,
+    })
+  );
+
+  const menuBtn = document.getElementById("menu-btn");
+  if (menuBtn?.parentElement === navbar) {
+    navbar.insertBefore(row, menuBtn);
+  } else {
+    navbar.appendChild(row);
+  }
+
+  updateCartCount();
+}
+
 // =================================
 // AUTH UI
 // =================================
@@ -659,6 +828,7 @@ document.addEventListener("click", async (e) => {
 // =================================
 document.addEventListener("DOMContentLoaded", () => {
   setupRevealAnimations();
+  setupSharedNavActions();
   setupPwaInstall();
   initIvyNotifications();
 
