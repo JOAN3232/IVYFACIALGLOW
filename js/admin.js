@@ -564,11 +564,11 @@ async function checkAdmin() {
 }
 
 function updateOrderStats(orders) {
-  totalOrdersEl.textContent = orders.length;
-  pendingOrdersEl.textContent = orders.filter((o) =>
+  if (totalOrdersEl) totalOrdersEl.textContent = orders.length;
+  if (pendingOrdersEl) pendingOrdersEl.textContent = orders.filter((o) =>
     ["awaiting_payment", "pending"].includes(getEffectiveOrderStatus(o))
   ).length;
-  approvedOrdersEl.textContent = orders.filter(
+  if (approvedOrdersEl) approvedOrdersEl.textContent = orders.filter(
     (o) => !["awaiting_payment", "pending"].includes(getEffectiveOrderStatus(o))
   ).length;
 }
@@ -578,6 +578,8 @@ function isVisibleOrder(order) {
 }
 
 function renderOrders(orders) {
+  if (!ordersContainer) return;
+
   if (!orders.length) {
     ordersContainer.innerHTML = `
       <div class="bg-white border border-[#ead9dd] rounded-[1.5rem] p-8 text-center shadow-sm">
@@ -687,11 +689,20 @@ async function loadAdminOrders() {
   const { data: remoteOrders, error } = await adminSupabase
     .from("orders")
     .select("*")
-    .not("status", "in", "(cancelled,deleted)")
     .order("created_at", { ascending: false });
 
   if (error) {
-    console.log(error);
+    console.log("ADMIN ORDER LOAD ERROR:", error);
+    updateOrderStats([]);
+    if (ordersContainer) {
+      ordersContainer.innerHTML = `
+        <div class="bg-red-50 border border-red-100 rounded-[1.5rem] p-6 text-red-600">
+          <p class="font-semibold mb-2">Could not load orders.</p>
+          <p class="text-sm leading-6">${escapeHtml(error.message || "Check Supabase orders policies and grants.")}</p>
+        </div>
+      `;
+    }
+    return;
   }
 
   localStorage.removeItem("ivy_orders");
