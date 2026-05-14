@@ -782,6 +782,8 @@ window.deleteOrder = async function (orderId) {
 };
 
 function renderProducts() {
+  if (!adminProductsContainer) return;
+
   const hiddenIds = new Set(getOutOfStockIds());
   const removedIds = new Set(getRemovedProductIds());
   const replacedLegacyIds = new Set(
@@ -943,6 +945,8 @@ window.editProduct = function (productId) {
 };
 
 function setupProductForm() {
+  if (!productForm) return;
+
   productImageInput?.addEventListener("change", async () => {
     const file = productImageInput.files?.[0];
 
@@ -1045,8 +1049,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     window.location.href = "admin-login.html";
   });
 
-  setupProductForm();
-  await loadRemoteProducts();
-  renderProducts();
-  loadAdminOrders();
+  if (adminProductsContainer || productForm) {
+    setupProductForm();
+    await loadRemoteProducts();
+    renderProducts();
+  }
+
+  if (ordersContainer || totalOrdersEl || pendingOrdersEl || approvedOrdersEl) {
+    loadAdminOrders();
+  }
 });
