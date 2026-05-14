@@ -1,3 +1,5 @@
+// Builds the notifications page list, marks messages as read, and refreshes
+// when new order notifications arrive.
 import { getCurrentUser } from "./auth.js";
 import { supabase } from "./supabaseClient.js";
 

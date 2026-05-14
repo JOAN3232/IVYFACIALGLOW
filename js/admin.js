@@ -1,3 +1,5 @@
+// Runs the admin dashboard: order status management, customer notifications,
+// product creation/editing, image uploads, and admin session controls.
 import { adminSupabase } from "./adminClient.js";
 
 const ADMIN_EMAILS = [

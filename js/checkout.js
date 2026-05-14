@@ -1,5 +1,16 @@
+// Controls the checkout page: restores saved checkout progress, shows order
+// totals, creates transfer-payment orders, and waits for admin confirmation.
 import { getCurrentUser } from "./auth.js";
 import { supabase } from "./supabaseClient.js";
+
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
 
 // =========================
 // CART HELPERS
@@ -74,9 +85,9 @@ function renderCheckout(cart) {
     checkoutItems.innerHTML += `
       <div class="flex items-center justify-between text-sm border-b border-[#ead9dd] pb-3">
         <div class="flex items-center gap-3">
-          <img src="${item.image}" class="w-12 h-12 rounded-lg object-cover" />
+          <img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.name || "Product")}" class="w-12 h-12 rounded-lg object-cover" />
           <div>
-            <p class="font-medium">${item.name}</p>
+            <p class="font-medium">${escapeHtml(item.name)}</p>
             <p class="text-xs text-gray-500">Qty: ${item.quantity}</p>
           </div>
         </div>

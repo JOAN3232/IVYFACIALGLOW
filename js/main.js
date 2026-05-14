@@ -1,3 +1,5 @@
+// Shared storefront behavior: PWA install prompt, service worker registration,
+// account UI, cart count, page animations, and homepage interactions.
 import { getCurrentUser, listenToAuthChanges } from "./auth.js";
 import { supabase } from "./supabaseClient.js";
 import { initIvyNotifications } from "./notifications.js";
@@ -528,6 +530,93 @@ function injectSharedThemeStyles() {
     body.dark-mode #menu-btn::after,
     body.dark-mode #menu-btn .hamburger-line {
       background: #f5e9ec;
+    }
+
+    body.notifications-page.dark-mode .notif-shell {
+      background: rgba(38, 30, 35, 0.94) !important;
+      border-color: #5a4650 !important;
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.36) !important;
+    }
+
+    body.notifications-page.dark-mode .notif-shell > div:first-child {
+      border-color: #5a4650 !important;
+    }
+
+    body.notifications-page.dark-mode .notif-tab,
+    body.notifications-page.dark-mode #enableAlertsBtn {
+      background: #2a2026 !important;
+      border-color: #5a4650 !important;
+      color: #fff3f6 !important;
+    }
+
+    body.notifications-page.dark-mode .notif-tab.is-active,
+    body.notifications-page.dark-mode #markAllReadBtn {
+      background: #f0aebb !important;
+      border-color: #f0aebb !important;
+      color: #241d21 !important;
+    }
+
+    body.notifications-page.dark-mode #notificationStats > div,
+    body.notifications-page.dark-mode #notificationsEmpty > div {
+      background: rgba(31, 24, 29, 0.96) !important;
+      border-color: #5a4650 !important;
+      color: #f5e9ec !important;
+    }
+
+    body.notifications-page.dark-mode #notificationsList > article,
+    body.notifications-page.dark-mode #notificationsList > div {
+      background: rgba(31, 24, 29, 0.96) !important;
+      border-color: #5a4650 !important;
+      color: #f5e9ec !important;
+      box-shadow: none !important;
+    }
+
+    body.notifications-page.dark-mode #notificationsList > div.bg-\\[\\#fff5f6\\] {
+      background: rgba(50, 34, 41, 0.98) !important;
+      border-color: #9d6572 !important;
+    }
+
+    body.notifications-page.dark-mode #notificationsList .bg-white,
+    body.notifications-page.dark-mode #notificationsList .bg-white\\/70,
+    body.notifications-page.dark-mode #notificationsList .bg-white\\/88,
+    body.notifications-page.dark-mode #notificationsList .bg-\\[\\#fffafa\\],
+    body.notifications-page.dark-mode #notificationsList .bg-\\[\\#fff5f6\\],
+    body.notifications-page.dark-mode #notificationsList .bg-\\[\\#fff7f8\\] {
+      background-color: rgba(27, 21, 25, 0.9) !important;
+    }
+
+    body.notifications-page.dark-mode #notificationsList h2,
+    body.notifications-page.dark-mode #notificationsEmpty h2,
+    body.notifications-page.dark-mode #notificationStats p:last-child {
+      color: #fff3f6 !important;
+    }
+
+    body.notifications-page.dark-mode #notificationsList p,
+    body.notifications-page.dark-mode #notificationsEmpty p {
+      color: #dbcbd0 !important;
+    }
+
+    body.notifications-page.dark-mode #notificationsList > div > p:first-child,
+    body.notifications-page.dark-mode #notificationStats p:first-child,
+    body.notifications-page.dark-mode #notificationsList .text-\\[\\#b98a92\\],
+    body.notifications-page.dark-mode #notificationsList .text-\\[\\#d89ca4\\] {
+      color: #f0aebb !important;
+    }
+
+    body.notifications-page.dark-mode #notificationsList .text-\\[\\#5C4A4A\\] {
+      color: #fff3f6 !important;
+    }
+
+    body.notifications-page.dark-mode #notificationsList .text-\\[\\#7A6A6A\\],
+    body.notifications-page.dark-mode #notificationsList .text-\\[\\#9b6f77\\],
+    body.notifications-page.dark-mode #notificationsList .text-\\[\\#9f8c8c\\] {
+      color: #cdbfc3 !important;
+    }
+
+    body.notifications-page.dark-mode #notificationsList button[data-mark-read] {
+      background: #2a2026 !important;
+      border-color: #5a4650 !important;
+      color: #fff3f6 !important;
     }
 
     @media (prefers-reduced-motion: reduce) {

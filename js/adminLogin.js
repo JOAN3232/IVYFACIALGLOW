@@ -1,3 +1,5 @@
+// Handles admin-only login and checks the submitted email against the allowed
+// admin email list before opening the dashboard.
 import { adminSupabase } from "./adminClient.js";
 
 const ADMIN_EMAILS = [

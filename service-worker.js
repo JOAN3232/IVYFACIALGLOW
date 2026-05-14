@@ -1,4 +1,6 @@
-const CACHE_NAME = "ivyfacialglow-v6";
+// Offline/PWA service worker: precaches the app shell, clears old caches, and
+// serves cached pages/assets when the network is unavailable.
+const CACHE_NAME = "ivyfacialglow-v7";
 const APP_SHELL = [
   "index.html",
   "shop.html",
@@ -8,6 +10,9 @@ const APP_SHELL = [
   "notifications.html",
   "offline.html",
   "manifest.webmanifest",
+  "images/icons/favicon-32.png",
+  "images/icons/ivy-app-icon-192.png",
+  "images/icons/ivy-app-icon-512.png",
   "images/icons/ivy-app-icon.svg",
   "js/main.js",
   "js/auth.js",

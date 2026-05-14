@@ -4,7 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="manifest" href="manifest.webmanifest" />
-    <link rel="apple-touch-icon" href="images/icons/ivy-app-icon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="images/icons/favicon-32.png" />
+  <link rel="icon" type="image/svg+xml" href="images/icons/ivy-app-icon.svg" />
+    <link rel="apple-touch-icon" href="images/icons/ivy-app-icon-192.png" />
     <meta name="theme-color" content="#d89ca4" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
@@ -48,6 +50,97 @@
         border-color: #5c4a4a;
       }
 
+      body.dark-mode {
+        background:
+          radial-gradient(circle at top left, rgba(216, 156, 164, 0.13), transparent 28rem),
+          #1b1519;
+        color: #f5e9ec;
+      }
+
+      body.dark-mode nav {
+        background: rgba(27, 21, 25, 0.92) !important;
+        border-color: #4a3b42 !important;
+      }
+
+      body.dark-mode .brand-lockup {
+        color: #f0aebb !important;
+      }
+
+      body.dark-mode nav a[href="orders.html"],
+      body.dark-mode .notif-tab,
+      body.dark-mode #enableAlertsBtn {
+        background: #2a2026 !important;
+        border-color: #5a4650 !important;
+        color: #fff3f6 !important;
+      }
+
+      body.dark-mode .notif-tab.is-active,
+      body.dark-mode #markAllReadBtn {
+        background: #f0aebb !important;
+        border-color: #f0aebb !important;
+        color: #241d21 !important;
+      }
+
+      body.dark-mode .notif-shell {
+        background: rgba(38, 30, 35, 0.94) !important;
+        border-color: #5a4650 !important;
+        box-shadow: 0 24px 70px rgba(0, 0, 0, 0.36);
+      }
+
+      body.dark-mode .notif-shell > div:first-child {
+        border-color: #5a4650 !important;
+      }
+
+      body.dark-mode #notificationStats > div,
+      body.dark-mode #notificationsList article,
+      body.dark-mode #notificationsList > div,
+      body.dark-mode #notificationsEmpty > div {
+        background: rgba(31, 24, 29, 0.96) !important;
+        border-color: #5a4650 !important;
+        color: #f5e9ec !important;
+      }
+
+      body.dark-mode #notificationsList .bg-\[\#fff5f6\] {
+        background: rgba(50, 34, 41, 0.98) !important;
+        border-color: #9d6572 !important;
+      }
+
+      body.dark-mode #notificationsList .bg-white\/70,
+      body.dark-mode #notificationsList .bg-white,
+      body.dark-mode #notificationsList .bg-\[\#fffafa\],
+      body.dark-mode #notificationsList .bg-\[\#fff7f8\] {
+        background-color: rgba(27, 21, 25, 0.9) !important;
+      }
+
+      body.dark-mode #notificationsList h2,
+      body.dark-mode #notificationsEmpty h2,
+      body.dark-mode #notificationStats p:last-child {
+        color: #fff3f6 !important;
+      }
+
+      body.dark-mode #notificationsList p,
+      body.dark-mode #notificationsEmpty p {
+        color: #dbcbd0 !important;
+      }
+
+      body.dark-mode #notificationsList p:first-child,
+      body.dark-mode #notificationStats p:first-child,
+      body.dark-mode .text-\[\#b98a92\],
+      body.dark-mode .text-\[\#d89ca4\] {
+        color: #f0aebb !important;
+      }
+
+      body.dark-mode #notificationsList .text-\[\#9b6f77\],
+      body.dark-mode #notificationsList .text-\[\#9f8c8c\] {
+        color: #cdbfc3 !important;
+      }
+
+      body.dark-mode #notificationsList button[data-mark-read] {
+        background: #2a2026 !important;
+        border-color: #5a4650 !important;
+        color: #fff3f6 !important;
+      }
+
       @media (max-width: 520px) {
         .brand-lockup {
           font-size: 2.15rem;
@@ -60,7 +153,7 @@
     </style>
   </head>
 
-  <body class="min-h-screen text-[#5C4A4A]">
+  <body class="notifications-page min-h-screen text-[#5C4A4A]">
     <nav
       id="navbar"
       class="sticky top-0 z-50 border-b border-[#ead9dd] bg-white/88 px-5 py-4 backdrop-blur-xl md:px-12"

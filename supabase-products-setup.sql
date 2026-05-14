@@ -19,6 +19,11 @@ alter table public.products add column if not exists legacy_id text;
 create unique index if not exists products_legacy_id_key
 on public.products (legacy_id);
 
+grant usage on schema public to anon, authenticated, service_role;
+grant select on public.products to anon;
+grant select, insert, update, delete on public.products to authenticated;
+grant select, insert, update, delete on public.products to service_role;
+
 alter table public.products enable row level security;
 
 drop policy if exists "Anyone can read active products" on public.products;

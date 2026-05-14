@@ -1,3 +1,5 @@
+// Local fallback catalog used by the storefront before or alongside products
+// loaded from Supabase/admin-created entries.
 const products = [
   {
     id: 1,

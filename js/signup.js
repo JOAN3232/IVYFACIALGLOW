@@ -1,3 +1,4 @@
+// Handles buyer account creation and signup form loading/password UI states.
 import { supabase } from "./supabaseClient.js";
 
 // =====================

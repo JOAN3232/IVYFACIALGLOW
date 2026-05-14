@@ -1,7 +1,18 @@
+// Adds notification links/badges to the navigation, subscribes to Supabase
+// notification inserts, and shows toast/browser alerts for order updates.
 import { getCurrentUser } from "./auth.js";
 import { supabase } from "./supabaseClient.js";
 
 let notificationsChannel = null;
+
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
 
 function ensureNotificationStyles() {
   if (document.getElementById("ivy-notification-styles")) return;
@@ -103,8 +114,8 @@ function showToast(notification) {
   toast.className = "ivy-notification-toast";
   toast.innerHTML = `
     <p class="text-xs uppercase tracking-[0.22em] text-[#b98a92] mb-2">Order Update</p>
-    <p class="font-semibold mb-1">${notification.title || "Order update"}</p>
-    <p class="text-sm leading-6 text-[#7A6A6A]">${notification.message || "Your order has been updated."}</p>
+    <p class="font-semibold mb-1">${escapeHtml(notification.title || "Order update")}</p>
+    <p class="text-sm leading-6 text-[#7A6A6A]">${escapeHtml(notification.message || "Your order has been updated.")}</p>
     <a href="notifications.html" class="inline-block mt-3 text-sm font-semibold text-[#d89ca4]">View notifications</a>
   `;
   document.body.appendChild(toast);

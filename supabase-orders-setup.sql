@@ -33,6 +33,10 @@ alter table public.orders add column if not exists payment_status text not null 
 alter table public.orders add column if not exists status text not null default 'pending';
 alter table public.orders add column if not exists created_at timestamptz not null default now();
 
+grant usage on schema public to anon, authenticated, service_role;
+grant select, insert, update, delete on public.orders to authenticated;
+grant select, insert, update, delete on public.orders to service_role;
+
 alter table public.orders enable row level security;
 
 drop policy if exists "Customers can create their own orders" on public.orders;
@@ -131,6 +135,9 @@ alter table public.notifications add column if not exists message text;
 alter table public.notifications add column if not exists read_at timestamptz;
 alter table public.notifications add column if not exists created_at timestamptz not null default now();
 
+grant select, insert, update, delete on public.notifications to authenticated;
+grant select, insert, update, delete on public.notifications to service_role;
+
 alter table public.notifications enable row level security;
 
 drop policy if exists "Customers can read their own notifications" on public.notifications;
@@ -192,6 +199,9 @@ alter table public.checkout_drafts add column if not exists notes text;
 alter table public.checkout_drafts add column if not exists delivery numeric not null default 0;
 alter table public.checkout_drafts add column if not exists items jsonb not null default '[]'::jsonb;
 alter table public.checkout_drafts add column if not exists updated_at timestamptz not null default now();
+
+grant select, insert, update, delete on public.checkout_drafts to authenticated;
+grant select, insert, update, delete on public.checkout_drafts to service_role;
 
 alter table public.checkout_drafts enable row level security;
 

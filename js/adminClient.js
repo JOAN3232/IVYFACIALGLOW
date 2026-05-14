@@ -1,3 +1,5 @@
+// Creates a separate Supabase client for admin pages so admin auth is stored in
+// sessionStorage under its own key instead of mixing with buyer sessions.
 import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
 
 const supabaseUrl = "https://azlfvinhyzzgybykzcgj.supabase.co";

@@ -1,3 +1,5 @@
+// Handles buyer login, password visibility, redirect-after-login behavior, and
+// unfinished checkout prompts.
 import { supabase } from "./supabaseClient.js";
 
 const loginForm = document.getElementById("loginForm");

@@ -1,3 +1,5 @@
+// Renders the buyer order-tracking page, including status timeline, realtime
+// updates from Supabase, cancellation, and seller contact links.
 import { getCurrentUser } from "./auth.js";
 import { supabase } from "./supabaseClient.js";
 

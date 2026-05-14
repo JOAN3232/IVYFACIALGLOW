@@ -305,3 +305,5 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+// Runs the homepage quiz and maps customer answers to recommended shop moods
+// and product categories.

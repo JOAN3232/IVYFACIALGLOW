@@ -1,3 +1,5 @@
+// Powers the shop page: loads database products, merges local/admin product
+// state, filters/sorts products, and opens the product detail drawer.
 import { supabase } from "./supabaseClient.js";
 
 const productsGrid = document.getElementById("productsGrid");

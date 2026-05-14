@@ -1,3 +1,5 @@
+// Handles the cart page: reads cart items from localStorage, renders them,
+// updates quantities/removal, and recalculates subtotal, delivery, and total.
 const cartContainer = document.getElementById("cartItemsContainer");
 const emptyState = document.getElementById("emptyCartState");
 
@@ -5,6 +7,15 @@ const subtotalEl = document.getElementById("cartSubtotal");
 const totalEl = document.getElementById("cartTotal");
 const deliveryEl = document.getElementById("deliveryPrice");
 const deliverySelect = document.getElementById("deliverySelect");
+
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
 
 // =========================
 // CART HELPERS
@@ -39,11 +50,11 @@ function renderCart() {
     <div class="cart-card rounded-[2rem] border border-[#ead9dd] p-5 flex gap-4 items-center">
 
       <div class="w-24 h-24 bg-[#faf6f7] rounded-xl flex items-center justify-center">
-        <img src="${item.image}" class="w-full h-full object-contain" />
+        <img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.name || "Product")}" class="w-full h-full object-contain" />
       </div>
 
       <div class="flex-1">
-        <h3 class="text-lg font-medium">${item.name}</h3>
+        <h3 class="text-lg font-medium">${escapeHtml(item.name)}</h3>
         <p class="text-sm text-[#7a6a6a]">₦${Number(item.price).toLocaleString()}</p>
 
         <div class="flex items-center gap-3 mt-2">

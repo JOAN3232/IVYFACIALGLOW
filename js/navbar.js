@@ -1,3 +1,5 @@
+// Keeps shared navigation in sync with buyer auth state, adding account links
+// for signed-in users and wiring logout across desktop/mobile menus.
   import { getCurrentUser, listenToAuthChanges } from "./auth.js";
   import { supabase } from "./supabaseClient.js";
 

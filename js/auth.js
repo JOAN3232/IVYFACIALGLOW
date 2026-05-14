@@ -1,3 +1,5 @@
+// Shared buyer authentication helpers used by pages that need the current
+// Supabase user or must redirect guests to login.
 import { supabase } from "./supabaseClient.js";
 
 let currentUser = null;
