@@ -58,12 +58,9 @@ function showInstallHint({ isIos = false } = {}) {
 
 function setupPwaInstall() {
   if ("serviceWorker" in navigator) {
-    navigator.serviceWorker
-      .register("service-worker.js", { updateViaCache: "none" })
-      .then((registration) => registration.update())
-      .catch((error) => {
-        console.log("Service worker registration failed:", error);
-      });
+    navigator.serviceWorker.register("service-worker.js").catch((error) => {
+      console.log("Service worker registration failed:", error);
+    });
   }
 
   window.addEventListener("beforeinstallprompt", (event) => {
@@ -85,212 +82,6 @@ function injectSharedThemeStyles() {
   style.textContent = `
     :root {
       --ivy-ease: cubic-bezier(0.22, 1, 0.36, 1);
-    }
-
-    #navbar {
-      display: block !important;
-      padding: 0 !important;
-      background: rgba(255, 255, 255, 0.94) !important;
-      border-bottom: 1px solid #ead9dd !important;
-      backdrop-filter: blur(18px);
-    }
-
-    .ivy-nav-shell {
-      width: min(100%, 1200px);
-      margin: 0 auto;
-      padding: 0 1.25rem;
-    }
-
-    .ivy-nav-mainrow {
-      display: grid;
-      grid-template-columns: minmax(10.5rem, 15rem) minmax(22rem, 1fr) auto;
-      align-items: center;
-      gap: 1.25rem;
-      min-height: 5rem;
-    }
-
-    .ivy-brand-target {
-      min-width: 0;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      font-family: "Great Vibes", cursive;
-      color: #d89ca4;
-      font-size: clamp(2rem, 2.8vw, 2.65rem) !important;
-      line-height: 1;
-      letter-spacing: 0 !important;
-    }
-
-    .ivy-nav-links {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: clamp(1rem, 2vw, 2rem);
-      color: #5c4a4a;
-      font-size: 0.92rem;
-      font-weight: 600;
-    }
-
-    .ivy-nav-links a {
-      position: relative;
-      padding: 0.35rem 0;
-      color: inherit;
-    }
-
-    .ivy-nav-links a::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: -0.1rem;
-      height: 2px;
-      background: #d89ca4;
-      transform: scaleX(0);
-      transform-origin: center;
-      transition: transform 180ms ease;
-    }
-
-    .ivy-nav-links a:hover::after,
-    .ivy-nav-links a.is-active::after {
-      transform: scaleX(1);
-    }
-
-    .ivy-nav-actions {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      gap: 0.72rem;
-      min-width: 0;
-    }
-
-    .ivy-nav-icon-row {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.55rem;
-      margin-left: auto;
-    }
-
-    .ivy-nav-icon-btn {
-      position: relative;
-      display: inline-flex;
-      width: 2.65rem;
-      height: 2.65rem;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid #ead9dd;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.88);
-      color: #5c4a4a;
-      box-shadow: 0 10px 30px rgba(92, 74, 74, 0.08);
-      transition: background 180ms ease, transform 180ms ease, border-color 180ms ease;
-    }
-
-    .ivy-nav-icon-btn:hover {
-      background: #fff7f8;
-      border-color: #e0c8ce;
-      transform: translateY(-1px);
-    }
-
-    .ivy-nav-icon-btn svg {
-      width: 1.08rem;
-      height: 1.08rem;
-    }
-
-    .ivy-nav-icon-btn[data-nav-cart] {
-      display: inline-flex;
-    }
-
-    .ivy-nav-account {
-      position: relative;
-    }
-
-    .ivy-nav-pill {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 2.65rem;
-      border: 1px solid #ead9dd;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.88);
-      color: #5c4a4a;
-      padding: 0 1.1rem;
-      font-size: 0.88rem;
-      font-weight: 500;
-      white-space: nowrap;
-      transition: background 180ms ease, border-color 180ms ease;
-    }
-
-    .ivy-nav-pill:hover {
-      background: #fff7f8;
-      border-color: #e0c8ce;
-    }
-
-    .ivy-mobile-row {
-      display: none;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.75rem;
-      min-height: 4.25rem;
-      padding: 0.75rem 0;
-    }
-
-    .ivy-mobile-actions {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.55rem;
-    }
-
-    .ivy-nav-count {
-      position: absolute;
-      top: -0.36rem;
-      right: -0.28rem;
-      min-width: 1.18rem;
-      height: 1.18rem;
-      padding: 0 0.22rem;
-      border-radius: 999px;
-      background: #d89ca4;
-      color: #fff;
-      font-size: 0.64rem;
-      line-height: 1.18rem;
-      text-align: center;
-      font-weight: 600;
-      box-shadow: 0 0 0 2px #fff;
-    }
-
-    .ivy-nav-count:empty,
-    .ivy-nav-count[data-empty="true"] {
-      display: none;
-    }
-
-    .ivy-back-to-top {
-      position: fixed;
-      right: 1.2rem;
-      bottom: 1.2rem;
-      z-index: 9998;
-      width: 3rem;
-      height: 3rem;
-      border: 1px solid #ead9dd;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.92);
-      color: #d89ca4;
-      box-shadow: 0 16px 38px rgba(92, 74, 74, 0.16);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      pointer-events: none;
-      transform: translateY(0.65rem);
-      transition: opacity 180ms ease, transform 180ms ease, background 180ms ease;
-    }
-
-    .ivy-back-to-top.is-visible {
-      opacity: 1;
-      pointer-events: auto;
-      transform: translateY(0);
-    }
-
-    .ivy-back-to-top:hover {
-      background: #fff7f8;
     }
 
     @keyframes ivyFadeUp {
@@ -661,24 +452,17 @@ function injectSharedThemeStyles() {
     }
 
     body.dark-mode #back-to-top,
-    body.dark-mode .ivy-back-to-top,
     body.dark-mode #menu-btn,
-    body.dark-mode .ivy-nav-icon-btn,
-    body.dark-mode .ivy-nav-pill,
     body.dark-mode #accountDropdown {
       background: rgba(36, 29, 33, 0.94) !important;
       border-color: #4a3b42 !important;
       color: #f5e9ec !important;
     }
 
-    body.dark-mode .ivy-nav-count {
-      box-shadow: 0 0 0 2px #241d21;
-    }
-
     body.dark-mode #menu-btn {
-      background: rgba(36, 29, 33, 0.94) !important;
-      border: 1px solid #4a3b42 !important;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18) !important;
+      background: transparent !important;
+      border: 0 !important;
+      box-shadow: none !important;
     }
 
     body.dark-mode #menu-btn::before,
@@ -705,56 +489,6 @@ function injectSharedThemeStyles() {
         transform: none;
       }
     }
-
-    @media (max-width: 767px) {
-      #navbar {
-        min-height: 0;
-      }
-
-      .ivy-nav-shell {
-        padding: 0 0.9rem;
-      }
-
-      .ivy-nav-mainrow,
-      .ivy-nav-links {
-        display: none;
-      }
-
-      .ivy-mobile-row {
-        display: flex;
-      }
-
-      .ivy-brand-target {
-        max-width: 7rem;
-        font-size: clamp(2rem, 8vw, 2.35rem) !important;
-      }
-
-      #menu-btn {
-        position: static !important;
-        z-index: auto !important;
-        width: 2.65rem !important;
-        height: 2.65rem !important;
-        flex: 0 0 2.65rem;
-        background: rgba(255, 255, 255, 0.9) !important;
-        box-shadow: 0 10px 30px rgba(92, 74, 74, 0.08) !important;
-      }
-    }
-
-    @media (min-width: 768px) and (max-width: 1180px) {
-      .ivy-nav-mainrow {
-        grid-template-columns: minmax(9rem, 12rem) 1fr auto;
-        gap: 1rem;
-      }
-
-      .ivy-nav-links {
-        gap: 1.1rem;
-        font-size: 0.88rem;
-      }
-
-      .ivy-nav-pill {
-        padding: 0 0.85rem;
-      }
-    }
   `;
 
   document.head.appendChild(style);
@@ -769,11 +503,11 @@ function updateCartCount() {
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
   const count = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
 
-  const counters = document.querySelectorAll("#cartCount, #cart-count, [data-cart-count]");
-  counters.forEach((el) => {
-    el.textContent = String(count);
-    el.dataset.empty = count > 0 ? "false" : "true";
-  });
+  const el =
+    document.getElementById("cartCount") ||
+    document.getElementById("cart-count");
+
+  if (el) el.textContent = count;
 }
 
 window.updateCartCount = updateCartCount;
@@ -840,9 +574,7 @@ function applySavedTheme() {
 function updateThemeButtonLabels() {
   const isDark = document.body.classList.contains("dark-mode");
   document.querySelectorAll("#theme-toggle, #mobile-theme-toggle").forEach((button) => {
-    if (!button.classList.contains("ivy-nav-icon-btn")) {
-      button.textContent = isDark ? "Light Mode" : "Dark Mode";
-    }
+    button.textContent = isDark ? "Light Mode" : "Dark Mode";
     button.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
   });
 }
@@ -854,257 +586,6 @@ function setTheme(isDark) {
 }
 
 applySavedTheme();
-
-function createNavIcon({ href, label, badgeType, svg }) {
-  const link = document.createElement("a");
-  link.href = href;
-  link.className = "ivy-nav-icon-btn";
-  if (badgeType === "cart") link.dataset.navCart = "true";
-  if (badgeType === "notifications") link.dataset.navNotifications = "true";
-  link.setAttribute("aria-label", label);
-  link.innerHTML = `
-    ${svg}
-    <span class="ivy-nav-count" ${badgeType === "cart" ? "data-cart-count" : "data-notification-count"} data-empty="true">0</span>
-  `;
-  return link;
-}
-
-function getNavHref(anchor) {
-  const onHome = /(^|\/)index\.html$|\/$/.test(window.location.pathname);
-  return onHome ? `#${anchor}` : `index.html#${anchor}`;
-}
-
-function getActivePage() {
-  const page = window.location.pathname.split("/").pop() || "index.html";
-  if (page === "index.html" || page === "") return "home";
-  if (page === "shop.html") return "shop";
-  if (page === "orders.html") return "orders";
-  if (page === "notifications.html") return "notifications";
-  return "";
-}
-
-function renderReferenceNavbar() {
-  const navbar = document.getElementById("navbar");
-  if (!navbar || navbar.dataset.ivyNavReady === "true") return;
-
-  const activePage = getActivePage();
-  const linkClass = (page) => (activePage === page ? "is-active" : "");
-
-  navbar.dataset.ivyNavReady = "true";
-  navbar.innerHTML = `
-    <div class="ivy-nav-shell">
-      <div class="ivy-nav-mainrow">
-        <a href="index.html" class="ivy-brand-target">IvyFacialGlow</a>
-
-        <div class="ivy-nav-links">
-          <a href="index.html" class="${linkClass("home")}">Home</a>
-          <a href="shop.html" class="${linkClass("shop")}">Shop</a>
-          <a href="${getNavHref("skin-quiz")}">Skin Quiz</a>
-          <a href="${getNavHref("about")}">About</a>
-          <a href="${getNavHref("contact")}">Contact</a>
-          <a href="orders.html" class="${linkClass("orders")}">Orders</a>
-        </div>
-
-        <div class="ivy-nav-actions">
-          <a href="cart.html" class="ivy-nav-icon-btn" data-nav-cart aria-label="Open cart">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-              <path d="M6 8h12l-1 11H7L6 8Z" />
-              <path d="M9 8V6a3 3 0 0 1 6 0v2" />
-            </svg>
-            <span class="ivy-nav-count" data-cart-count data-empty="true">0</span>
-          </a>
-          <a href="notifications.html" class="ivy-nav-icon-btn" data-auth="notifications" data-nav-notifications aria-label="Open notifications">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-              <path d="M15 17H9" />
-              <path d="M18 8a6 6 0 1 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9" />
-              <path d="M13.7 21a2 2 0 0 1-3.4 0" />
-            </svg>
-            <span class="ivy-nav-count" data-notification-count data-empty="true">0</span>
-          </a>
-          <button id="theme-toggle" type="button" class="ivy-nav-icon-btn" aria-label="Toggle dark mode">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-              <path d="M12 3a6 6 0 0 0 9 7 9 9 0 1 1-9-7Z" />
-            </svg>
-          </button>
-          <a id="loginBtn" href="login.html" class="ivy-nav-pill">Login</a>
-          <div class="ivy-nav-account hidden" id="accountWrapper">
-            <button id="accountBtn" type="button" class="ivy-nav-pill">My Account ▾</button>
-            <div
-              id="accountDropdown"
-              class="hidden absolute right-0 mt-4 w-64 bg-white/95 backdrop-blur-xl border border-[#f1dfe3] rounded-[1.35rem] shadow-2xl p-2 z-50 overflow-hidden"
-            >
-              <a href="profile.html" class="flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-[#fff7f8] transition text-[#5C4A4A] text-sm font-medium">
-                <span class="text-lg">Profile</span>
-              </a>
-              <a href="orders.html" class="flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-[#fff7f8] transition text-[#5C4A4A] text-sm font-medium">
-                <span class="text-lg">My Orders</span>
-              </a>
-              <a href="notifications.html" data-auth="notifications" class="flex items-center justify-between gap-3 px-4 py-3 rounded-2xl hover:bg-[#fff7f8] transition text-[#5C4A4A] text-sm font-medium">
-                <span>Notifications</span>
-                <span class="ivy-notification-badge" data-notification-count>0</span>
-              </a>
-              <a href="admin-login.html" id="adminLink" class="hidden flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-[#fff7f8] transition text-[#5C4A4A] text-sm font-medium">
-                <span class="text-lg">Admin Dashboard</span>
-              </a>
-              <div class="my-2 border-t border-[#f3e5e8]"></div>
-              <button id="logoutBtn" data-auth="logout" class="w-full flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-[#fff1f3] transition text-[#d89ca4] text-sm font-medium">
-                Logout
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="ivy-mobile-row">
-        <a href="index.html" class="ivy-brand-target">IvyGlow</a>
-        <div class="ivy-mobile-actions">
-          <a href="cart.html" class="ivy-nav-icon-btn" data-nav-cart aria-label="Open cart">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-              <path d="M6 8h12l-1 11H7L6 8Z" />
-              <path d="M9 8V6a3 3 0 0 1 6 0v2" />
-            </svg>
-            <span class="ivy-nav-count" data-cart-count data-empty="true">0</span>
-          </a>
-          <a href="notifications.html" class="ivy-nav-icon-btn" data-auth="notifications" data-nav-notifications aria-label="Open notifications">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-              <path d="M15 17H9" />
-              <path d="M18 8a6 6 0 1 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9" />
-              <path d="M13.7 21a2 2 0 0 1-3.4 0" />
-            </svg>
-            <span class="ivy-nav-count" data-notification-count data-empty="true">0</span>
-          </a>
-          <button id="menu-btn" type="button" aria-label="Open menu" class="ivy-nav-icon-btn">
-            <span class="hamburger-line"></span>
-          </button>
-        </div>
-      </div>
-    </div>
-  `;
-
-  updateCartCount();
-}
-
-function setupSharedNavActions() {
-  const navbar = document.getElementById("navbar");
-  if (!navbar || navbar.querySelector(".ivy-nav-icon-row") || navbar.dataset.ivyNavReady === "true") return;
-
-  const row = document.createElement("div");
-  row.className = "ivy-nav-icon-row";
-
-  row.append(
-    createNavIcon({
-      href: "cart.html",
-      label: "Open cart",
-      badgeType: "cart",
-      svg: `
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-          <path d="M6 8h12l-1 11H7L6 8Z" />
-          <path d="M9 8V6a3 3 0 0 1 6 0v2" />
-        </svg>
-      `,
-    }),
-    createNavIcon({
-      href: "notifications.html",
-      label: "Open notifications",
-      badgeType: "notifications",
-      svg: `
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-          <path d="M15 17H9" />
-          <path d="M18 8a6 6 0 1 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9" />
-          <path d="M13.7 21a2 2 0 0 1-3.4 0" />
-        </svg>
-      `,
-    })
-  );
-
-  const menuBtn = document.getElementById("menu-btn");
-  if (menuBtn?.parentElement === navbar) {
-    navbar.insertBefore(row, menuBtn);
-  } else {
-    navbar.appendChild(row);
-  }
-
-  updateCartCount();
-}
-
-function setupResponsiveBrandName() {
-  const navbar = document.getElementById("navbar");
-  const brand =
-    navbar?.querySelector(":scope > a:first-child") ||
-    navbar?.querySelector(":scope > div:first-child > a:first-child") ||
-    navbar?.querySelector(":scope > div:first-child");
-  if (!brand) return;
-
-  const fullName = (brand.textContent || "IvyFacialGlow").trim() || "IvyFacialGlow";
-  const shortName = "IvyGlow";
-  brand.classList.add("ivy-brand-target");
-
-  function updateBrand() {
-    brand.textContent = window.innerWidth < 520 ? shortName : fullName;
-  }
-
-  updateBrand();
-  window.addEventListener("resize", updateBrand);
-}
-
-function setupBackToTop() {
-  let button = document.getElementById("back-to-top") || document.querySelector(".ivy-back-to-top");
-
-  if (!button) {
-    button = document.createElement("button");
-    button.id = "back-to-top";
-    button.type = "button";
-    button.className = "ivy-back-to-top";
-    button.setAttribute("aria-label", "Back to top");
-    button.innerHTML = `
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="m18 15-6-6-6 6" />
-      </svg>
-    `;
-    document.body.appendChild(button);
-  } else {
-    button.classList.add("ivy-back-to-top");
-  }
-
-  const toggleButton = () => {
-    button.classList.toggle("is-visible", window.scrollY > 420);
-    button.classList.toggle("opacity-0", false);
-    button.classList.toggle("pointer-events-none", false);
-  };
-
-  button.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
-  window.addEventListener("scroll", toggleButton, { passive: true });
-  toggleButton();
-}
-
-function ensureMobileMenu() {
-  if (document.getElementById("mobile-menu-overlay")) return;
-
-  const menu = document.createElement("div");
-  menu.id = "mobile-menu-overlay";
-  menu.className = "fixed inset-0 bg-black/20 backdrop-blur-md hidden items-center justify-center z-50 lg:hidden";
-  menu.innerHTML = `
-    <div class="bg-white/90 backdrop-blur-xl rounded-[1.5rem] px-8 py-9 w-[88%] max-w-sm shadow-2xl text-center relative">
-      <button id="close-menu" type="button" class="absolute top-4 right-5 text-3xl" style="color:#5c4a4a;">×</button>
-      <h2 class="text-4xl mb-7 text-[#d89ca4]" style="font-family:'Great Vibes', cursive;">IvyGlow</h2>
-      <ul class="flex flex-col gap-4 text-lg font-medium" style="color:#5c4a4a;">
-        <li><a href="index.html" class="mobile-link">Home</a></li>
-        <li><a href="shop.html" class="mobile-link">Shop</a></li>
-        <li><a href="${getNavHref("skin-quiz")}" class="mobile-link">Skin Quiz</a></li>
-        <li><a href="${getNavHref("about")}" class="mobile-link">About</a></li>
-        <li><a href="${getNavHref("contact")}" class="mobile-link">Contact</a></li>
-        <li><a href="orders.html" class="mobile-link">Orders</a></li>
-        <li><a href="notifications.html" data-auth="notifications" class="mobile-link">Notifications</a></li>
-      </ul>
-      <div class="mt-7 flex flex-col gap-3">
-        <button id="mobile-theme-toggle" type="button" class="border border-stone-300 rounded-full py-3 text-base" style="color:#5c4a4a;">Dark Mode</button>
-        <a id="mobileLoginBtn" href="login.html" class="rounded-full py-3 text-white text-base bg-[#d89ca4]">Login</a>
-        <button id="mobileLogoutBtn" data-auth="logout" class="hidden rounded-full py-3 border border-[#ead9dd] text-base" style="color:#5c4a4a;">Logout</button>
-      </div>
-    </div>
-  `;
-  document.body.appendChild(menu);
-}
 
 // =================================
 // AUTH UI
@@ -1178,12 +659,6 @@ document.addEventListener("click", async (e) => {
 // =================================
 document.addEventListener("DOMContentLoaded", () => {
   setupRevealAnimations();
-  renderReferenceNavbar();
-  ensureMobileMenu();
-  setupResponsiveBrandName();
-  setupSharedNavActions();
-  updateAuthUI();
-  setupBackToTop();
   setupPwaInstall();
   initIvyNotifications();
 
