@@ -206,7 +206,10 @@ function getCustomerNotification(status, orderId) {
 }
 
 async function createCustomerNotification(order, status) {
-  if (!order?.user_id) return;
+  if (!order?.user_id) {
+    alert("Order updated, but no customer account was attached for notification.");
+    return false;
+  }
 
   const notification = getCustomerNotification(status, order.id);
   const { error } = await adminSupabase.from("notifications").insert([
@@ -219,7 +222,13 @@ async function createCustomerNotification(order, status) {
     },
   ]);
 
-  if (error) console.log("NOTIFICATION ERROR:", error);
+  if (error) {
+    console.log("NOTIFICATION ERROR:", error);
+    alert(`Order updated, but notification was not saved: ${error.message}`);
+    return false;
+  }
+
+  return true;
 }
 
 function getBaseProducts() {
@@ -669,8 +678,8 @@ window.updateOrderStatus = async function (orderId, status) {
     return;
   }
 
-  await createCustomerNotification(data, status);
-  alert("Order status updated.");
+  const notificationSaved = await createCustomerNotification(data, status);
+  alert(notificationSaved ? "Order status updated and customer notified." : "Order status updated.");
   loadAdminOrders();
 };
 
@@ -691,8 +700,12 @@ window.confirmOrderPayment = async function (orderId) {
     return;
   }
 
-  await createCustomerNotification(data, "pending");
-  alert("Payment confirmed. The buyer can now place the order.");
+  const notificationSaved = await createCustomerNotification(data, "pending");
+  alert(
+    notificationSaved
+      ? "Payment confirmed. The buyer can now place the order and has been notified."
+      : "Payment confirmed. The buyer can now place the order."
+  );
   loadAdminOrders();
 };
 

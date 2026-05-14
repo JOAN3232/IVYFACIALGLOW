@@ -182,7 +182,11 @@ export async function initIvyNotifications() {
 
   const user = await getCurrentUser();
   document.querySelectorAll("[data-auth='notifications']").forEach((el) => {
-    el.classList.toggle("hidden", !user);
+    if (user) {
+      el.classList.remove("hidden");
+    } else if (!el.closest("#accountDropdown") && !el.closest("#mobile-menu-overlay")) {
+      el.classList.add("hidden");
+    }
   });
 
   if (!user) return;

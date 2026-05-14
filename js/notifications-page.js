@@ -151,6 +151,9 @@ function renderError(error) {
             : "Please refresh the page or check your connection."
         }
       </p>
+      <p class="mt-3 rounded-2xl bg-white/70 p-3 text-xs leading-5 text-[#9b6f77]">
+        ${escapeHtml(error?.message || "Unknown notification error")}
+      </p>
     </div>
   `;
 }
