@@ -85,19 +85,123 @@ function injectSharedThemeStyles() {
     }
 
     #navbar {
-      gap: 0.9rem;
-      min-height: 4.55rem;
+      display: block !important;
+      padding: 0 !important;
+      background: rgba(255, 255, 255, 0.94) !important;
+      border-bottom: 1px solid #ead9dd !important;
+      backdrop-filter: blur(18px);
     }
 
-    #navbar .ivy-brand-target {
-      flex: 0 1 auto;
+    .ivy-nav-shell {
+      width: min(100%, 1200px);
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+
+    .ivy-nav-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      min-height: 2.15rem;
+      border-bottom: 1px solid #f3e5e8;
+      font-size: 0.72rem;
+      color: #7a6a6a;
+    }
+
+    .ivy-nav-topbar a {
+      color: inherit;
+      transition: color 180ms ease;
+    }
+
+    .ivy-nav-topbar a:hover {
+      color: #d89ca4;
+    }
+
+    .ivy-nav-top-links,
+    .ivy-nav-socials {
+      display: flex;
+      align-items: center;
+      gap: 1.1rem;
+      white-space: nowrap;
+    }
+
+    .ivy-nav-mainrow {
+      display: grid;
+      grid-template-columns: minmax(11rem, 17rem) 1fr auto;
+      align-items: center;
+      gap: 1.5rem;
+      min-height: 4.45rem;
+    }
+
+    .ivy-brand-target {
       min-width: 0;
-      max-width: min(27vw, 17rem);
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-      font-size: clamp(2rem, 3.1vw, 2.55rem) !important;
-      line-height: 1.05;
+      font-family: "Great Vibes", cursive;
+      color: #d89ca4;
+      font-size: clamp(2.25rem, 3.1vw, 3rem) !important;
+      line-height: 1;
+      letter-spacing: 0 !important;
+    }
+
+    .ivy-nav-links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(1.25rem, 2.4vw, 2.4rem);
+      color: #5c4a4a;
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+
+    .ivy-nav-links a {
+      position: relative;
+      padding: 0.35rem 0;
+      color: inherit;
+    }
+
+    .ivy-nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -0.1rem;
+      height: 2px;
+      background: #d89ca4;
+      transform: scaleX(0);
+      transform-origin: center;
+      transition: transform 180ms ease;
+    }
+
+    .ivy-nav-links a:hover::after,
+    .ivy-nav-links a.is-active::after {
+      transform: scaleX(1);
+    }
+
+    .ivy-nav-actions {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 0.72rem;
+      min-width: 0;
+    }
+
+    .ivy-nav-promo {
+      display: block;
+      margin-bottom: 0.35rem;
+      background: #111;
+      color: #fff;
+      text-align: center;
+      font-size: 0.75rem;
+      line-height: 1.1;
+      padding: 0.58rem 1rem;
+    }
+
+    .ivy-nav-promo a {
+      color: #f7c6ce;
+      font-weight: 600;
     }
 
     .ivy-nav-icon-row {
@@ -134,7 +238,47 @@ function injectSharedThemeStyles() {
     }
 
     .ivy-nav-icon-btn[data-nav-cart] {
+      display: inline-flex;
+    }
+
+    .ivy-nav-account {
+      position: relative;
+    }
+
+    .ivy-nav-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 2.65rem;
+      border: 1px solid #ead9dd;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      color: #5c4a4a;
+      padding: 0 1.1rem;
+      font-size: 0.88rem;
+      font-weight: 500;
+      white-space: nowrap;
+      transition: background 180ms ease, border-color 180ms ease;
+    }
+
+    .ivy-nav-pill:hover {
+      background: #fff7f8;
+      border-color: #e0c8ce;
+    }
+
+    .ivy-mobile-row {
       display: none;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      min-height: 4.25rem;
+      padding: 0.75rem 0;
+    }
+
+    .ivy-mobile-actions {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
     }
 
     .ivy-nav-count {
@@ -561,6 +705,7 @@ function injectSharedThemeStyles() {
     body.dark-mode .ivy-back-to-top,
     body.dark-mode #menu-btn,
     body.dark-mode .ivy-nav-icon-btn,
+    body.dark-mode .ivy-nav-pill,
     body.dark-mode #accountDropdown {
       background: rgba(36, 29, 33, 0.94) !important;
       border-color: #4a3b42 !important;
@@ -604,21 +749,26 @@ function injectSharedThemeStyles() {
 
     @media (max-width: 767px) {
       #navbar {
-        padding: 0.78rem 0.85rem !important;
-        min-height: 4.4rem;
+        min-height: 0;
       }
 
-      #navbar .ivy-brand-target {
-        max-width: 5.6rem;
-        font-size: clamp(1.75rem, 7.6vw, 2.2rem) !important;
+      .ivy-nav-shell {
+        padding: 0 0.9rem;
       }
 
-      .ivy-nav-icon-row {
-        display: inline-flex;
+      .ivy-nav-topbar,
+      .ivy-nav-mainrow,
+      .ivy-nav-promo {
+        display: none;
       }
 
-      .ivy-nav-icon-btn[data-nav-cart] {
-        display: inline-flex;
+      .ivy-mobile-row {
+        display: flex;
+      }
+
+      .ivy-brand-target {
+        max-width: 7rem;
+        font-size: clamp(2rem, 8vw, 2.35rem) !important;
       }
 
       #menu-btn {
@@ -633,20 +783,18 @@ function injectSharedThemeStyles() {
     }
 
     @media (min-width: 768px) and (max-width: 1180px) {
-      #navbar {
-        padding-left: 1.5rem !important;
-        padding-right: 1.5rem !important;
+      .ivy-nav-mainrow {
+        grid-template-columns: minmax(10rem, 13rem) 1fr auto;
+        gap: 1rem;
       }
 
-      #navbar ul {
-        gap: 1.25rem !important;
-        font-size: 1rem !important;
+      .ivy-nav-links {
+        gap: 1.1rem;
+        font-size: 0.88rem;
       }
-    }
 
-    @media (min-width: 1181px) {
-      #navbar ul {
-        gap: clamp(1.7rem, 2.7vw, 3rem) !important;
+      .ivy-nav-pill {
+        padding: 0 0.85rem;
       }
     }
   `;
@@ -761,9 +909,135 @@ function createNavIcon({ href, label, badgeType, svg }) {
   return link;
 }
 
+function getNavHref(anchor) {
+  const onHome = /(^|\/)index\.html$|\/$/.test(window.location.pathname);
+  return onHome ? `#${anchor}` : `index.html#${anchor}`;
+}
+
+function getActivePage() {
+  const page = window.location.pathname.split("/").pop() || "index.html";
+  if (page === "index.html" || page === "") return "home";
+  if (page === "shop.html") return "shop";
+  if (page === "orders.html") return "orders";
+  if (page === "notifications.html") return "notifications";
+  return "";
+}
+
+function renderReferenceNavbar() {
+  const navbar = document.getElementById("navbar");
+  if (!navbar || navbar.dataset.ivyNavReady === "true") return;
+
+  const activePage = getActivePage();
+  const linkClass = (page) => (activePage === page ? "is-active" : "");
+
+  navbar.dataset.ivyNavReady = "true";
+  navbar.innerHTML = `
+    <div class="ivy-nav-shell">
+      <div class="ivy-nav-topbar">
+        <div class="ivy-nav-top-links">
+          <a href="privacy-policy.html">Privacy</a>
+          <a href="terms.html">Terms</a>
+          <a href="orders.html">Track Order</a>
+        </div>
+        <div class="ivy-nav-socials">
+          <a href="notifications.html">Notifications</a>
+          <a href="https://wa.link/w482ij" target="_blank" rel="noopener">WhatsApp</a>
+        </div>
+      </div>
+
+      <div class="ivy-nav-mainrow">
+        <a href="index.html" class="ivy-brand-target">IvyFacialGlow</a>
+
+        <div class="ivy-nav-links">
+          <a href="index.html" class="${linkClass("home")}">Home</a>
+          <a href="shop.html" class="${linkClass("shop")}">Shop</a>
+          <a href="${getNavHref("skin-quiz")}">Skin Quiz</a>
+          <a href="${getNavHref("about")}">About</a>
+          <a href="${getNavHref("contact")}">Contact</a>
+        </div>
+
+        <div class="ivy-nav-actions">
+          <button id="theme-toggle" type="button" class="ivy-nav-pill">Dark Mode</button>
+          <a href="cart.html" class="ivy-nav-icon-btn" data-nav-cart aria-label="Open cart">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M6 8h12l-1 11H7L6 8Z" />
+              <path d="M9 8V6a3 3 0 0 1 6 0v2" />
+            </svg>
+            <span class="ivy-nav-count" data-cart-count data-empty="true">0</span>
+          </a>
+          <a href="notifications.html" class="ivy-nav-icon-btn" data-auth="notifications" data-nav-notifications aria-label="Open notifications">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M15 17H9" />
+              <path d="M18 8a6 6 0 1 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9" />
+              <path d="M13.7 21a2 2 0 0 1-3.4 0" />
+            </svg>
+            <span class="ivy-nav-count" data-notification-count data-empty="true">0</span>
+          </a>
+          <a id="loginBtn" href="login.html" class="ivy-nav-pill">Login</a>
+          <div class="ivy-nav-account hidden" id="accountWrapper">
+            <button id="accountBtn" type="button" class="ivy-nav-pill">My Account ▾</button>
+            <div
+              id="accountDropdown"
+              class="hidden absolute right-0 mt-4 w-64 bg-white/95 backdrop-blur-xl border border-[#f1dfe3] rounded-[1.35rem] shadow-2xl p-2 z-50 overflow-hidden"
+            >
+              <a href="profile.html" class="flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-[#fff7f8] transition text-[#5C4A4A] text-sm font-medium">
+                <span class="text-lg">Profile</span>
+              </a>
+              <a href="orders.html" class="flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-[#fff7f8] transition text-[#5C4A4A] text-sm font-medium">
+                <span class="text-lg">My Orders</span>
+              </a>
+              <a href="notifications.html" data-auth="notifications" class="flex items-center justify-between gap-3 px-4 py-3 rounded-2xl hover:bg-[#fff7f8] transition text-[#5C4A4A] text-sm font-medium">
+                <span>Notifications</span>
+                <span class="ivy-notification-badge" data-notification-count>0</span>
+              </a>
+              <a href="admin-login.html" id="adminLink" class="hidden flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-[#fff7f8] transition text-[#5C4A4A] text-sm font-medium">
+                <span class="text-lg">Admin Dashboard</span>
+              </a>
+              <div class="my-2 border-t border-[#f3e5e8]"></div>
+              <button id="logoutBtn" data-auth="logout" class="w-full flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-[#fff1f3] transition text-[#d89ca4] text-sm font-medium">
+                Logout
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ivy-mobile-row">
+        <a href="index.html" class="ivy-brand-target">IvyGlow</a>
+        <div class="ivy-mobile-actions">
+          <a href="cart.html" class="ivy-nav-icon-btn" data-nav-cart aria-label="Open cart">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M6 8h12l-1 11H7L6 8Z" />
+              <path d="M9 8V6a3 3 0 0 1 6 0v2" />
+            </svg>
+            <span class="ivy-nav-count" data-cart-count data-empty="true">0</span>
+          </a>
+          <a href="notifications.html" class="ivy-nav-icon-btn" data-auth="notifications" data-nav-notifications aria-label="Open notifications">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M15 17H9" />
+              <path d="M18 8a6 6 0 1 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9" />
+              <path d="M13.7 21a2 2 0 0 1-3.4 0" />
+            </svg>
+            <span class="ivy-nav-count" data-notification-count data-empty="true">0</span>
+          </a>
+          <button id="menu-btn" type="button" aria-label="Open menu" class="ivy-nav-icon-btn">
+            <span class="hamburger-line"></span>
+          </button>
+        </div>
+      </div>
+
+      <a class="ivy-nav-promo" href="shop.html">
+        Soft glow essentials are ready. Shop skincare, self-care, and beauty picks now.
+      </a>
+    </div>
+  `;
+
+  updateCartCount();
+}
+
 function setupSharedNavActions() {
   const navbar = document.getElementById("navbar");
-  if (!navbar || navbar.querySelector(".ivy-nav-icon-row")) return;
+  if (!navbar || navbar.querySelector(".ivy-nav-icon-row") || navbar.dataset.ivyNavReady === "true") return;
 
   const row = document.createElement("div");
   row.className = "ivy-nav-icon-row";
@@ -854,6 +1128,35 @@ function setupBackToTop() {
   toggleButton();
 }
 
+function ensureMobileMenu() {
+  if (document.getElementById("mobile-menu-overlay")) return;
+
+  const menu = document.createElement("div");
+  menu.id = "mobile-menu-overlay";
+  menu.className = "fixed inset-0 bg-black/20 backdrop-blur-md hidden items-center justify-center z-50 lg:hidden";
+  menu.innerHTML = `
+    <div class="bg-white/90 backdrop-blur-xl rounded-[1.5rem] px-8 py-9 w-[88%] max-w-sm shadow-2xl text-center relative">
+      <button id="close-menu" type="button" class="absolute top-4 right-5 text-3xl" style="color:#5c4a4a;">×</button>
+      <h2 class="text-4xl mb-7 text-[#d89ca4]" style="font-family:'Great Vibes', cursive;">IvyGlow</h2>
+      <ul class="flex flex-col gap-4 text-lg font-medium" style="color:#5c4a4a;">
+        <li><a href="index.html" class="mobile-link">Home</a></li>
+        <li><a href="shop.html" class="mobile-link">Shop</a></li>
+        <li><a href="${getNavHref("skin-quiz")}" class="mobile-link">Skin Quiz</a></li>
+        <li><a href="${getNavHref("about")}" class="mobile-link">About</a></li>
+        <li><a href="${getNavHref("contact")}" class="mobile-link">Contact</a></li>
+        <li><a href="orders.html" class="mobile-link">Orders</a></li>
+        <li><a href="notifications.html" data-auth="notifications" class="mobile-link">Notifications</a></li>
+      </ul>
+      <div class="mt-7 flex flex-col gap-3">
+        <button id="mobile-theme-toggle" type="button" class="border border-stone-300 rounded-full py-3 text-base" style="color:#5c4a4a;">Dark Mode</button>
+        <a id="mobileLoginBtn" href="login.html" class="rounded-full py-3 text-white text-base bg-[#d89ca4]">Login</a>
+        <button id="mobileLogoutBtn" data-auth="logout" class="hidden rounded-full py-3 border border-[#ead9dd] text-base" style="color:#5c4a4a;">Logout</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(menu);
+}
+
 // =================================
 // AUTH UI
 // =================================
@@ -926,8 +1229,11 @@ document.addEventListener("click", async (e) => {
 // =================================
 document.addEventListener("DOMContentLoaded", () => {
   setupRevealAnimations();
+  renderReferenceNavbar();
+  ensureMobileMenu();
   setupResponsiveBrandName();
   setupSharedNavActions();
+  updateAuthUI();
   setupBackToTop();
   setupPwaInstall();
   initIvyNotifications();
