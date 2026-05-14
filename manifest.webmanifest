@@ -1,0 +1,36 @@
+{
+  "name": "IvyFacialGlow",
+  "short_name": "IvyGlow",
+  "description": "Shop beauty, skincare, and self-care essentials with order updates.",
+  "start_url": "index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#fffafa",
+  "theme_color": "#d89ca4",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "images/icons/ivy-app-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Shop",
+      "short_name": "Shop",
+      "url": "shop.html"
+    },
+    {
+      "name": "My Orders",
+      "short_name": "Orders",
+      "url": "orders.html"
+    },
+    {
+      "name": "Notifications",
+      "short_name": "Alerts",
+      "url": "notifications.html"
+    }
+  ]
+}

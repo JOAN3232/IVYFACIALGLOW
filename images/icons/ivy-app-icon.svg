@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title">
+  <title id="title">IvyFacialGlow app icon</title>
+  <rect width="512" height="512" rx="112" fill="#fffafa"/>
+  <circle cx="256" cy="256" r="204" fill="#fff1f3"/>
+  <circle cx="256" cy="256" r="162" fill="#ffffff" stroke="#ead9dd" stroke-width="8"/>
+  <path
+    d="M167 329c28 28 62 42 102 42 35 0 64-10 86-31 17-16 25-35 25-57 0-27-13-48-38-64-15-10-37-19-66-27-26-7-44-14-54-21-8-6-12-14-12-25 0-12 5-22 16-30 11-8 26-12 44-12 30 0 58 10 85 31l26-49c-29-24-65-36-108-36-37 0-67 10-90 31-23 20-34 46-34 78 0 28 10 50 31 66 15 12 39 22 71 31 24 7 41 13 51 19 10 7 15 16 15 27 0 12-5 22-16 29-10 8-25 12-43 12-33 0-63-13-91-38l-20 23z"
+    fill="#d89ca4"
+  />
+  <path
+    d="M164 392c35 32 77 48 125 48 55 0 99-18 131-53"
+    fill="none"
+    stroke="#5c4a4a"
+    stroke-width="16"
+    stroke-linecap="round"
+  />
+</svg>

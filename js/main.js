@@ -3,6 +3,76 @@ import { supabase } from "./supabaseClient.js";
 import { initIvyNotifications } from "./notifications.js";
 
 const ADMIN_EMAILS = ["ivyfacialsaesthetics@gmail.com"];
+let deferredInstallPrompt = null;
+
+function isStandaloneApp() {
+  return window.matchMedia?.("(display-mode: standalone)").matches || window.navigator.standalone === true;
+}
+
+function isIosDevice() {
+  return /iphone|ipad|ipod/i.test(window.navigator.userAgent);
+}
+
+function showInstallHint({ isIos = false } = {}) {
+  if (isStandaloneApp() || localStorage.getItem("ivy_pwa_install_dismissed")) return;
+  if (document.getElementById("ivy-install-hint")) return;
+
+  const hint = document.createElement("div");
+  hint.id = "ivy-install-hint";
+  hint.className = "fixed inset-x-4 bottom-4 z-[99999] mx-auto max-w-md rounded-[1.35rem] border border-[#ead9dd] bg-white/95 p-4 text-[#5C4A4A] shadow-2xl backdrop-blur-xl";
+  hint.innerHTML = `
+    <p class="text-sm font-semibold">Install IvyFacialGlow</p>
+    <p class="mt-1 text-xs leading-5 text-[#7A6A6A]">
+      ${
+        isIos
+          ? "On iPhone, tap Share, then Add to Home Screen to use IvyFacialGlow like an app and prepare for order alerts."
+          : "Add IvyFacialGlow to your device for quicker shopping and order updates."
+      }
+    </p>
+    <div class="mt-3 flex gap-2">
+      ${
+        isIos
+          ? ""
+          : '<button type="button" data-install-app class="flex-1 rounded-full bg-[#d89ca4] px-4 py-2.5 text-xs font-medium text-white">Install</button>'
+      }
+      <button type="button" data-dismiss-install class="flex-1 rounded-full border border-[#ead9dd] px-4 py-2.5 text-xs font-medium">Not Now</button>
+    </div>
+  `;
+
+  document.body.appendChild(hint);
+
+  hint.querySelector("[data-dismiss-install]")?.addEventListener("click", () => {
+    localStorage.setItem("ivy_pwa_install_dismissed", "1");
+    hint.remove();
+  });
+
+  hint.querySelector("[data-install-app]")?.addEventListener("click", async () => {
+    if (!deferredInstallPrompt) return;
+
+    deferredInstallPrompt.prompt();
+    await deferredInstallPrompt.userChoice;
+    deferredInstallPrompt = null;
+    hint.remove();
+  });
+}
+
+function setupPwaInstall() {
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("service-worker.js").catch((error) => {
+      console.log("Service worker registration failed:", error);
+    });
+  }
+
+  window.addEventListener("beforeinstallprompt", (event) => {
+    event.preventDefault();
+    deferredInstallPrompt = event;
+    window.setTimeout(() => showInstallHint(), 1800);
+  });
+
+  if (isIosDevice()) {
+    window.setTimeout(() => showInstallHint({ isIos: true }), 2200);
+  }
+}
 
 function injectSharedThemeStyles() {
   if (document.getElementById("ivy-shared-theme-styles")) return;
@@ -589,6 +659,7 @@ document.addEventListener("click", async (e) => {
 // =================================
 document.addEventListener("DOMContentLoaded", () => {
   setupRevealAnimations();
+  setupPwaInstall();
   initIvyNotifications();
 
   // ACCOUNT DROPDOWN
