@@ -74,6 +74,65 @@ function setupPwaInstall() {
   }
 }
 
+function setupBackToTop() {
+  let button = document.getElementById("back-to-top");
+
+  if (!button) {
+    button = document.createElement("button");
+    button.id = "back-to-top";
+    button.type = "button";
+    button.setAttribute("aria-label", "Back to top");
+    button.innerHTML = "↑";
+    document.body.appendChild(button);
+  }
+
+  if (!document.getElementById("ivy-back-to-top-styles")) {
+    const style = document.createElement("style");
+    style.id = "ivy-back-to-top-styles";
+    style.textContent = `
+      #back-to-top {
+        position: fixed;
+        right: 1.2rem;
+        bottom: 1.2rem;
+        z-index: 9998;
+        width: 3rem;
+        height: 3rem;
+        border: 1px solid #ead9dd;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.92);
+        color: #d89ca4;
+        box-shadow: 0 16px 38px rgba(92, 74, 74, 0.16);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(0.65rem);
+        transition: opacity 180ms ease, transform 180ms ease, background 180ms ease;
+      }
+
+      #back-to-top.is-visible {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+      }
+
+      #back-to-top:hover {
+        background: #fff7f8;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  const toggleButton = () => {
+    button.classList.toggle("is-visible", window.scrollY > 420);
+  };
+
+  button.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+  window.addEventListener("scroll", toggleButton, { passive: true });
+  toggleButton();
+}
+
 function injectSharedThemeStyles() {
   if (document.getElementById("ivy-shared-theme-styles")) return;
 
@@ -660,6 +719,7 @@ document.addEventListener("click", async (e) => {
 document.addEventListener("DOMContentLoaded", () => {
   setupRevealAnimations();
   setupPwaInstall();
+  setupBackToTop();
   initIvyNotifications();
 
   // ACCOUNT DROPDOWN

@@ -1,6 +1,9 @@
 import { adminSupabase } from "./adminClient.js";
 
-const ADMIN_EMAILS = ["ivyfacialsaesthetics@gmail.com"];
+const ADMIN_EMAILS = [
+  "ivyfacialsaesthetics@gmail.com",
+  "ivyfacialsasthetics@gmail.com",
+];
 
 const form = document.getElementById("adminLoginForm");
 const button = document.getElementById("adminLoginBtn");
@@ -61,6 +64,10 @@ function setMessage(text, color) {
   message.style.color = color;
 }
 
+function isAllowedAdminEmail(email) {
+  return ADMIN_EMAILS.includes(String(email || "").trim().toLowerCase());
+}
+
 function setLoading(isLoading) {
   if (!button) return;
   button.disabled = isLoading;
@@ -70,7 +77,7 @@ function setLoading(isLoading) {
 form?.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const email = document.getElementById("adminEmail")?.value.trim();
+  const email = document.getElementById("adminEmail")?.value.trim().toLowerCase();
   const password = document.getElementById("adminPassword")?.value;
 
   if (!email || !password) {
@@ -78,7 +85,7 @@ form?.addEventListener("submit", async (e) => {
     return;
   }
 
-  if (!ADMIN_EMAILS.includes(email)) {
+  if (!isAllowedAdminEmail(email)) {
     setMessage("This email is not allowed to access admin.", "red");
     return;
   }

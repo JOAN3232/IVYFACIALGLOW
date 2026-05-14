@@ -1,6 +1,9 @@
 import { adminSupabase } from "./adminClient.js";
 
-const ADMIN_EMAILS = ["ivyfacialsaesthetics@gmail.com"];
+const ADMIN_EMAILS = [
+  "ivyfacialsaesthetics@gmail.com",
+  "ivyfacialsasthetics@gmail.com",
+];
 const ADMIN_PRODUCTS_KEY = "ivy_admin_products";
 const OUT_OF_STOCK_KEY = "ivy_out_of_stock_product_ids";
 const REMOVED_PRODUCTS_KEY = "ivy_removed_product_ids";
@@ -76,6 +79,10 @@ function setupAdminBackToTop() {
   button.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
   window.addEventListener("scroll", toggleButton, { passive: true });
   toggleButton();
+}
+
+function isAllowedAdminEmail(email) {
+  return ADMIN_EMAILS.includes(String(email || "").trim().toLowerCase());
 }
 
 adminActionsMenuBtn?.addEventListener("click", () => {
@@ -500,7 +507,7 @@ async function checkAdmin() {
     return null;
   }
 
-  if (!ADMIN_EMAILS.includes(user.email)) {
+  if (!isAllowedAdminEmail(user.email)) {
     alert("You are not allowed to access this admin page.");
     window.location.href = "index.html";
     return null;
