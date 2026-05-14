@@ -85,23 +85,23 @@ function injectSharedThemeStyles() {
     }
 
     #navbar {
-      gap: 1rem;
+      gap: 0.9rem;
+      min-height: 4.55rem;
     }
 
-    #navbar > div:first-child,
-    #navbar > a:first-child {
+    #navbar .ivy-brand-target {
       flex: 0 1 auto;
       min-width: 0;
-      max-width: min(42vw, 20rem);
+      max-width: min(27vw, 17rem);
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-      font-size: clamp(2rem, 4.4vw, 3rem) !important;
+      font-size: clamp(2rem, 3.1vw, 2.55rem) !important;
       line-height: 1.05;
     }
 
     .ivy-nav-icon-row {
-      display: none;
+      display: inline-flex;
       align-items: center;
       gap: 0.55rem;
       margin-left: auto;
@@ -133,6 +133,10 @@ function injectSharedThemeStyles() {
       height: 1.08rem;
     }
 
+    .ivy-nav-icon-btn[data-nav-cart] {
+      display: none;
+    }
+
     .ivy-nav-count {
       position: absolute;
       top: -0.36rem;
@@ -153,6 +157,37 @@ function injectSharedThemeStyles() {
     .ivy-nav-count:empty,
     .ivy-nav-count[data-empty="true"] {
       display: none;
+    }
+
+    .ivy-back-to-top {
+      position: fixed;
+      right: 1.2rem;
+      bottom: 1.2rem;
+      z-index: 9998;
+      width: 3rem;
+      height: 3rem;
+      border: 1px solid #ead9dd;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.92);
+      color: #d89ca4;
+      box-shadow: 0 16px 38px rgba(92, 74, 74, 0.16);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(0.65rem);
+      transition: opacity 180ms ease, transform 180ms ease, background 180ms ease;
+    }
+
+    .ivy-back-to-top.is-visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .ivy-back-to-top:hover {
+      background: #fff7f8;
     }
 
     @keyframes ivyFadeUp {
@@ -523,6 +558,7 @@ function injectSharedThemeStyles() {
     }
 
     body.dark-mode #back-to-top,
+    body.dark-mode .ivy-back-to-top,
     body.dark-mode #menu-btn,
     body.dark-mode .ivy-nav-icon-btn,
     body.dark-mode #accountDropdown {
@@ -568,17 +604,20 @@ function injectSharedThemeStyles() {
 
     @media (max-width: 767px) {
       #navbar {
-        padding: 0.85rem 1rem !important;
-        min-height: 4.6rem;
+        padding: 0.78rem 0.85rem !important;
+        min-height: 4.4rem;
       }
 
-      #navbar > div:first-child,
-      #navbar > a:first-child {
-        max-width: calc(100vw - 12.25rem);
-        font-size: clamp(1.85rem, 8.2vw, 2.45rem) !important;
+      #navbar .ivy-brand-target {
+        max-width: 5.6rem;
+        font-size: clamp(1.75rem, 7.6vw, 2.2rem) !important;
       }
 
       .ivy-nav-icon-row {
+        display: inline-flex;
+      }
+
+      .ivy-nav-icon-btn[data-nav-cart] {
         display: inline-flex;
       }
 
@@ -600,7 +639,14 @@ function injectSharedThemeStyles() {
       }
 
       #navbar ul {
-        gap: 1.5rem !important;
+        gap: 1.25rem !important;
+        font-size: 1rem !important;
+      }
+    }
+
+    @media (min-width: 1181px) {
+      #navbar ul {
+        gap: clamp(1.7rem, 2.7vw, 3rem) !important;
       }
     }
   `;
@@ -705,6 +751,8 @@ function createNavIcon({ href, label, badgeType, svg }) {
   const link = document.createElement("a");
   link.href = href;
   link.className = "ivy-nav-icon-btn";
+  if (badgeType === "cart") link.dataset.navCart = "true";
+  if (badgeType === "notifications") link.dataset.navNotifications = "true";
   link.setAttribute("aria-label", label);
   link.innerHTML = `
     ${svg}
@@ -754,6 +802,56 @@ function setupSharedNavActions() {
   }
 
   updateCartCount();
+}
+
+function setupResponsiveBrandName() {
+  const navbar = document.getElementById("navbar");
+  const brand =
+    navbar?.querySelector(":scope > a:first-child") ||
+    navbar?.querySelector(":scope > div:first-child > a:first-child") ||
+    navbar?.querySelector(":scope > div:first-child");
+  if (!brand) return;
+
+  const fullName = (brand.textContent || "IvyFacialGlow").trim() || "IvyFacialGlow";
+  const shortName = "IvyGlow";
+  brand.classList.add("ivy-brand-target");
+
+  function updateBrand() {
+    brand.textContent = window.innerWidth < 520 ? shortName : fullName;
+  }
+
+  updateBrand();
+  window.addEventListener("resize", updateBrand);
+}
+
+function setupBackToTop() {
+  let button = document.getElementById("back-to-top") || document.querySelector(".ivy-back-to-top");
+
+  if (!button) {
+    button = document.createElement("button");
+    button.id = "back-to-top";
+    button.type = "button";
+    button.className = "ivy-back-to-top";
+    button.setAttribute("aria-label", "Back to top");
+    button.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="m18 15-6-6-6 6" />
+      </svg>
+    `;
+    document.body.appendChild(button);
+  } else {
+    button.classList.add("ivy-back-to-top");
+  }
+
+  const toggleButton = () => {
+    button.classList.toggle("is-visible", window.scrollY > 420);
+    button.classList.toggle("opacity-0", false);
+    button.classList.toggle("pointer-events-none", false);
+  };
+
+  button.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+  window.addEventListener("scroll", toggleButton, { passive: true });
+  toggleButton();
 }
 
 // =================================
@@ -828,7 +926,9 @@ document.addEventListener("click", async (e) => {
 // =================================
 document.addEventListener("DOMContentLoaded", () => {
   setupRevealAnimations();
+  setupResponsiveBrandName();
   setupSharedNavActions();
+  setupBackToTop();
   setupPwaInstall();
   initIvyNotifications();
 
