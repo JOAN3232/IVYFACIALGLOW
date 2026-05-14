@@ -4,6 +4,18 @@ import { supabase } from "./supabaseClient.js";
 
 let currentUser = null;
 
+export function isAuthExpiredError(error) {
+  const message = String(error?.message || error || "").toLowerCase();
+  return message.includes("jwt expired") || message.includes("token is expired");
+}
+
+export async function handleExpiredSession(redirectAfterLogin = window.location.pathname.split("/").pop() || "index.html") {
+  currentUser = null;
+  sessionStorage.setItem("redirectAfterLogin", redirectAfterLogin);
+  await supabase.auth.signOut();
+  window.location.href = `login.html?next=${encodeURIComponent(redirectAfterLogin)}`;
+}
+
 export async function getCurrentUser() {
   const {
     data: { user },
@@ -12,6 +24,9 @@ export async function getCurrentUser() {
 
   if (error) {
     currentUser = null;
+    if (isAuthExpiredError(error)) {
+      await handleExpiredSession();
+    }
     return null;
   }
 

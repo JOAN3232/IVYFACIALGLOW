@@ -1,6 +1,6 @@
 // Controls the checkout page: restores saved checkout progress, shows order
 // totals, creates transfer-payment orders, and waits for admin confirmation.
-import { getCurrentUser } from "./auth.js";
+import { getCurrentUser, handleExpiredSession, isAuthExpiredError } from "./auth.js";
 import { supabase } from "./supabaseClient.js";
 
 function escapeHtml(value) {
@@ -437,7 +437,11 @@ function setupPlaceOrder(user) {
 
     if (error) {
       console.log("ORDER ERROR:", error);
-      alert(error.message);
+      if (isAuthExpiredError(error)) {
+        await handleExpiredSession("checkout.html");
+        return;
+      }
+      alert(error.message || "Could not submit payment confirmation. Please try again.");
       isSubmittingPayment = false;
       if (confirmTransferBtn) {
         confirmTransferBtn.disabled = false;
