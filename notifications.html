@@ -12,59 +12,152 @@
       rel="stylesheet"
     />
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+        background:
+          radial-gradient(circle at top left, rgba(255, 241, 243, 0.9), transparent 28rem),
+          #fffafa;
+      }
+
+      .display-font {
+        font-family: "Playfair Display", serif;
+      }
+
+      .script-font {
+        font-family: "Great Vibes", cursive;
+      }
+
+      .notif-shell {
+        border: 1px solid rgba(234, 217, 221, 0.95);
+        background: rgba(255, 255, 255, 0.78);
+        box-shadow: 0 24px 70px rgba(92, 74, 74, 0.08);
+        backdrop-filter: blur(18px);
+      }
+
+      .notif-tab.is-active {
+        background: #5c4a4a;
+        color: #fff;
+        border-color: #5c4a4a;
+      }
+
+      @media (max-width: 520px) {
+        .brand-lockup {
+          font-size: 2.15rem;
+          max-width: 11.75rem;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+    </style>
   </head>
 
-  <body class="bg-[#fffafa] text-[#5C4A4A]" style="font-family: 'Poppins', sans-serif;">
+  <body class="min-h-screen text-[#5C4A4A]">
     <nav
       id="navbar"
-      class="sticky top-0 z-50 flex items-center justify-between border-b border-stone-200 bg-white/80 px-6 py-5 backdrop-blur-md md:px-12"
+      class="sticky top-0 z-50 border-b border-[#ead9dd] bg-white/88 px-5 py-4 backdrop-blur-xl md:px-12"
     >
-      <a href="index.html" class="text-4xl tracking-wide text-[#d89ca4]" style="font-family: 'Great Vibes', cursive;">
-        IvyFacialGlow
-      </a>
+      <div class="mx-auto flex max-w-6xl items-center justify-between gap-3">
+        <a href="index.html" class="brand-lockup script-font text-4xl tracking-wide text-[#d89ca4] md:text-5xl">
+          IvyFacialGlow
+        </a>
 
-      <div class="flex items-center gap-3">
-        <a href="orders.html" class="rounded-full border border-[#ead9dd] px-5 py-2 text-sm hover:bg-[#fff7f8]">
-          My Orders
-        </a>
-        <a href="shop.html" class="rounded-full bg-[#d89ca4] px-5 py-2 text-sm text-white">
-          Shop
-        </a>
+        <div class="flex shrink-0 items-center gap-2">
+          <a
+            href="orders.html"
+            class="rounded-full border border-[#ead9dd] bg-white px-4 py-2.5 text-sm font-medium leading-none hover:bg-[#fff7f8] md:px-5"
+          >
+            Orders
+          </a>
+          <a
+            href="shop.html"
+            class="rounded-full bg-[#d89ca4] px-4 py-2.5 text-sm font-medium leading-none text-white hover:bg-[#c98590] md:px-5"
+          >
+            Shop
+          </a>
+        </div>
       </div>
     </nav>
 
-    <main class="px-6 py-14 md:px-12">
-      <section class="mx-auto max-w-3xl">
-        <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+    <main class="px-5 py-10 md:px-12 md:py-14">
+      <section class="mx-auto max-w-6xl">
+        <div class="mb-8 grid gap-6 lg:grid-cols-[1fr_22rem] lg:items-end">
           <div>
             <p class="mb-3 text-xs uppercase tracking-[0.3em] text-[#b98a92]">
               Order Updates
             </p>
-            <h1 class="text-4xl text-[#5C4A4A]" style="font-family: 'Playfair Display', serif;">
+            <h1 class="display-font text-4xl leading-tight text-[#5C4A4A] md:text-6xl">
               Notifications
             </h1>
+            <p class="mt-4 max-w-2xl text-sm leading-7 text-[#7A6A6A] md:text-base">
+              Payment confirmations, approvals, delivery movement, and completed order updates are collected here.
+            </p>
           </div>
 
-          <button
-            id="markAllReadBtn"
-            type="button"
-            class="w-fit rounded-full border border-[#ead9dd] bg-white px-5 py-3 text-sm font-medium hover:bg-[#fff7f8]"
+          <div id="notificationStats" class="grid grid-cols-2 gap-3"></div>
+        </div>
+
+        <div class="notif-shell rounded-[1.5rem] p-4 md:p-5">
+          <div class="flex flex-col gap-4 border-b border-[#ead9dd] pb-4 md:flex-row md:items-center md:justify-between">
+            <div class="flex gap-2 overflow-x-auto pb-1">
+              <button
+                type="button"
+                class="notif-tab is-active shrink-0 rounded-full border border-[#ead9dd] bg-white px-4 py-2 text-sm font-medium"
+                data-filter="all"
+              >
+                All
+              </button>
+              <button
+                type="button"
+                class="notif-tab shrink-0 rounded-full border border-[#ead9dd] bg-white px-4 py-2 text-sm font-medium"
+                data-filter="unread"
+              >
+                Unread
+              </button>
+              <button
+                type="button"
+                class="notif-tab shrink-0 rounded-full border border-[#ead9dd] bg-white px-4 py-2 text-sm font-medium"
+                data-filter="read"
+              >
+                Read
+              </button>
+            </div>
+
+            <div class="flex flex-col gap-2 sm:flex-row">
+              <button
+                id="enableAlertsBtn"
+                type="button"
+                class="rounded-full border border-[#ead9dd] bg-white px-5 py-3 text-sm font-medium hover:bg-[#fff7f8]"
+              >
+                Enable Alerts
+              </button>
+              <button
+                id="markAllReadBtn"
+                type="button"
+                class="rounded-full bg-[#5C4A4A] px-5 py-3 text-sm font-medium text-white hover:bg-[#d89ca4]"
+              >
+                Mark All Read
+              </button>
+            </div>
+          </div>
+
+          <div
+            id="notificationsEmpty"
+            class="hidden py-14 text-center"
           >
-            Mark All Read
-          </button>
-        </div>
+            <div class="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-full border border-[#ead9dd] bg-[#fff7f8] text-xl text-[#d89ca4]">
+              !
+            </div>
+            <h2 class="display-font mb-2 text-3xl text-[#5C4A4A]">No updates yet</h2>
+            <p class="mx-auto max-w-md text-sm leading-6 text-[#7A6A6A]">
+              When your order changes status, the update will appear here automatically.
+            </p>
+          </div>
 
-        <div
-          id="notificationsEmpty"
-          class="hidden rounded-[1.5rem] border border-[#ead9dd] bg-white p-8 text-center"
-        >
-          <h2 class="mb-2 text-xl font-semibold text-[#5C4A4A]">No notifications yet</h2>
-          <p class="text-sm leading-6 text-[#7A6A6A]">
-            Your payment, approval, delivery, and order updates will appear here.
-          </p>
+          <div id="notificationsList" class="grid gap-3 pt-4"></div>
         </div>
-
-        <div id="notificationsList" class="grid gap-4"></div>
       </section>
     </main>
 
